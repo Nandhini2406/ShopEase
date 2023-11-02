@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 //Screens
 import LoginScreen from '../screens/LoginScreen';
-import BottomTabs from './bottomTabBar';
+import BottomTabs from './bottomTabs';
 import ProductDetailsScreen from '../screens/ProductDetailScreen';
 
 const Stack = createStackNavigator();

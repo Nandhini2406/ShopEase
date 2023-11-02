@@ -2,7 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 //Screens
 import HomeScreen from '../screens/HomeScreen';
-import WishList from '../screens/Wishlist';
+import WishlistScreen from '../screens/Wishlist';
 import CartScreen from '../screens/CartScreen';
 import OrdersScreen from '../screens/OrdersScreen';
 
@@ -36,7 +36,7 @@ const BottomTabs = () => {
         },
       })}>
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="WishList" component={WishList} />
+      <Tab.Screen name="WishList" component={WishlistScreen} />
       <Tab.Screen name="MyCart" component={CartScreen} />
       <Tab.Screen name="Orders" component={OrdersScreen} />
     </Tab.Navigator>
