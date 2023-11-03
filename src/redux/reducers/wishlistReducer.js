@@ -1,4 +1,4 @@
-import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } from "../actions/wishlistAction";
+import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } from "../actionTypes";
 
 const initialState = [];
 

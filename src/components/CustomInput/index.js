@@ -14,7 +14,6 @@ const CustomInput = ({
     <TextInput
       style={styles.input}
       placeholder={placeholder}
-      placeholderTextColor={'#ccc'}
       value={value}
       onChangeText={setvalue}
       secureTextEntry={secureTextEntry}

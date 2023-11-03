@@ -1,6 +1,5 @@
 export const Images = {
-    Login: require('../assets/Images/OnlineShop.png'),
-    LoginGif: require('../assets/Images/OnlineMarket.gif'),
+    appLogo: require('../assets/Images/appLogo.jpg'),
     AshShirt: require('../assets/Images/AshShirt.png'),
     blueBag: require('../assets/Images/blueBag.png'),
     BlueShirt: require('../assets/Images/BlueMenShirt.png'),

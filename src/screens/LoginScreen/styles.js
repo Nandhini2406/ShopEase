@@ -1,28 +1,56 @@
 import {StyleSheet} from 'react-native';
 import {
-    heightPercentageToDP as hp,
-    widthPercentageToDP as wp,
-  } from 'react-native-responsive-screen';
-  import theme from '../../constants/theme';
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+import theme from '../../constants/theme';
 
 export const styles = StyleSheet.create({
-  container: {
+  logoContainer: {
     flex: 1,
-    alignItems: 'center',
-    margin: hp('5%'),
+    backgroundColor: theme.backgroundColor.tealGreen,
   },
   img: {
-    width: wp('40%'),
-    height: hp('20%'),
+    width: wp('30%'),
+    height: hp('15%'),
+    alignSelf: 'center',
+    marginTop: '7%',
+  },
+  imgText: {
+    fontSize: theme.fontSizes.bigFontText,
+    fontFamily: theme.fontFamily.Sen_Bold,
+    color: theme.fontColors.white,
+    alignSelf: 'center',
+    marginBottom: '5%',
+  },
+  container: {
+    alignItems: 'center',
+    padding: '10%',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    backgroundColor: theme.backgroundColor.white,
   },
   title: {
-    color: '#317773',
-    fontSize: theme.fontSizes.mediumFont,
-    fontWeight: 'bold',
-    marginTop: hp('5%'),
+    color: theme.fontColors.tealGreen,
+    fontSize: theme.fontSizes.mediumFontText,
+    fontFamily: theme.fontFamily.Sen_Bold,
+    marginVertical: '10%',
   },
-  ButtonContainer: {
-    marginVertical: 20,
-    width: 'auto',
+  errorMsg: {
+    color: theme.fontColors.orange,
+    fontSize: theme.fontSizes.smallFont,
+    fontFamily: theme.fontFamily.Sen_Medium,
+  },
+  orText: {
+    fontFamily: theme.fontFamily.Sen_Bold,
+    marginVertical: '8%',
+    fontSize: theme.fontSizes.mediumFont,
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+  },
+  iconButton: {
+    marginHorizontal: '5%'
   },
 });

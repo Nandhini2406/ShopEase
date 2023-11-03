@@ -7,18 +7,17 @@ import theme from '../../constants/theme';
 
 export const styles = StyleSheet.create({
   input: {
-    borderRadius: 15,
-    fontSize: theme.fontSizes.mediumFont,
-    fontWeight: '400',
-
-    width: wp('80%'),
+    width: wp('70%'),
     height: hp('6%'),
-
-    borderColor: '#317773',
-    borderWidth: 1.5,
-    borderRadius: 20,
-
+    
     padding: 15,
-    marginTop: 20,
+    marginTop: '5%',
+
+    fontSize: theme.fontSizes.mediumFont,
+    fontFamily: theme.fontFamily.Sen_Regular,
+    
+    borderColor: theme.borderColor.myrtleGreen,
+    borderRadius: 15,
+    borderWidth: 2,
   },
 });

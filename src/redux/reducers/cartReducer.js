@@ -1,5 +1,4 @@
-// cartReducer.js
-import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cartActions';
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actionTypes";
 
 const initialState = [];
 

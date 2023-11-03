@@ -16,43 +16,46 @@ const fontSizes = {
 };
 
 const backgroundColor = {
-  white: '#FFFFFF',
+  tealGreen: '#006D5B',
+  myrtleGreen: '#317773',
+  white: '#F0F0EF',
   black: '#000000',
   secondaryBlack: '#292929',
   primary: '#FAFAFA',
   gray: '#CCCCCC',
   orange: '#E47718',
   green: '#008000',
-  tealGreen: '#317773',
   red: '#FF0000',
   lightCoral: '#F08080',
   mediumAquamarine: '#66CDAA',
 };
 
 const borderColor = {
-  white: '#FFFFFF',
+  white: '#F0F0EF',
   black: '#000000',
-  grey: '#ccccc'
+  grey: '#CCCCCC',
+  tealGreen: '#006D5B',
+  myrtleGreen: '#317773',
 };
 
 const fontFamily = {
-  fontRobotoBlack: 'Roboto-Black',
-  fontRobotoBold: 'Roboto-Black',
-  fontRobotoLight: 'Roboto-Light',
-  fontRobotoRegular: 'Roboto-Regular',
+  Sen_Bold: 'Sen-Bold',
+  Sen_Medium: 'Sen-Medium',
+  Sen_Regular: 'Sen-Regular',
+  Sen_SemiBold: 'Sen-SemiBold',
 };
 
-
 const fontColors = {
+  white: '#F0F0EF',
+  black: '#000000',
+  tealGreen: '#006D5B',
+  myrtleGreen: '#317773',
   secondaryBlack: '#292929',
   inkBlack: '#252A31',
   inkLight: '#697D95',
   inkDark: '#252A31',
   orange: '#E47718',
-  white: '#FFFFFF',
   green: '#008000',
-  tealGreen: '#317773',
-  black: '#000000',
   candyBlue: '#37ECBA',
 };
 
