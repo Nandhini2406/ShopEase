@@ -9,6 +9,20 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 16,
   },
+  categoriesContainer: {
+    marginBottom: 16,
+  },
+  categoryText: {
+    fontSize: 16,
+  },
+  categoryItem: {
+    marginRight: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: '#ccc',
+  },
   productCard: {
     flex: 1,
     margin: 8,
@@ -26,6 +40,12 @@ export const styles = StyleSheet.create({
     right: 4,
     zIndex: 2,
   },
+  addCartButton: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    zIndex: 2,
+  },
   productImage: {
     width: 120,
     height: 120,
@@ -35,10 +55,11 @@ export const styles = StyleSheet.create({
   productTitle: {
     fontSize: 16,
     marginBottom: 4,
-    textAlign: 'center',
+    alignSelf: 'flex-start',
   },
   productPrice: {
     fontSize: 14,
     fontWeight: 'bold',
+    alignSelf: 'flex-start',
   },
 });

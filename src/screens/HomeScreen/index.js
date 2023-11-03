@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, ImageComponent } from 'react-native';
+import { View, Text, Image, FlatList,SafeAreaView, ScrollView,TouchableOpacity, ImageComponent } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { addToWishlist } from '../../redux/actions/wishlistAction';
-import { products } from '../../constants';
+import { products, categories } from '../../constants';
 import { styles } from './styles';
 
-// const CategoryItem = ({item}) => {
-//   return (
-//     <View style={styles.categoryItem}>
-//       <Text style={styles.categoryText}>{item.name}</Text>
-//     </View>
-//   );
-// };
-
+const renderCategoryItem = ({ item }) => {
+  return (
+    <View style={styles.categoryItem}>
+      <Text style={styles.categoryText}>{item.name}</Text>
+    </View>
+  );
+};
 
 const HomeScreen = () => {
   const wishlist = useSelector(state => state.wishlist);  // Use useSelector to get the wishlist from Redux store
@@ -26,6 +25,7 @@ const HomeScreen = () => {
   const isProductInWishlist = (productId) => {
     return wishlist.some((product) => product.id === productId);
   };
+
   const ProductCard = ({ id, title, price, image, onAddToWishlist, isWishlist }) => {
     const handleAddToWishlist = () => {
       onAddToWishlist({ id, title, price, image });
@@ -40,15 +40,31 @@ const HomeScreen = () => {
             color={isWishlist ? 'red' : 'black'}
           />
         </TouchableOpacity>
-        <Image source={{ uri: image }} style={styles.productImage} />
+        <Image source={image} style={styles.productImage} />
         <Text style={styles.productTitle}>{title}</Text>
         <Text style={styles.productPrice}>${price}</Text>
+        {/* <TouchableOpacity onPress={handleAddToWishlist} style={styles.addCartButton}>
+          <Icon
+            name={isWishlist ? 'add-circle' : 'add-circle-outline'}
+            size={24}
+            color={isWishlist ? '#317773' : 'black'}
+          />
+        </TouchableOpacity> */}
       </View>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+       <ScrollView>
+       <Text style={styles.heading}>Category</Text>
+       <FlatList
+          horizontal={true}
+          data={categories}
+          renderItem={renderCategoryItem}
+          keyExtractor={(item) => item.id}
+          style={styles.categoriesContainer}
+        />
       <Text style={styles.heading}>Featured Products</Text>
       <FlatList
         data={products}
@@ -62,7 +78,8 @@ const HomeScreen = () => {
         )}
         numColumns={2}
       />
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

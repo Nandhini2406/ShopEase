@@ -21,7 +21,7 @@ const ProductCard = ({id, title, price, image, onRemoveFromWishlist}) => {
           color={'red'}
         />
       </TouchableOpacity>
-      <Image source={{uri: image}} style={styles.productImage} />
+      <Image source={image} style={styles.productImage} />
       <Text style={styles.productTitle}>{title}</Text>
       <Text style={styles.productPrice}>${price}</Text>
     </View>
