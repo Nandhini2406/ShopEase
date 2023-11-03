@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {removeFromWishlist} from '../../redux/actions/wishlistAction';
-import { styles } from '../HomeScreen/styles';
+import { styles } from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const ProductCard = ({id, title, price, image, onRemoveFromWishlist}) => {
@@ -38,7 +38,7 @@ const WishlistScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Wishlist</Text>
+      <Text style={styles.heading}>My Wishlist</Text>
       <FlatList
         data={wishlist}
         keyExtractor={item => item.id.toString()}

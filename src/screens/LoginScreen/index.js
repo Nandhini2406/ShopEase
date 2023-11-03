@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {Images} from '../../assets/Images';
+import {Images} from '../../constants/images';
 import {styles} from './styles';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';

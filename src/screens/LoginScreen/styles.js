@@ -1,25 +1,28 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
+import {
+    heightPercentageToDP as hp,
+    widthPercentageToDP as wp,
+  } from 'react-native-responsive-screen';
+  import theme from '../../constants/theme';
 
 export const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-        // justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: '20%'
-    },
-    img:{
-        width: '35%',
-        height: 150,
-    },
-    title:{
-        color:'#317773',
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginTop: '20%',
-        marginBottom: '8%',
-    },
-    ButtonContainer: {
-        marginVertical: 20,
-        width: 'auto'
-    },
-})
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    margin: hp('5%'),
+  },
+  img: {
+    width: wp('40%'),
+    height: hp('20%'),
+  },
+  title: {
+    color: '#317773',
+    fontSize: theme.fontSizes.mediumFont,
+    fontWeight: 'bold',
+    marginTop: hp('5%'),
+  },
+  ButtonContainer: {
+    marginVertical: 20,
+    width: 'auto',
+  },
+});
