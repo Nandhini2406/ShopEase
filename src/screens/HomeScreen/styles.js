@@ -7,20 +7,22 @@ import theme from '../../constants/theme';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 16,
   },
   heading: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: theme.fontSizes.bigFont,
+    fontFamily: theme.fontFamily.Sen_Bold,
     color: theme.fontColors.black,
     marginBottom: 16,
   },
   categoriesContainer: {
     marginBottom: 16,
+    height: hp('6%')
   },
   categoryText: {
-    fontSize: 16,
+    fontSize: theme.fontSizes.mediumFontText,
+    fontFamily: theme.fontFamily.Sen_Medium,
+    color: theme.fontColors.black,
   },
   categoryItem: {
     marginRight: 16,
@@ -28,7 +30,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: '#ccc',
+    borderColor: theme.borderColor.grey,
   },
   productCard: {
     flex: 1,
