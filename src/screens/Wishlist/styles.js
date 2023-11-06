@@ -8,13 +8,7 @@ import theme from '../../constants/theme';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 12,
-  },
-  heading: {
-    fontSize: theme.fontSizes.bigFont,
-    fontFamily: theme.fontFamily.Sen_Bold,
-    color: theme.fontColors.black,
-    marginBottom: '3%',
+    margin: '3%',
   },
   productCard: {
     margin: '2%',
@@ -33,7 +27,6 @@ export const styles = StyleSheet.create({
   productContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-
   },
   productImage: {
     width: wp('15%'),

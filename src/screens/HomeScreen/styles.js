@@ -8,7 +8,7 @@ import theme from '../../constants/theme';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 12,
+    margin: '3%',
     // backgroundColor: '#FFF'
   },
   heading: {

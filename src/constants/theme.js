@@ -48,6 +48,7 @@ const fontFamily = {
 const fontColors = {
   white: '#F0F0EF',
   black: '#000000',
+  grey: '#CCCCCC',
   tealGreen: '#006D5B',
   myrtleGreen: '#317773',
   secondaryBlack: '#292929',

@@ -1,10 +1,12 @@
 // MyOrdersScreen.js
 import React from 'react';
-import {View, Text, FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
+import {View, Text, FlatList, SafeAreaView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {styles} from './styles';
+import { useNavigation } from '@react-navigation/native';
 import { cancelOrder } from '../../redux/actions/ordersActions';
 import CustomButton from '../../components/CustomButton';
+import Header from '../../components/Header';
+import {styles} from './styles';
 
 const OrderCard = ({id, totalPrice, onCancelOrder}) => {
   const handleCancelOrder = () => {
@@ -25,6 +27,7 @@ const OrdersScreen = () => {
   const orders = useSelector(state => state.order.orders);
   console.log('Orders:', orders);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleCancelOrder = orderId => {
     dispatch(cancelOrder(orderId));
@@ -32,7 +35,7 @@ const OrdersScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.heading}>My Orders</Text>
+    <Header title='Orders' onPress={() => navigation.goBack()}/>
       {orders.length > 0 ? (
         <FlatList
           data={orders}

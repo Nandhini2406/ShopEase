@@ -8,13 +8,7 @@ import theme from '../../constants/theme';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10,
-  },
-  heading: {
-    fontSize: theme.fontSizes.bigFont,
-    fontFamily: theme.fontFamily.Sen_Bold,
-    color: theme.fontColors.black,
-    marginBottom: '3%',
+    margin: '3%',
   },
   orderCard: {
     margin: '2%',

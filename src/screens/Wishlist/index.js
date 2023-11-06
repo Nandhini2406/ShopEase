@@ -10,9 +10,11 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector, useDispatch} from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import {removeFromWishlist} from '../../redux/actions/wishlistAction';
 import {addToCart} from '../../redux/actions/cartActions';
 import CustomButton from '../../components/CustomButton';
+import Header from '../../components/Header';
 import {styles} from './styles';
 
 const ProductCard = ({
@@ -54,6 +56,7 @@ const ProductCard = ({
 const WishlistScreen = () => {
   const wishlist = useSelector(state => state.wishlist);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleRemoveFromWishlist = productId => {
     dispatch(removeFromWishlist(productId));
@@ -67,7 +70,7 @@ const WishlistScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.heading}>My Wishlist</Text>
+    <Header title='Wishlist' onPress={() => navigation.goBack()}/>
       {wishlist.length > 0 ? (
         <FlatList
           data={wishlist}

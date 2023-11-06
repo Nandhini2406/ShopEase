@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 import {
   removeFromCart,
   increaseQuantity,
@@ -18,6 +19,7 @@ import {
 } from '../../redux/actions/cartActions';
 import {placeOrder} from '../../redux/actions/ordersActions';
 import CustomButton from '../../components/CustomButton';
+import Header from '../../components/Header';
 import {styles} from './styles';
 
 const ProductCard = ({
@@ -70,6 +72,7 @@ const ProductCard = ({
 const CartScreen = () => {
   const cart = useSelector(state => state.cart.cartItems);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleRemoveFromcart = productId => {
     dispatch(removeFromCart(productId));
@@ -93,7 +96,7 @@ const CartScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.heading}>My Cart</Text>
+    <Header title='My Cart' onPress={() => navigation.goBack()}/>
       {cart.length > 0 ? (
         <>
           <FlatList
