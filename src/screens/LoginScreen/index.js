@@ -9,19 +9,19 @@ import CustomInput from '../../components/CustomInput';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(null);
+  const [userName, setUserName] = useState('');
+  const [userNameError, setUserNameError] = useState(null);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState('');
 
-  const validateEmail = () => {
-    // Email regex pattern
-    const emailPattern = /^[a-zA-Z0-9._%+-]/;
-    if (!emailPattern.test(email)) {
-      setEmailError('Invalid email address*');
+  const validateUserName = () => {
+    // userName regex pattern
+    const userNamePattern = /^[a-zA-Z0-9._%+-]/;
+    if (!userNamePattern.test(userName)) {
+      setUserNameError('Invalid userName address*');
     } else {
-      setEmailError(null);
+      setUserNameError(null);
     }
   };
 
@@ -36,7 +36,7 @@ const LoginScreen = () => {
   };
 
   const handleLogin = () => {
-    if (!email || !password) {
+    if (!userName || !password) {
       setError('Please fill in all fields.');
       return;
     } else {
@@ -53,12 +53,12 @@ const LoginScreen = () => {
         <View style={styles.container}>
           <Text style={styles.title}>WELCOME BACK!</Text>
           <CustomInput
-            placeholder="Email ID"
-            setvalue={text => setEmail(text)}
-            value={email}
-            onBlur={validateEmail}
+            placeholder="User Name"
+            setvalue={text => setUserName(text)}
+            value={userName}
+            onBlur={validateUserName}
           />
-          {emailError && <Text style={styles.errorMsg}>{emailError}</Text>}
+          {userNameError && <Text style={styles.errorMsg}>{userNameError}</Text>}
           <CustomInput
             placeholder="Password"
             setvalue={text => setPassword(text)}

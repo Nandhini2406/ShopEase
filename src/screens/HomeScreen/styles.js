@@ -8,7 +8,6 @@ import theme from '../../constants/theme';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // padding: 16,
     margin: 12,
     // backgroundColor: '#FFF'
   },
@@ -64,7 +63,7 @@ export const styles = StyleSheet.create({
     zIndex: 2,
   },
   productImage: {
-    width: wp('30'),
+    width: wp('40'),
     height: hp('20'),
     resizeMode: 'cover',
     marginBottom: 8,

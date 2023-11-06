@@ -7,7 +7,7 @@ import theme from '../../constants/theme';
 
 export const styles = StyleSheet.create({
   input: {
-    width: wp('70%'),
+    width: wp('80%'),
     height: hp('6%'),
     
     padding: 10,

@@ -82,4 +82,10 @@ export const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginVertical: 2,
   },
+  noItemsText:{
+    fontFamily: theme.fontFamily.Sen_Medium,
+    fontSize: theme.fontSizes.mediumFont,
+    color: theme.fontColors.grey,
+    alignSelf: 'center',
+  },
 });

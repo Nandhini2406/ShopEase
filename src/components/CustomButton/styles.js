@@ -6,14 +6,17 @@ import {
 import theme from '../../constants/theme';
 
 export const styles = StyleSheet.create({
+  container:{
+    alignItems: 'center',
+  },
   loginButton: {
     backgroundColor: theme.backgroundColor.tealGreen,
     borderRadius: 10,
-    width: wp('70%'),
-    height: hp('6%'),
+    width: wp('80%'),
+    height: hp('5%'),
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '10%',
+    marginTop: '5%',
   },
   loginButtonText: {
     color: theme.fontColors.white,

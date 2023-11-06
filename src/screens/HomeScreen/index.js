@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageComponent,
+  ToastAndroid,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -81,6 +82,7 @@ const HomeScreen = () => {
   const handleAddToCart = product => {
     dispatch(addToCart(product)); // Dispatch addToCart action
     console.log('products on cart...', product);
+    ToastAndroid.show('Item added to Cart', 600)
   };
 
   const isProductInWishlist = productId => {
@@ -100,7 +102,6 @@ const HomeScreen = () => {
               horizontal={true}
               data={categories}
               renderItem={renderCategoryItem}
-              keyExtractor={item => item.id}
               showsHorizontalScrollIndicator={false}
               style={styles.categoriesContainer}
             />
@@ -108,7 +109,6 @@ const HomeScreen = () => {
           </>
         )}
         data={products}
-        keyExtractor={item => item.id.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
           <ProductCard

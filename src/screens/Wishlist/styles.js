@@ -21,8 +21,6 @@ export const styles = StyleSheet.create({
     // backgroundColor: theme.backgroundColor.white,
     backgroundColor: 'white',
     padding: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
     position: 'relative',
     overflow: 'hidden',
     borderRadius: 10,
@@ -32,13 +30,17 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 5,
   },
+  productContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+
+  },
   productImage: {
     width: wp('15%'),
     height: hp('10%'),
     borderRadius: 8,
     overflow: 'hidden',
     resizeMode: 'cover',
-    marginBottom: 8,
     backgroundColor: 'white',
     marginHorizontal: 10,
   },
@@ -64,5 +66,11 @@ export const styles = StyleSheet.create({
     fontSize: theme.fontSizes.mediumFont,
     color: theme.fontColors.black,
     alignSelf: 'flex-start',
+  },
+  noItemsText:{
+    fontFamily: theme.fontFamily.Sen_Medium,
+    fontSize: theme.fontSizes.mediumFont,
+    color: theme.fontColors.grey,
+    alignSelf: 'center',
   },
 });

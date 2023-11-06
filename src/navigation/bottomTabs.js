@@ -1,5 +1,6 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {Platform} from 'react-native';
 //Screens
 import HomeScreen from '../screens/HomeScreen';
 import WishlistScreen from '../screens/Wishlist';
@@ -17,8 +18,9 @@ const BottomTabs = () => {
         tabBarInactiveTintColor: '#fff',
         tabBarShowLabel: false,
         headerShown: false,
+        tabBarItemStyle: {top: Platform.OS === 'ios' ? 5 : 0},
         tabBarStyle: {
-          backgroundColor: '#317773',
+          backgroundColor: '#006D5B',
           height: 60,
         },
         tabBarIcon: ({focused, color}) => {

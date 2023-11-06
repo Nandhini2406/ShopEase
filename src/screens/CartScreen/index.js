@@ -1,13 +1,24 @@
 import React from 'react';
-import {View, Text, FlatList,SafeAreaView, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {styles} from './styles';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   removeFromCart,
   increaseQuantity,
   decreaseQuantity,
+  clearCart
 } from '../../redux/actions/cartActions';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {placeOrder} from '../../redux/actions/ordersActions';
+import CustomButton from '../../components/CustomButton';
+import {styles} from './styles';
 
 const ProductCard = ({
   id,
@@ -73,23 +84,37 @@ const CartScreen = () => {
     dispatch(decreaseQuantity(productId));
   };
 
+  const handlePlaceOrder = () => {
+    console.log('Order Placed');
+    dispatch(placeOrder(cart));
+    dispatch(clearCart());
+    ToastAndroid.show('Orders Placed', 500);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.heading}>My Cart</Text>
-      <FlatList
-        data={cart}
-        keyExtractor={item => item.id.toString()}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item}) => (
-          <ProductCard
-            {...item}
-            onRemoveFromcart={() => handleRemoveFromcart(item.id)}
-            onIncreaseQuantity={() => handleIncreaseQuantity(item.id)}
-            onDecreaseQuantity={() => handleDecreaseQuantity(item.id)}
+      {cart.length > 0 ? (
+        <>
+          <FlatList
+            data={cart}
+            keyExtractor={item => item.id.toString()}
+            showsVerticalScrollIndicator={false}
+            renderItem={({item}) => (
+              <ProductCard
+                {...item}
+                key={item.id.toString()}
+                onRemoveFromcart={() => handleRemoveFromcart(item.id)}
+                onIncreaseQuantity={() => handleIncreaseQuantity(item.id)}
+                onDecreaseQuantity={() => handleDecreaseQuantity(item.id)}
+              />
+            )}
           />
-        )}
-        numColumns={1}
-      />
+          <CustomButton text="Place Order" onPress={handlePlaceOrder} />
+        </>
+      ) : (
+        <Text style={styles.noItemsText}>No Items Added to Cart</Text>
+      )}
     </SafeAreaView>
   );
 };
