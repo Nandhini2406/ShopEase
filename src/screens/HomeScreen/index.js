@@ -32,16 +32,18 @@ const ProductCard = ({
   onAddToWishlist,
   onAddToCart,
   isWishlist,
+  isAddedToCart,
 }) => {
   const handleAddToWishlist = () => {
     onAddToWishlist({id, title, price, image});
   };
   const handleAddToCart = () => {
-    onAddToCart({id, title, price, image});
+    onAddToCart({id, title, price, image, quantity: 1});
   };
 
   return (
     <View style={styles.productCard}>
+      <Image source={image} style={styles.productImage} />
       {/* Add to wishlist Button with icon */}
       <TouchableOpacity
         onPress={handleAddToWishlist}
@@ -49,15 +51,18 @@ const ProductCard = ({
         <Icon
           name={isWishlist ? 'heart' : 'heart-outline'}
           size={24}
-          color={isWishlist ? 'pink' : 'black'}
+          color={isWishlist ? '#006D5B' : 'black'}
         />
         {/* Add to cart Button with icon */}
       </TouchableOpacity>
-      <Image source={image} style={styles.productImage} />
       <Text style={styles.productTitle}>{title}</Text>
       <Text style={styles.productPrice}>${price}</Text>
       <TouchableOpacity onPress={handleAddToCart} style={styles.addCartButton}>
-        <Icon name={'add-circle'} color={'black'} size={24} />
+        <Icon
+          name={isAddedToCart ? 'add-circle' : 'add-circle-outline'}
+          color={isAddedToCart ? '#006D5B' : 'black'}
+          size={24}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -81,33 +86,41 @@ const HomeScreen = () => {
   const isProductInWishlist = productId => {
     return wishlist.some(product => product.id === productId);
   };
+  const isProductInCart = productId => {
+    return cart.cartItems.some(product => product.id === productId);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <Text style={styles.heading}>Category</Text>
-        <FlatList
-          horizontal={true}
-          data={categories}
-          renderItem={renderCategoryItem}
-          keyExtractor={item => item.id}
-          style={styles.categoriesContainer}
-        />
-        <Text style={styles.heading}>Featured Products</Text>
-        <FlatList
-          data={products}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({item}) => (
-            <ProductCard
-              {...item}
-              onAddToWishlist={handleAddToWishlist}
-              onAddToCart={handleAddToCart}
-              isWishlist={isProductInWishlist(item.id)}
+      <FlatList
+        ListHeaderComponent={() => (
+          <>
+            <Text style={styles.heading}>Category</Text>
+            <FlatList
+              horizontal={true}
+              data={categories}
+              renderItem={renderCategoryItem}
+              keyExtractor={item => item.id}
+              showsHorizontalScrollIndicator={false}
+              style={styles.categoriesContainer}
             />
-          )}
-          numColumns={2}
-        />
-      </ScrollView>
+            <Text style={styles.heading}>Featured Products</Text>
+          </>
+        )}
+        data={products}
+        keyExtractor={item => item.id.toString()}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item}) => (
+          <ProductCard
+            {...item}
+            onAddToWishlist={handleAddToWishlist}
+            onAddToCart={handleAddToCart}
+            isWishlist={isProductInWishlist(item.id)}
+            isAddedToCart={isProductInCart(item.id)}
+          />
+        )}
+        numColumns={2}
+      />
     </SafeAreaView>
   );
 };

@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
+import {View, Text, FlatList, SafeAreaView, Image, TouchableOpacity} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {removeFromWishlist} from '../../redux/actions/wishlistAction';
-import { styles } from './styles';
+import {styles} from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
+import CustomButton from '../../components/CustomButton';
 
 const ProductCard = ({id, title, price, image, onRemoveFromWishlist}) => {
   const handleRemoveFromWishlist = () => {
@@ -11,20 +12,21 @@ const ProductCard = ({id, title, price, image, onRemoveFromWishlist}) => {
   };
 
   return (
-    <View style={styles.productCard}>
-      <TouchableOpacity
-        onPress={handleRemoveFromWishlist}
-        style={styles.wishlistButton}>
-        <Icon
-          name={'heart'}
-          size={24}
-          color={'red'}
-        />
-      </TouchableOpacity>
-      <Image source={image} style={styles.productImage} />
-      <Text style={styles.productTitle}>{title}</Text>
-      <Text style={styles.productPrice}>${price}</Text>
-    </View>
+    <>
+      <View style={styles.productCard}>
+        <Image source={image} style={styles.productImage} />
+        <View style={styles.productDetails}>
+          <Text style={styles.productTitle}>{title}</Text>
+          <Text style={styles.productPrice}>${price}</Text>
+        </View>
+        <TouchableOpacity
+          onPress={handleRemoveFromWishlist}
+          style={styles.wishlistButton}>
+          <Icon name={'heart'} size={24} color={'#006D5B'} />
+        </TouchableOpacity>
+      </View>
+      {/* <CustomButton text="Add to Cart" /> */}
+    </>
   );
 };
 
@@ -37,20 +39,20 @@ const WishlistScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.heading}>My Wishlist</Text>
       <FlatList
         data={wishlist}
         keyExtractor={item => item.id.toString()}
+        showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
           <ProductCard
             {...item}
             onRemoveFromWishlist={() => handleRemoveFromWishlist(item.id)}
           />
         )}
-        numColumns={2}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

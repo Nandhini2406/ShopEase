@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     width: wp('70%'),
     height: hp('6%'),
     
-    padding: 15,
+    padding: 10,
     marginTop: '5%',
 
     fontSize: theme.fontSizes.mediumFont,

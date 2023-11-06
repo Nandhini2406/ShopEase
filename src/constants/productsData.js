@@ -68,4 +68,5 @@ export const categories = [
   {id: 2, name: 'Bag'},
   {id: 3, name: 'Women'},
   {id: 4, name: 'Men'},
+  {id: 4, name: 'Shoes'},
 ];

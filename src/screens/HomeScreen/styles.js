@@ -7,17 +7,20 @@ import theme from '../../constants/theme';
 
 export const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    flex: 1,
+    // padding: 16,
+    margin: 12,
+    // backgroundColor: '#FFF'
   },
   heading: {
     fontSize: theme.fontSizes.bigFont,
     fontFamily: theme.fontFamily.Sen_Bold,
     color: theme.fontColors.black,
-    marginBottom: 16,
+    marginBottom: '3%',
   },
   categoriesContainer: {
-    marginBottom: 16,
-    height: hp('6%')
+    marginBottom: '3%',
+    height: hp('5%')
   },
   categoryText: {
     fontSize: theme.fontSizes.mediumFontText,
@@ -26,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   categoryItem: {
     marginRight: 16,
-    paddingVertical: 8,
+    paddingVertical: 6,
     paddingHorizontal: 12,
     borderWidth: 1,
     borderRadius: 8,
@@ -34,41 +37,49 @@ export const styles = StyleSheet.create({
   },
   productCard: {
     flex: 1,
-    margin: 8,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
+    margin: '2%',
+    backgroundColor: 'white',
     padding: 8,
     alignItems: 'center',
     position: 'relative',
-    width: Dimensions.get('window').width / 2.5,
+    overflow: 'hidden',
+    width: wp('50'),
+    borderRadius: 10,
+    elevation: 5, 
+    shadowColor: 'black', 
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5, 
+    shadowRadius: 5, 
   },
   wishlistButton: {
     position: 'absolute',
-    top: 4,
-    right: 4,
+    top: 10,
+    right: 10,
     zIndex: 2,
   },
   addCartButton: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 20,
     right: 10,
     zIndex: 2,
   },
   productImage: {
-    width: 120,
-    height: 120,
+    width: wp('30'),
+    height: hp('20'),
     resizeMode: 'cover',
     marginBottom: 8,
   },
   productTitle: {
-    fontSize: 16,
+    fontFamily: theme.fontFamily.Sen_Medium,
+    fontSize:  theme.fontSizes.smallFontText,
+    color: theme.fontColors.black,
     marginBottom: 4,
     alignSelf: 'flex-start',
   },
   productPrice: {
-    fontSize: 14,
-    fontWeight: 'bold',
+    fontFamily: theme.fontFamily.Sen_SemiBold,
+    fontSize:  theme.fontSizes.mediumFont,
+    color: theme.fontColors.black,
     alignSelf: 'flex-start',
   },
 });
