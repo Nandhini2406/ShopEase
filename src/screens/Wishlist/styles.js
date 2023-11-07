@@ -8,7 +8,7 @@ import theme from '../../constants/theme';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: '3%',
+    padding: '3%',
   },
   productCard: {
     margin: '2%',

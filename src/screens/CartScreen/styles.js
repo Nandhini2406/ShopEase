@@ -8,7 +8,7 @@ import theme from '../../constants/theme';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: '3%',
+    padding: '3%',
   },
   productCard: {
     margin: '2%',
@@ -73,13 +73,32 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Sen_Medium,
     fontSize: theme.fontSizes.mediumFont,
     color: theme.fontColors.black,
-    marginHorizontal: 5,
-    marginVertical: 2,
+    paddingHorizontal: 5,
+    // paddingVertical: 2,
   },
   noItemsText:{
     fontFamily: theme.fontFamily.Sen_Medium,
     fontSize: theme.fontSizes.mediumFont,
     color: theme.fontColors.grey,
     alignSelf: 'center',
+  },
+  totalContainer:{
+    alignSelf: 'center',
+    width: wp('80'),
+    height: hp('18%'),
+  },
+  divider:{
+    fontSize: theme.fontSizes.bigFont,
+    fontFamily: theme.fontFamily.Sen_Medium,
+
+  },
+  totalText:{
+    fontSize: theme.fontSizes.mediumFont,
+    fontFamily: theme.fontFamily.Sen_Medium,
+    marginVertical: '2%',
+  },
+  totalRow:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

@@ -10,12 +10,12 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {
   removeFromCart,
   increaseQuantity,
   decreaseQuantity,
-  clearCart
+  clearCart,
 } from '../../redux/actions/cartActions';
 import {placeOrder} from '../../redux/actions/ordersActions';
 import CustomButton from '../../components/CustomButton';
@@ -69,10 +69,27 @@ const ProductCard = ({
   );
 };
 
+export const Total = ({totalTxt, rate}) => {
+  return (
+    <View style={styles.totalRow}>
+      <Text style={styles.totalText}>{totalTxt}</Text>
+      <Text style={styles.totalText}>${rate}</Text>
+    </View>
+  );
+};
+
 const CartScreen = () => {
   const cart = useSelector(state => state.cart.cartItems);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const totalPrice = cart.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0,
+  );
+  const discount = 0;
+  const shipping = 100;
+  const totalAmount = totalPrice + discount + shipping;
 
   const handleRemoveFromcart = productId => {
     dispatch(removeFromCart(productId));
@@ -96,7 +113,7 @@ const CartScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <Header title='My Cart' onPress={() => navigation.goBack()}/>
+      <Header title="My Cart" onPress={() => navigation.goBack()} />
       {cart.length > 0 ? (
         <>
           <FlatList
@@ -113,6 +130,13 @@ const CartScreen = () => {
               />
             )}
           />
+          <View style={styles.totalContainer}>
+            <Text style={styles.divider}>-----------------------------</Text>
+            <Total totalTxt="Total Prize" rate={totalPrice} />
+            <Total totalTxt="Discount" rate={discount} />
+            <Total totalTxt="Shipping" rate={shipping} />
+            <Total totalTxt="Total Amount" rate={totalAmount} />
+          </View>
           <CustomButton text="Place Order" onPress={handlePlaceOrder} />
         </>
       ) : (
