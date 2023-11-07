@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
   },
   orText: {
     fontFamily: theme.fontFamily.Sen_Bold,
-    marginVertical: '8%',
+    marginVertical: '5%',
     fontSize: theme.fontSizes.mediumFont,
   },
   iconContainer: {
@@ -53,16 +53,16 @@ export const styles = StyleSheet.create({
   iconButton: {
     marginHorizontal: '5%',
   },
-  signupContainer: {
+  loginContainer: {
     flexDirection: 'row',
-    marginTop: '10%',
+    marginTop: '7%',
   },
-  signup:{
+  login:{
     color: theme.fontColors.black,
     fontSize: theme.fontSizes.smallFontText,
     fontFamily: theme.fontFamily.Sen_Medium,
   },
-  signupText: {
+  loginText: {
     color: theme.fontColors.tealGreen,
     fontSize: theme.fontSizes.smallFontText,
     fontFamily: theme.fontFamily.Sen_Medium,

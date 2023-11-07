@@ -8,21 +8,26 @@ import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
 import Auth from '../../services/firebaseAuth';
 
-const LoginScreen = () => {
+const SignUpScreen = () => {
   const navigation = useNavigation();
+  const [fullName, setFullName] = useState('');
+  const [fullNameError, setFullNameError] = useState(null);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(null);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState(null);
+
   const [error, setError] = useState('');
 
-  // const validateemail = () => {
-  //   // email regex pattern
-  //   const emailPattern = /^[a-zA-Z0-9._%+-]/;
-  //   if (!emailPattern.test(email)) {
-  //     setemailError('Invalid email address*');
+  // const validatefullName = () => {
+  //   // fullName regex pattern
+  //   const fullNamePattern = /^[a-zA-Z0-9._%+-]/;
+  //   if (!fullNamePattern.test(fullName)) {
+  //     setfullNameError('Invalid fullName address*');
   //   } else {
-  //     setemailError(null);
+  //     setfullNameError(null);
   //   }
   // };
 
@@ -36,17 +41,8 @@ const LoginScreen = () => {
   //   }
   // };
 
-  // const handleLogin = () => {
-  //   if (!email || !password) {
-  //     setError('Please fill in all fields.');
-  //     return;
-  //   } else {
-  //     navigation.navigate('Home');
-  //     console.log('LoginPressed...');
-  //   }
-  // };
-  const handleSignUp = () => {
-    navigation.navigate('Signup');
+  const handleLogin = () => {
+    navigation.navigate('Login');
   };
 
   return (
@@ -55,18 +51,31 @@ const LoginScreen = () => {
         <Image source={Images.appLogo} style={styles.img} />
         <Text style={styles.imgText}>SHOPEASE</Text>
         <View style={styles.container}>
-          <Text style={styles.title}>WELCOME BACK!</Text>
+          <Text style={styles.title}>WELCOME!</Text>
           <CustomInput
-            placeholder="Email Id"
-            setvalue={text => setEmail(text)}
-            value={email}
-            // onBlur={validateemail}
+            placeholder="Full Name"
+            setvalue={text => setFullName(text)}
+            value={fullName}
+            // onBlur={validatefullName}
           />
-          {emailError && (
-            <Text style={styles.errorMsg}>{emailError}</Text>
+          <CustomInput
+            placeholder="Enter Email Id"
+            setvalue={text => setEmail(text)}
+            value={fullName}
+            // onBlur={validatefullName}
+          />
+          {fullNameError && (
+            <Text style={styles.errorMsg}>{fullNameError}</Text>
           )}
           <CustomInput
-            placeholder="Password"
+            placeholder="Create Password"
+            setvalue={text => setPassword(text)}
+            value={password}
+            // onBlur={validatePassword}
+            //secureTextEntry
+          />
+          <CustomInput
+            placeholder="Confirm Password"
             setvalue={text => setPassword(text)}
             value={password}
             // onBlur={validatePassword}
@@ -75,7 +84,7 @@ const LoginScreen = () => {
           {passwordError && (
             <Text style={styles.errorMsg}>{passwordError}</Text>
           )}
-          <CustomButton text="LOGIN" onPress={() => Auth.lognIn(email,password)} />
+          <CustomButton text="SIGNUP" onPress={() => Auth.signUp(fullName,email,password)} />
           {error && <Text style={styles.errorMsg}>{error}</Text>}
           <Text style={styles.orText}>or</Text>
           <View style={styles.iconContainer}>
@@ -88,10 +97,10 @@ const LoginScreen = () => {
               <Icon name="logo-google" size={35} color="#006D5B" />
             </TouchableOpacity>
           </View>
-          <View style={styles.signupContainer}>
-            <Text style={styles.signup}>Don't have an account?</Text>
-            <TouchableOpacity onPress={handleSignUp}>
-              <Text style={styles.signupText}> Sign Up</Text>
+          <View style={styles.loginContainer}>
+            <Text style={styles.login}>Already have an account?</Text>
+            <TouchableOpacity onPress={handleLogin}>
+              <Text style={styles.loginText}> Log In</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -100,4 +109,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default SignUpScreen;
