@@ -1,55 +1,59 @@
 import React, {useState} from 'react';
-import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Alert,
+  SafeAreaView,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {Images} from '../../constants/images';
 import {styles} from './styles';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
+import IconButton from '../../components/IconButton';
 import Auth from '../../services/firebaseAuth';
+import {validateEmail, validatePassword} from '../../utils/validation';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
+
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(null);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState('');
 
-  // const validateemail = () => {
-  //   // email regex pattern
-  //   const emailPattern = /^[a-zA-Z0-9._%+-]/;
-  //   if (!emailPattern.test(email)) {
-  //     setemailError('Invalid email address*');
-  //   } else {
-  //     setemailError(null);
-  //   }
-  // };
+  const validation = () => {
+    if (!validateEmail(email)) {
+      setEmailError('Invalid email address. Use @gmail.com domain.');
+    } else {
+      setEmailError(null);
+    }
+    if (!validatePassword(password)) {
+      setPasswordError('Password must contain at least 6 characters.');
+    } else {
+      setPasswordError(null);
+    }
+  };
 
-  // const validatePassword = () => {
-  //   // Password regex pattern
-  //   const passwordPattern = /.{6,}/;
-  //   if (!passwordPattern.test(password)) {
-  //     setError('Password must contain at least 6 characters');
-  //   } else {
-  //     setPasswordError(null);
-  //   }
-  // };
-
-  // const handleLogin = () => {
-  //   if (!email || !password) {
-  //     setError('Please fill in all fields.');
-  //     return;
-  //   } else {
-  //     navigation.navigate('Home');
-  //     console.log('LoginPressed...');
-  //   }
-  // };
+  const handleLogin = () => {
+    if (!email || !password) {
+      setError('Please fill in all fields.');
+      return;
+    } else {
+      Auth.lognIn(navigation, email, password);
+      console.log('LoginPressed...');
+    }
+  };
   const handleSignUp = () => {
     navigation.navigate('Signup');
   };
 
   return (
+    <SafeAreaView>
     <ScrollView>
       <View style={styles.logoContainer}>
         <Image source={Images.appLogo} style={styles.img} />
@@ -60,33 +64,23 @@ const LoginScreen = () => {
             placeholder="Email Id"
             setvalue={text => setEmail(text)}
             value={email}
-            // onBlur={validateemail}
+            onBlur={validation}
           />
-          {emailError && (
-            <Text style={styles.errorMsg}>{emailError}</Text>
-          )}
+          {emailError && <Text style={styles.errorMsg}>{emailError}</Text>}
           <CustomInput
             placeholder="Password"
             setvalue={text => setPassword(text)}
             value={password}
-            // onBlur={validatePassword}
+            onBlur={validation}
             //secureTextEntry
           />
-          {passwordError && (
-            <Text style={styles.errorMsg}>{passwordError}</Text>
-          )}
-          <CustomButton text="LOGIN" onPress={() => Auth.lognIn(email,password)} />
+          {passwordError && <Text style={styles.errorMsg}>{passwordError}</Text>}
+          <CustomButton text="LOGIN" onPress={handleLogin} />
           {error && <Text style={styles.errorMsg}>{error}</Text>}
           <Text style={styles.orText}>or</Text>
           <View style={styles.iconContainer}>
-            <TouchableOpacity
-              style={styles.iconButton}
-              onPress={() => navigation.navigate('Home')}>
-              <Icon name="logo-facebook" size={35} color="#006D5B" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton}>
-              <Icon name="logo-google" size={35} color="#006D5B" />
-            </TouchableOpacity>
+            <IconButton iconName="logo-facebook" iconSize={35} onPress={ () => navigation.navigate('Home')} />
+            <IconButton iconName="logo-google" iconSize={35} />
           </View>
           <View style={styles.signupContainer}>
             <Text style={styles.signup}>Don't have an account?</Text>
@@ -97,6 +91,7 @@ const LoginScreen = () => {
         </View>
       </View>
     </ScrollView>
+    </SafeAreaView>
   );
 };
 

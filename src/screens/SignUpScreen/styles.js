@@ -50,9 +50,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center',
   },
-  iconButton: {
-    marginHorizontal: '5%',
-  },
   loginContainer: {
     flexDirection: 'row',
     marginTop: '7%',

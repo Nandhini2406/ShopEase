@@ -58,6 +58,7 @@ const fontColors = {
   orange: '#E47718',
   green: '#008000',
   candyBlue: '#37ECBA',
+  darkGray: '#808080',
 };
 
 export default {

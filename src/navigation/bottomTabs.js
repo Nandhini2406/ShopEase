@@ -4,8 +4,8 @@ import {Platform} from 'react-native';
 //Screens
 import HomeScreen from '../screens/HomeScreen';
 import WishlistScreen from '../screens/Wishlist';
-import CartScreen from '../screens/CartScreen';
-import OrdersScreen from '../screens/OrdersScreen';
+import CartScreen from '../screens/CartScreen'
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,8 +31,8 @@ const BottomTabs = () => {
             iconName = focused ? 'heart' : 'heart-outline';
           } else if (route.name === 'MyCart') {
             iconName = focused ? 'cart-sharp' : 'cart-outline';
-          } else if (route.name === 'Orders') {
-            iconName = focused ? 'logo-dropbox' : 'logo-xbox';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'person' : 'person-outline';
           }
           return <Icon name={iconName} size={30} color={color} />;
         },
@@ -40,7 +40,7 @@ const BottomTabs = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="WishList" component={WishlistScreen} />
       <Tab.Screen name="MyCart" component={CartScreen} />
-      <Tab.Screen name="Orders" component={OrdersScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 };

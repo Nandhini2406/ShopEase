@@ -1,15 +1,29 @@
 import React, {useState} from 'react';
-import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Alert,
+  SafeAreaView,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {Images} from '../../constants/images';
 import {styles} from './styles';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
+import IconButton from '../../components/IconButton';
 import Auth from '../../services/firebaseAuth';
+import {
+  validateFullName,
+  validateEmail,
+  validatePassword,
+} from '../../utils/validation';
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
+
   const [fullName, setFullName] = useState('');
   const [fullNameError, setFullNameError] = useState(null);
   const [email, setEmail] = useState('');
@@ -18,36 +32,46 @@ const SignUpScreen = () => {
   const [passwordError, setPasswordError] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState(null);
-
   const [error, setError] = useState('');
 
-  // const validatefullName = () => {
-  //   // fullName regex pattern
-  //   const fullNamePattern = /^[a-zA-Z0-9._%+-]/;
-  //   if (!fullNamePattern.test(fullName)) {
-  //     setfullNameError('Invalid fullName address*');
-  //   } else {
-  //     setfullNameError(null);
-  //   }
-  // };
+  const validation = () => {
+    if (!validateFullName(fullName)) {
+      setFullNameError('Invalid fullName*');
+    } else {
+      setFullNameError(null);
+    }
+    if (!validateEmail(email)) {
+      setEmailError('Invalid email address. Use @gmail.com domain.');
+    } else {
+      setEmailError(null);
+    }
+    if (!validatePassword(password)) {
+      setPasswordError('Password must contain at least 6 characters.');
+    } else {
+      setPasswordError(null);
+    }
+    if (password !== confirmPassword) {
+      setConfirmPasswordError('Password is not matching');
+    } else {
+      setConfirmPasswordError(null);
+    }
+  };
 
-  // const validatePassword = () => {
-  //   // Password regex pattern
-  //   const passwordPattern = /.{6,}/;
-  //   if (!passwordPattern.test(password)) {
-  //     setError('Password must contain at least 6 characters');
-  //   } else {
-  //     setPasswordError(null);
-  //   }
-  // };
-
+  const handleSignUp = () => {
+    if (!fullName || !email || !password) {
+      setError('Please fill in all fields.');
+      return;
+    } else {
+      Auth.signUp(navigation, fullName, email, password);
+    }
+  };
   const handleLogin = () => {
     navigation.navigate('Login');
   };
 
   return (
-    <ScrollView>
-      <View style={styles.logoContainer}>
+    <SafeAreaView style={styles.logoContainer}>
+      <ScrollView>
         <Image source={Images.appLogo} style={styles.img} />
         <Text style={styles.imgText}>SHOPEASE</Text>
         <View style={styles.container}>
@@ -56,46 +80,44 @@ const SignUpScreen = () => {
             placeholder="Full Name"
             setvalue={text => setFullName(text)}
             value={fullName}
-            // onBlur={validatefullName}
-          />
-          <CustomInput
-            placeholder="Enter Email Id"
-            setvalue={text => setEmail(text)}
-            value={fullName}
-            // onBlur={validatefullName}
+            onBlur={validation}
           />
           {fullNameError && (
             <Text style={styles.errorMsg}>{fullNameError}</Text>
           )}
           <CustomInput
+            placeholder="Enter Email Id"
+            setvalue={text => setEmail(text)}
+            value={email}
+            onBlur={validation}
+          />
+          {emailError && <Text style={styles.errorMsg}>{emailError}</Text>}
+          <CustomInput
             placeholder="Create Password"
             setvalue={text => setPassword(text)}
             value={password}
-            // onBlur={validatePassword}
-            //secureTextEntry
-          />
-          <CustomInput
-            placeholder="Confirm Password"
-            setvalue={text => setPassword(text)}
-            value={password}
-            // onBlur={validatePassword}
+            onBlur={validation}
             //secureTextEntry
           />
           {passwordError && (
             <Text style={styles.errorMsg}>{passwordError}</Text>
           )}
-          <CustomButton text="SIGNUP" onPress={() => Auth.signUp(fullName,email,password)} />
+          <CustomInput
+            placeholder="Confirm Password"
+            setvalue={text => setConfirmPassword(text)}
+            value={confirmPassword}
+            onBlur={validation}
+            //secureTextEntry
+          />
+          {confirmPasswordError && (
+            <Text style={styles.errorMsg}>{confirmPasswordError}</Text>
+          )}
+          <CustomButton text="SIGN UP" onPress={handleSignUp} />
           {error && <Text style={styles.errorMsg}>{error}</Text>}
           <Text style={styles.orText}>or</Text>
           <View style={styles.iconContainer}>
-            <TouchableOpacity
-              style={styles.iconButton}
-              onPress={() => navigation.navigate('Home')}>
-              <Icon name="logo-facebook" size={35} color="#006D5B" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton}>
-              <Icon name="logo-google" size={35} color="#006D5B" />
-            </TouchableOpacity>
+            <IconButton iconName="logo-facebook" iconSize={35} />
+            <IconButton iconName="logo-google" iconSize={35} />
           </View>
           <View style={styles.loginContainer}>
             <Text style={styles.login}>Already have an account?</Text>
@@ -104,8 +126,8 @@ const SignUpScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
