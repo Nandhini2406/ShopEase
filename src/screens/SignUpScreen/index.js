@@ -11,9 +11,9 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {Images} from '../../constants/images';
 import {styles} from './styles';
-import CustomButton from '../../components/CustomButton';
-import CustomInput from '../../components/CustomInput';
-import IconButton from '../../components/IconButton';
+import CustomButton from '../../components/Common/CustomButton';
+import CustomInput from '../../components/Common/CustomInput';
+import IconButton from '../../components/Common/IconButton';
 import Auth from '../../services/firebaseAuth';
 import {
   validateFullName,

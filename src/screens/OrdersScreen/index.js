@@ -2,10 +2,10 @@
 import React from 'react';
 import {View, Text, FlatList, SafeAreaView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-import { cancelOrder } from '../../redux/actions/ordersActions';
-import CustomButton from '../../components/CustomButton';
-import Header from '../../components/Header';
+import {useNavigation} from '@react-navigation/native';
+import {cancelOrder} from '../../redux/actions/ordersActions';
+import CustomButton from '../../components/Common/CustomButton';
+import Header from '../../components/Common/Header';
 import {styles} from './styles';
 
 const OrderCard = ({id, totalPrice, onCancelOrder}) => {
@@ -18,7 +18,7 @@ const OrderCard = ({id, totalPrice, onCancelOrder}) => {
       <Text style={styles.orderId}>Order ID: {id}</Text>
       <Text style={styles.totalPrice}>Total Price: ${totalPrice}</Text>
       <Text style={styles.totalPrice}>Delivery in 2 days</Text>
-      <CustomButton text='Cancel Order' onPress={handleCancelOrder}/>
+      <CustomButton text="Cancel Order" onPress={handleCancelOrder} />
     </View>
   );
 };
@@ -35,7 +35,7 @@ const OrdersScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <Header title='Orders' onPress={() => navigation.goBack()}/>
+      <Header title="Orders" onPress={() => navigation.goBack()} />
       {orders.length > 0 ? (
         <FlatList
           data={orders}

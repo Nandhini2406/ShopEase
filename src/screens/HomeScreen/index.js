@@ -10,11 +10,11 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {addToWishlist} from '../../redux/actions/wishlistAction';
 import {addToCart} from '../../redux/actions/cartActions';
 import {products, categories} from '../../constants/productsData';
-import Header from '../../components/Header';
+import Header from '../../components/Common/Header';
 import {styles} from './styles';
 
 const renderCategoryItem = ({item}) => {
@@ -45,19 +45,19 @@ const ProductCard = ({
   return (
     <View style={styles.productCard}>
       <Image source={image} style={styles.productImage} />
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={handleAddToWishlist}
-        style={styles.wishlistButton}> 
+        style={styles.wishlistButton}>
         <Icon
           name={isWishlist ? 'heart' : 'heart-outline'}
           size={24}
           color={isWishlist ? '#006D5B' : 'black'}
         />
-      </TouchableOpacity> 
+      </TouchableOpacity>
       <Text style={styles.productTitle}>{title}</Text>
       <Text style={styles.productPrice}>${price}</Text>
-        {/* Add to cart Button with icon */}
-      <TouchableOpacity onPress={handleAddToCart} style={styles.addCartButton}> 
+      {/* Add to cart Button with icon */}
+      <TouchableOpacity onPress={handleAddToCart} style={styles.addCartButton}>
         <Icon
           name={isAddedToCart ? 'add-circle' : 'add-circle-outline'}
           color={isAddedToCart ? '#006D5B' : 'black'}
@@ -71,7 +71,7 @@ const ProductCard = ({
 const HomeScreen = () => {
   const wishlist = useSelector(state => state.wishlist); // useSelector to get the wishlist from Redux store
   const cart = useSelector(state => state.cart); // useSelector to get the wishlist from Redux store
-  const navigation =useNavigation();
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const handleAddToWishlist = product => {
@@ -81,7 +81,7 @@ const HomeScreen = () => {
   const handleAddToCart = product => {
     dispatch(addToCart(product)); // Dispatch addToCart action
     console.log('products on cart...', product);
-    ToastAndroid.show('Item added to Cart', 600)
+    ToastAndroid.show('Item added to Cart', 600);
   };
 
   const isProductInWishlist = productId => {
@@ -93,7 +93,12 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <Header title='Home' showBackButton={false} rightButtonIcon='search' onRightButtonPress={() => navigation.navigate('Search')}/>
+      <Header
+        title="Home"
+        showBackButton={false}
+        rightButtonIcon="search"
+        onRightButtonPress={() => navigation.navigate('Search')}
+      />
       <FlatList
         ListHeaderComponent={() => (
           <>

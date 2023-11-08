@@ -18,8 +18,8 @@ import {
   clearCart,
 } from '../../redux/actions/cartActions';
 import {placeOrder} from '../../redux/actions/ordersActions';
-import CustomButton from '../../components/CustomButton';
-import Header from '../../components/Header';
+import CustomButton from '../../components/Common/CustomButton';
+import Header from '../../components/Common/Header';
 import {styles} from './styles';
 
 const ProductCard = ({

@@ -3,10 +3,10 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import theme from '../../constants/theme';
+import theme from '../../../constants/theme';
 
 export const styles = StyleSheet.create({
-  container:{
+  container: {
     alignItems: 'center',
   },
   loginButton: {

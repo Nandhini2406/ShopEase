@@ -10,11 +10,11 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector, useDispatch} from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {removeFromWishlist} from '../../redux/actions/wishlistAction';
 import {addToCart} from '../../redux/actions/cartActions';
-import CustomButton from '../../components/CustomButton';
-import Header from '../../components/Header';
+import CustomButton from '../../components/Common/CustomButton';
+import Header from '../../components/Common/Header';
 import {styles} from './styles';
 
 const ProductCard = ({
@@ -65,12 +65,12 @@ const WishlistScreen = () => {
   const handleAddToCart = product => {
     dispatch(addToCart(product)); // Dispatch addToCart action
     console.log('products on cart...', product);
-    ToastAndroid.show('Item added to Cart', 600)
+    ToastAndroid.show('Item added to Cart', 600);
   };
 
   return (
     <SafeAreaView style={styles.container}>
-    <Header title='Wishlist' onPress={() => navigation.goBack()}/>
+      <Header title="Wishlist" onPress={() => navigation.goBack()} />
       {wishlist.length > 0 ? (
         <FlatList
           data={wishlist}

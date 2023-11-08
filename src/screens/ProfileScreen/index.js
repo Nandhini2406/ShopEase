@@ -1,7 +1,7 @@
 import {View, Text, SafeAreaView, Image} from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import Header from '../../components/Header';
+import Header from '../../components/Common/Header';
 import SettingsCard from '../../components/Settings';
 import Auth from '../../services/firebaseAuth';
 import {Images} from '../../constants/images';
@@ -12,13 +12,13 @@ const ProfileScreen = () => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
 
-  useEffect(()=>{
+  useEffect(() => {
     const currentUser = Auth.getCurrentUser();
     if (currentUser) {
       setUserName(currentUser.displayName);
       setUserEmail(currentUser.email);
     }
-  },[]);
+  }, []);
 
   const handleLogOut = () => {
     Auth.logOut();
@@ -26,6 +26,10 @@ const ProfileScreen = () => {
   };
   const handleOrders = () => {
     navigation.navigate('Orders');
+  };
+
+  const handleOffers = () => {
+    navigation.navigate('ProductDetails');
   };
 
   return (
@@ -48,7 +52,11 @@ const ProfileScreen = () => {
           onPress={handleOrders}
         />
         <Text style={styles.subHead}>General</Text>
-        <SettingsCard iconName="card" settings="Offers" />
+        <SettingsCard
+          iconName="card"
+          settings="Offers"
+          onPress={handleOffers}
+        />
       </View>
     </SafeAreaView>
   );

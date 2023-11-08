@@ -1,13 +1,26 @@
 import { View, Text } from 'react-native'
-import React from 'react'
-import { products } from '../../constants/productsData'
+import React, { useState, useEffect } from 'react';
+import { AppState } from 'react-native';
+import { LoginTimer, LogoutTimer } from '../../components/Timer';
 
 const ProductDetailsScreen = () => {
+  const [isAppActive, setIsAppActive] = useState(true);
+  
+  useEffect(() => {
+    const handleAppStateChange = (newState) => {
+      setIsAppActive(newState === 'active');
+    };
+    
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+    
+    return () => subscription.remove();
+  }, []);
+  
   return (
     <View>
-      <Text>ProductDetailsScreen</Text>
+      {isAppActive ? <LoginTimer /> : <LogoutTimer />}
     </View>
-  )
-}
+  );
+};
 
 export default ProductDetailsScreen
