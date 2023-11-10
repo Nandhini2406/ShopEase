@@ -14,7 +14,7 @@ import {styles} from './styles';
 import CustomButton from '../../components/Common/CustomButton';
 import CustomInput from '../../components/Common/CustomInput';
 import IconButton from '../../components/Common/IconButton';
-import Auth from '../../services/firebaseAuth';
+import Auth from '../../firebase/authService';
 import {
   validateFullName,
   validateEmail,

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../components/Common/Header';
 import SettingsCard from '../../components/Settings';
-import Auth from '../../services/firebaseAuth';
+import Auth from '../../firebase/authService';
 import {Images} from '../../constants/images';
 import {styles} from './styles';
 

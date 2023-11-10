@@ -4,12 +4,12 @@ import React, { useState, useEffect }  from 'react'
 export const LoginTimer = () => {
   const [timerValue, setTimerValue] = useState(0);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTimerValue(prevValue => prevValue + 1);
-    }, 1000);
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    setTimerValue(prevValue => prevValue + 1);
+  }, 1000);
 
-    return () => clearInterval(intervalId);
+  return () => clearInterval(intervalId);
   }, []);
 
   return (
