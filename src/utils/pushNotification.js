@@ -35,6 +35,7 @@ export const notificationListener = () => {
     console.log('app opened');
     // navigation.navigate(remoteMessage.data.type);
   });
+  
 
   // Check whether an initial notification is available
   messaging()

@@ -32,7 +32,7 @@ export const startLogOutTimer = async () => {
     console.log('background Notification Id',backgroundNotificationId )
     intervalId = setInterval(() => {
       loginTimer++;
-      console.log('start logout timer', loginTimer)
+      // console.log('start logout timer', loginTimer)
       backgroundNotification(formatStopwatchTime(loginTimer));
     }, 1000);
     messaging().setBackgroundMessageHandler(async (remoteMessage) => {
@@ -132,7 +132,7 @@ AppState.addEventListener('change', async (nextAppState) => {
     // App is in the background, start the background notification timer
     if(notificationId){
       notifee.cancelNotification(notificationId);
-      console.log('app background activity', notificationId)
+      console.log('app background activity')
       notificationId = null;
       startLogOutTimer();
     }

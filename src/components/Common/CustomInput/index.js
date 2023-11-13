@@ -9,6 +9,7 @@ const CustomInput = ({
   secureTextEntry,
   onBlur,
   autoCapitalize,
+  numberOfLines,
 }) => {
   return (
     <TextInput
@@ -19,6 +20,7 @@ const CustomInput = ({
       secureTextEntry={secureTextEntry}
       onBlur={onBlur}
       autoCapitalize={autoCapitalize}
+      numberOfLines={numberOfLines}
     />
   );
 };

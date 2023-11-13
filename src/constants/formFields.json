@@ -1,0 +1,35 @@
+{
+    "fields": [
+        {
+            "type": "text",
+            "label": "First Name",
+            "placeholder": "Enter your first name"
+        },
+        {
+            "type": "text",
+            "label": "Last Name",
+            "placeholder": "Enter your last name"
+        },
+        {
+            "type": "dropdown",
+            "label": "Gender",
+            "placeholder": "Select Gender",
+            "options": [
+                "Male",
+                "Female",
+                "Other"
+            ]
+        },
+        {
+            "type": "multiline",
+            "label": "Address",
+            "placeholder": "Enter your address",
+            "numberOfLines": 2
+        },
+        {
+            "type": "date",
+            "label": "Date of Birth",
+            "placeholder": "Select your date of birth"
+        }
+    ]
+}

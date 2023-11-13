@@ -12,6 +12,7 @@ import BottomTabs from './bottomTabs';
 import ProductDetailsScreen from '../screens/ProductDetailScreen';
 import SearchScreen from '../screens/SearchScreen';
 import OrdersScreen from '../screens/OrdersScreen';
+import ProfileDetails from '../screens/ProfileDetails';
 import {
   requestUserPermission,
   notificationListener,
@@ -60,6 +61,7 @@ const Navigator = () => {
         <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Orders" component={OrdersScreen} />
+        <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

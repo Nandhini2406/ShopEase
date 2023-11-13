@@ -1,4 +1,4 @@
-import {View, Text, SafeAreaView, Image} from 'react-native';
+import {View, Text, SafeAreaView, Image, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../components/Common/Header';
@@ -20,22 +20,10 @@ const ProfileScreen = () => {
     }
   }, []);
 
-  const handleLogOut = () => {
-    Auth.logOut();
-    navigation.navigate('Login');
-  };
-  const handleOrders = () => {
-    navigation.navigate('Orders');
-  };
-
-  const handleOffers = () => {
-    navigation.navigate('ProductDetails');
-  };
-
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Header title="Profile" />
+      <Header title="Profile" onPress={() => navigation.goBack()} />
+      <ScrollView>
         <Image source={Images.profile} style={styles.profileImage}></Image>
         <Text style={styles.nameText}>{userName}</Text>
         <Text style={styles.emailText}>{userEmail}</Text>
@@ -43,21 +31,29 @@ const ProfileScreen = () => {
         <SettingsCard
           iconName="log-out"
           settings="Logout"
-          onPress={handleLogOut}
+          onPress={() => {
+            Auth.logOut();
+            navigation.navigate('Login');
+          }}
+        />
+        <SettingsCard
+          iconName="list"
+          settings="Additional Details"
+          onPress={() => navigation.navigate('ProfileDetails')}
         />
         <Text style={styles.subHead}>Orders</Text>
         <SettingsCard
           iconName="location-sharp"
           settings="Orders"
-          onPress={handleOrders}
+          onPress={() => navigation.navigate('Orders')}
         />
         <Text style={styles.subHead}>General</Text>
         <SettingsCard
           iconName="card"
           settings="Offers"
-          onPress={handleOffers}
+          onPress={() => navigation.navigate('ProductDetails')}
         />
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
