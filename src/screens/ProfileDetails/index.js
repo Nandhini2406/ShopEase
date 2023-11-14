@@ -1,8 +1,16 @@
 import React, {useState} from 'react';
-import {View,  Text, TouchableOpacity, SafeAreaView} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+
 import formFields from '../../constants/formFields.json';
 import Header from '../../components/Common/Header';
 import CustomInput from '../../components/Common/CustomInput';
@@ -39,8 +47,7 @@ const ProfileDetails = () => {
                 onValueChange={(itemValue, itemIndex) =>
                   setSelectedGender(itemValue)
                 }
-                mode="dropdown"
-                itemStyle={styles.pickerOption}>
+                mode="dropdown">
                 <Picker.Item label="Select Gender" value="" />
                 {field.options.map((option, index) => (
                   <Picker.Item key={index} label={option} value={option} />
@@ -73,7 +80,6 @@ const ProfileDetails = () => {
             />
           </View>
         );
-        return null;
       default:
         return null;
     }
@@ -81,12 +87,14 @@ const ProfileDetails = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title='Additional' onPress={() => navigation.goBack()}/>
-      {fields.map(renderFormField)}
-      <CustomButton
-        text="Submit"
-        onPress={() => console.log('Form submitted!')}
-      />
+      <Header title="Additional" onPress={() => navigation.goBack()} />
+      <ScrollView>
+        {fields.map(renderFormField)}
+        <CustomButton
+          text="Submit"
+          onPress={() => console.log('Form submitted!')}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };

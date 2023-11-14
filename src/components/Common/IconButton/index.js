@@ -1,12 +1,17 @@
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import theme from '../../../constants/theme';
 
 const IconButton = ({onPress, iconName, iconSize}) => {
   return (
-      <TouchableOpacity style={styles.iconButton} onPress={onPress}>
-        <Icon name={iconName} size={iconSize} color="#006D5B" />
-      </TouchableOpacity>
+    <TouchableOpacity style={styles.iconButton} onPress={onPress}>
+      <Icon
+        name={iconName}
+        size={iconSize}
+        color={theme.backgroundColor.tealGreen}
+      />
+    </TouchableOpacity>
   );
 };
 

@@ -19,13 +19,6 @@ export const styles = StyleSheet.create({
     fontSize: theme.fontSizes.mediumFont,
     fontFamily: theme.fontFamily.Sen_Medium,
   },
-  picker: {
-    color: theme.fontColors.black,
-    fontSize: theme.fontSizes.mediumFontText,
-    fontFamily: theme.fontFamily.Sen_Bold,
-    top: 5,
-    marginBottom: 10,
-  },
   pickerOption: {
     color: theme.fontColors.black,
     fontSize: theme.fontSizes.mediumFont,

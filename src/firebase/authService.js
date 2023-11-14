@@ -1,7 +1,6 @@
 import auth from '@react-native-firebase/auth';
-import analytics, { FirebaseAnalyticsTypes } from '@react-native-firebase/analytics';
 import {Alert} from 'react-native';
-import {startLoginTimer, stopLoginTimer, showLoginNotification} from '../services/notifee';
+import {startLoginTimer, stopLoginTimer} from '../utils/notifee';
 
 const signUp = (navigation, fullName, email, password) => {
   if (fullName || email || password) {
@@ -15,12 +14,30 @@ const signUp = (navigation, fullName, email, password) => {
         console.log('User uid: ', credentials);
         Alert.alert('User Registered');
         navigation.navigate('Home');
-        console.log('signupPressed...');
         startLoginTimer();
         return uid;
       })
-      .catch(err => {
-        console.log('Signup Failed:', err);
+      .catch(error => {
+        console.log('Firebase Error Code:', error.code);
+        console.log('Firebase Error Message:', error.message);
+
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            Alert.alert('Signup Error', 'Email already in use.');
+            break;
+          case 'auth/invalid-email':
+            Alert.alert('Signup Error', 'Invalid email address.');
+            break;
+          case 'auth/weak-password':
+            Alert.alert(
+              'Signup Error',
+              'Weak password. Password should be at least 6 characters.',
+            );
+            break;
+          default:
+            Alert.alert('Signup Error', 'An internal error has occurred.');
+        }
+        console.log('Signup Error', error);
       });
   }
 };
@@ -29,26 +46,39 @@ const lognIn = (navigation, email, password) => {
   if (email || password) {
     return auth()
       .signInWithEmailAndPassword(email.trim(), password)
-      .then((user) => {
+      .then(user => {
         console.log('User logged in: ', user.user.displayName);
         console.log('User uid: ', auth().currentUser.uid);
-        // const loginTime = analytics.logEvent('login', {timestamp: Date.now()});
-        // console.log(`Login ${loginTime}`);
         navigation.navigate('Home');
         startLoginTimer();
       })
-      .catch(err => {
-        console.log('Login failed:', err);
-        Alert.alert(
-          'Login Failed',
-          'Invalid Credentials \nEnter Valid Credentials',
-        );
+      .catch(error => {
+        console.log('Firebase Error Code:', error.code);
+        console.log('Firebase Error Message:', error.message);
+
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            Alert.alert('Signup Error', 'Email already in use.');
+            break;
+          case 'auth/invalid-email':
+            Alert.alert('Signup Error', 'Invalid email address.');
+            break;
+          case 'auth/weak-password':
+            Alert.alert(
+              'Signup Error',
+              'Weak password. Password should be at least 6 characters.',
+            );
+            break;
+          default:
+            Alert.alert('Signup Error', 'An internal error has occurred.');
+        }
+        console.log('Signup Error', error);
       });
   }
 };
 
 const logOut = () => {
-  auth().signOut()
+  auth().signOut();
   stopLoginTimer();
 };
 

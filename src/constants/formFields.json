@@ -11,6 +11,11 @@
             "placeholder": "Enter your last name"
         },
         {
+            "type": "text",
+            "label": "Mobile Number",
+            "placeholder": "Enter your Mobile Number"
+        },
+        {
             "type": "dropdown",
             "label": "Gender",
             "placeholder": "Select Gender",
