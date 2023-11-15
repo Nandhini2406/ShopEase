@@ -21,19 +21,67 @@ let backgroundNotificationId = null;
 //   }
 
 // };
+// export const startLoginTimer = async () => {
+//   if (!notificationId) {
+//     notificationId = await notifee.createChannel({
+//       id: 'default',
+//       name: 'Default',
+//     });
+
+//     // Add an event listener for the background event
+//     notifee.onBackgroundEvent(async ({event, detail}) => {
+//       if (event.type === EventType.BACKGROUND_STATE) {
+//         // Handle the background event, e.g., update the timer
+//         loginTimer++;
+//         foregroundNotification(formattedTime(loginTimer));
+//       }
+//     });
+
+//     // Start the timer
+//     intervalId = setInterval(() => {
+//       loginTimer++;
+//       foregroundNotification(formattedTime(loginTimer));
+//     }, 1000);
+
+//     // intervalId = setInterval(() => {
+//     //   loginTimer++;
+//     //   foregroundNotification(formattedTime(loginTimer));
+//     // }, 1000);
+
+//     // notificationId = await notifee.createChannel({
+//     //   id: 'default',
+//     //   name: 'Default',
+//     // });
+
+//     // // Start the background task handler
+//     // notifee.onBackgroundEvent(async ({ type, detail }) => {
+//     //   // Check if the app is in the background state
+//     //   if (type === EventType.BACKGROUND_STATE) {
+//     //     // Update your login timer notification
+//     //     await notifee.updateNotification({
+//     //       id: notificationId,
+//     //       body: `Time Active: ${formattedTime(loginTimer)}`,
+//     //     });
+//     //   }
+//     // });
+//   }
+// };
+
 export const startLoginTimer = async () => {
+  // Check if the notification channel is not created
   if (!notificationId) {
+    // Create a notification channel
     notificationId = await notifee.createChannel({
       id: 'default',
       name: 'Default',
     });
 
     // Add an event listener for the background event
-    notifee.onBackgroundEvent(async ({event, detail}) => {
+    notifee.onBackgroundEvent(async ({ event, detail }) => {
       if (event.type === EventType.BACKGROUND_STATE) {
         // Handle the background event, e.g., update the timer
         loginTimer++;
-        foregroundNotification(formattedTime(loginTimer));
+        backgroundNotification(formattedTime(loginTimer));
       }
     });
 
@@ -42,29 +90,18 @@ export const startLoginTimer = async () => {
       loginTimer++;
       foregroundNotification(formattedTime(loginTimer));
     }, 1000);
-
-    // intervalId = setInterval(() => {
-    //   loginTimer++;
-    //   foregroundNotification(formattedTime(loginTimer));
-    // }, 1000);
-
-    // notificationId = await notifee.createChannel({
-    //   id: 'default',
-    //   name: 'Default',
-    // });
-
-    // // Start the background task handler
-    // notifee.onBackgroundEvent(async ({ type, detail }) => {
-    //   // Check if the app is in the background state
-    //   if (type === EventType.BACKGROUND_STATE) {
-    //     // Update your login timer notification
-    //     await notifee.updateNotification({
-    //       id: notificationId,
-    //       body: `Time Active: ${formattedTime(loginTimer)}`,
-    //     });
-    //   }
-    // });
   }
+};
+
+const backgroundNotification = formattedTime => {
+  // Display the background notification
+  PushNotification.localNotification({
+    channelId: 'background',
+    title: 'Background',
+    message: 'Time InActive: ${formattedTime}',
+    largeIcon: '',
+    smallIcon: 'ic_stat',
+  });
 };
 
 export const formattedTime = milliseconds => {
@@ -132,13 +169,13 @@ export const stopLogOutTimer = () => {
   loginTimer = 0;
 };
 
-const backgroundNotification = formattedTime => {
-  console.log('background Notification');
-  PushNotification.localNotification({
-    channelId: 'background',
-    title: 'Background',
-    message: `Time InActive: ${formattedTime}`,
-    largeIcon: '',
-    smallIcon: 'ic_stat',
-  });
-};
+// const backgroundNotification = formattedTime => {
+//   console.log('background Notification');
+//   PushNotification.localNotification({
+//     channelId: 'background',
+//     title: 'Background',
+//     message: `Time InActive: ${formattedTime}`,
+//     largeIcon: '',
+//     smallIcon: 'ic_stat',
+//   });
+// };

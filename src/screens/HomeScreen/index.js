@@ -11,8 +11,8 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
-import {addToWishlist} from '../../redux/actions/wishlistAction';
-import {addToCart} from '../../redux/actions/cartActions';
+import {addToWishlist,removeFromWishlist} from '../../redux/actions/wishlistAction';
+import {addToCart, removeFromCart} from '../../redux/actions/cartActions';
 import {products, categories} from '../../constants/productsData';
 import Header from '../../components/Common/Header';
 import {styles} from './styles';
@@ -75,13 +75,25 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
 
   const handleAddToWishlist = product => {
-    dispatch(addToWishlist(product)); // Dispatch addToWishlist action
-    console.log('products on wishlist...', product);
+    const productId = product.id;
+
+    if (isProductInWishlist(productId)) {
+      dispatch(removeFromWishlist(productId));
+    } else {
+      dispatch(addToWishlist(product));
+      ToastAndroid.show('Item added to Wishlist', ToastAndroid.SHORT);
+    }
   };
+
   const handleAddToCart = product => {
-    dispatch(addToCart(product)); // Dispatch addToCart action
-    console.log('products on cart...', product);
-    ToastAndroid.show('Item added to Cart', 600);
+    const productId = product.id;
+
+    if (isProductInCart(productId)) {
+      dispatch(removeFromCart(productId));
+    } else {
+      dispatch(addToCart(product));
+      ToastAndroid.show('Item added to Cart', ToastAndroid.SHORT);
+    }
   };
 
   const isProductInWishlist = productId => {
