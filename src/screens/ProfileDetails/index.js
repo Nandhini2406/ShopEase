@@ -1,28 +1,121 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
+  Image,
+  Alert,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-
+import {useDispatch, useSelector} from 'react-redux';
+import IconButton from '../../components/Common/IconButton';
 import formFields from '../../constants/formFields.json';
 import Header from '../../components/Common/Header';
 import CustomInput from '../../components/Common/CustomInput';
 import CustomButton from '../../components/Common/CustomButton';
 import {styles} from './styles';
+import {validateMobileNumber} from '../../utils/validation';
+import {
+  setFullName,
+  setLastName,
+  setMobileNumber,
+  setAddress,
+  setGender,
+  setDateOfBirth,
+  setProfileImage,
+  setPdfDocument,
+} from '../../redux/actions/profileActions';
 
 const ProfileDetails = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   const [fields, setFields] = useState(formFields.fields);
+  const [open, setOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [errorFields, setErrorFields] = useState([]);
+
+  // Local state for form fields
+  const [localFullName, setLocalFullName] = useState('');
+  const [localLastName, setLocalLastName] = useState('');
+  const [localMobileNumber, setLocalMobileNumber] = useState('');
+  const [localAddress, setLocalAddress] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
   const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
+
+  const imageUri = useSelector(state => state.profileData.profileImage);
+
+  useEffect(() => {
+    setSelectedImage(null);
+  }, [imageUri]);
+
+  const handleUploadImage = () => {
+    const options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    Alert.alert(
+      'Upload Image',
+      'Select an image source:',
+      [
+        {
+          text: 'Gallery',
+          onPress: () => {
+            launchImageLibrary(options, handleGallery);
+          },
+        },
+        {
+          text: 'Camera',
+          onPress: () => {
+            launchCamera(options, handleCamera);
+          },
+        },
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+      ],
+      {cancelable: true},
+    );
+  };
+
+  const handleGallery = response => {
+    console.log('Open Gallery...');
+    if (response.didCancel) {
+      console.log('User canceled image library');
+      // setSelectImage(false);
+    } else if (response.error) {
+      console.log('ImagePicker Error (Library): ', response.error);
+      // setSelectImage(false);
+    } else {
+      setSelectedImage(response.assets[0]?.uri || response.uri);
+      console.log('Gallery Image...', response.assets[0]?.uri);
+    }
+  };
+
+  const handleCamera = response => {
+    console.log('Open Camera...');
+    if (response.didCancel) {
+      console.log('User canceled taking a photo');
+      // setSelectImage(false);
+    } else if (response.error) {
+      console.log('Camera Error: ', response.error);
+      // setSelectImage(false);
+    } else {
+      setSelectedImage(response.assets[0]?.uri || response.uri);
+      console.log('Camera Image...', response.assets[0]?.uri);
+    }
+  };
 
   const renderFormField = field => {
     switch (field.type) {
@@ -34,6 +127,17 @@ const ProfileDetails = () => {
             <CustomInput
               placeholder={field.placeholder}
               numberOfLines={field.numberOfLines || 1}
+              setvalue={text => {
+                if (field.label === 'First Name') {
+                  setLocalFullName(text);
+                } else if (field.label === 'Last Name') {
+                  setLocalLastName(text);
+                } else if (field.label === 'Mobile Number') {
+                  setLocalMobileNumber(text);
+                } else if (field.label === 'Address') {
+                  setLocalAddress(text);
+                }
+              }}
             />
           </View>
         );
@@ -44,9 +148,7 @@ const ProfileDetails = () => {
             <TouchableOpacity style={styles.button}>
               <Picker
                 selectedValue={selectedGender}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSelectedGender(itemValue)
-                }
+                onValueChange={itemValue => setSelectedGender(itemValue)}
                 mode="dropdown">
                 <Picker.Item label="Select Gender" value="" />
                 {field.options.map((option, index) => (
@@ -85,15 +187,63 @@ const ProfileDetails = () => {
     }
   };
 
+  const handleSubmit = () => {
+    // Check for empty fields
+    const isFieldEmpty = value => {
+      return value.trim() === '';
+    };
+    const emptyFields = fields.filter(field => {
+      const value =
+        field.label === 'First Name'
+          ? localFullName
+          : field.label === 'Last Name'
+          ? localLastName
+          : field.label === 'Mobile Number'
+          ? localMobileNumber
+          : localAddress;
+      return field.type !== 'date' && isFieldEmpty(value);
+    });
+    if (emptyFields.length > 0) {
+      setErrorFields(emptyFields);
+      Alert.alert('Error', 'Please fill in all required fields.');
+      return;
+    }
+    // dispatch the details to the state
+    dispatch(setProfileImage(selectedImage));
+    dispatch(setFullName(localFullName));
+    dispatch(setLastName(localLastName));
+    dispatch(setMobileNumber(localMobileNumber));
+    dispatch(setAddress(localAddress));
+    dispatch(setDateOfBirth(date));
+    dispatch(setGender(selectedGender));
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Additional" onPress={() => navigation.goBack()} />
       <ScrollView>
+        <View>
+          <IconButton
+            iconName="pencil"
+            iconSize={30}
+            buttonStyle={styles.editIcon}
+            onPress={handleUploadImage}
+          />
+          {selectedImage ? (
+            <Image source={{uri: selectedImage}} style={styles.profileImage} />
+          ) : (
+            <View style={styles.profileImage}>
+              <Icon name="person-circle-outline" size={200} color="gray" />
+            </View>
+          )}
+        </View>
         {fields.map(renderFormField)}
-        <CustomButton
-          text="Submit"
-          onPress={() => console.log('Form submitted!')}
-        />
+        {errorFields.length > 0 && (
+          <Text style={styles.errorText}>
+            Please fill in all required fields.
+          </Text>
+        )}
+        <CustomButton text="Submit" onPress={handleSubmit} />
       </ScrollView>
     </SafeAreaView>
   );

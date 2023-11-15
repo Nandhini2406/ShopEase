@@ -3,9 +3,9 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import theme from '../../../constants/theme';
 
-const IconButton = ({onPress, iconName, iconSize}) => {
+const IconButton = ({onPress, iconName, iconSize, buttonStyle}) => {
   return (
-    <TouchableOpacity style={styles.iconButton} onPress={onPress}>
+    <TouchableOpacity style={[styles.iconButton, {buttonStyle}]} onPress={onPress}>
       <Icon
         name={iconName}
         size={iconSize}

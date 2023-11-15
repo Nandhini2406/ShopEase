@@ -40,4 +40,26 @@ export const styles = StyleSheet.create({
     fontSize: theme.fontSizes.mediumFont,
     fontFamily: theme.fontFamily.Sen_Regular,
   },
+  profileImage: {
+    width: wp('50%'),
+    height: hp('23%'), 
+    borderRadius: wp('25%'),
+    alignSelf: 'center',
+    top: '-10%',
+    backgroundColor: theme.backgroundColor.gray,
+  },
+  editIcon: {
+    alignSelf: 'flex-end',
+    right: '3%',
+    borderRadius: wp('25%'),
+    zIndex: 1,
+    padding: 10,
+    backgroundColor: theme.backgroundColor.tealGreen,
+  },
+  errorText:{
+    alignSelf: 'center',
+    color: theme.fontColors.orange,
+    fontSize: theme.fontSizes.smallFont,
+    fontFamily: theme.fontFamily.Sen_Medium,
+  },
 });
