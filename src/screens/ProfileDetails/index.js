@@ -36,7 +36,7 @@ import {
 const ProfileDetails = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  
+
   const [fileResponse, setFileResponse] = useState([]);
 
   const [fields, setFields] = useState(formFields.fields);
@@ -102,7 +102,7 @@ const ProfileDetails = () => {
       // setSelectImage(false);
     } else {
       setSelectedImage(response.assets[0]?.uri || response.uri);
-      console.log('Gallery Image...', response.assets[0]?.uri);
+      console.log('Gallery Image...', response);
     }
   };
 
@@ -150,9 +150,11 @@ const ProfileDetails = () => {
             <Text style={styles.heading}>{field.label}</Text>
             <TouchableOpacity style={styles.button}>
               <Picker
+              style={{width: 300, height:200}}
                 selectedValue={selectedGender}
-                onValueChange={itemValue => setSelectedGender(itemValue)}
-                mode="dropdown">
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedGender(itemValue)
+                }>
                 <Picker.Item label="Select Gender" value="" />
                 {field.options.map((option, index) => (
                   <Picker.Item key={index} label={option} value={option} />
@@ -194,8 +196,10 @@ const ProfileDetails = () => {
     try {
       const response = await DocumentPicker.pick({
         presentationStyle: 'fullScreen',
+        type: [DocumentPicker.types.pdf],
       });
       setFileResponse(response);
+      console.log('document response', fileResponse[0]?.uri);
     } catch (err) {
       console.warn(err);
     }
@@ -230,6 +234,7 @@ const ProfileDetails = () => {
     dispatch(setAddress(localAddress));
     dispatch(setDateOfBirth(date));
     dispatch(setGender(selectedGender));
+    dispatch(setPdfDocument(fileResponse[0]?.uri));
   };
 
   return (
@@ -253,15 +258,15 @@ const ProfileDetails = () => {
         </View>
         {fields.map(renderFormField)}
         {fileResponse.map((file, index) => (
-        <Text
-          key={index.toString()}
-          style={[styles.button, styles.heading]}
-          numberOfLines={2}
-          ellipsizeMode={'middle'}>
-          {file?.uri}
-        </Text>
-      ))}
-        <CustomButton text='Select file' onPress={handleDocumentSelection}/>
+          <Text
+            key={index.toString()}
+            style={[styles.button, styles.heading, {padding: 10}]}
+            numberOfLines={2}
+            ellipsizeMode={'middle'}>
+            {file?.name}
+          </Text>
+        ))}
+        <CustomButton text="Select file" onPress={handleDocumentSelection} />
         {errorFields.length > 0 && (
           <Text style={styles.errorText}>
             Please fill in all required fields.
