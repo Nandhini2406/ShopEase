@@ -20,8 +20,7 @@ import {
   requestUserPermission,
   notificationListener,
 } from '../services/pushNotification';
-import {backgroundNotification} from '../utils/bgNotification';
-
+import { sendNotificationListener } from '../utils/notificationService';
 const Stack = createStackNavigator();
 
 const Navigator = () => {
@@ -47,7 +46,7 @@ const Navigator = () => {
     checkAuth();
     requestUserPermission();
     notificationListener();
-    // backgroundNotification();
+    // sendNotificationListener();
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected);
       if (!state.isConnected) {

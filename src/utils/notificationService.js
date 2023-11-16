@@ -1,6 +1,34 @@
+import {AppState} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
+import {startLoginTimer} from './notifyTimer';
+
+export const handleAppStateChange = () => {
+  const appState = AppState.currentState;
+
+  if (
+    appState === 'active' ||
+    appState === 'inactive' ||
+    appState === 'background'
+  ) {
+    startLoginTimer();
+  }
+};
+
+// const handleAppStateChange = () => {
+//   const appState = AppState.currentState;
+
+//   if (
+//     appState === 'active' ||
+//     appState === 'inactive' ||
+//     appState === 'background'
+//   ) {
+//     startLoginTimer();
+//   }
+// };
+
 // import {NativeEventEmitter, NativeModules, AppState} from 'react-native';
 // import PushNotification from 'react-native-push-notification';
-// import {startLogOutTimer, stopLoginTimer} from './notifee';
+// import {startLogOutTimer, stopLoginTimer} from './notificationTimer';
 // import BackgroundTimer from 'react-native-background-timer';
 
 // export const cancelNotification = () => {
@@ -9,20 +37,13 @@
 //   PushNotification.cancelAllLocalNotifications();
 // };
 
-// export const sendBackgroundNotification = () => {
+// export const sendLoginNotification = () => {
 //   const appState = AppState.currentState;
 //   let loginTimer = 0;
 
 //   if (appState === 'background' || appState === 'inactive') {
-//     console.log('before Sending Background Notification');
-//     // Send your background notification here
-//     // startLogOutTimer();
-//     // console.log('after Sending Background Notification');
-//     // stopLoginTimer();
-//     // console.log('clearing login timer Notification');
-//     // const intervalId = BackgroundTimer.setInterval(() => {
-//     // console.log('background Notification with formattedTime');
-//     loginTimer++;
+//     console.log('before Sending  Notification');
+
 //     PushNotification.localNotification({
 //       channelId: 'background',
 //       title: 'Background',
@@ -30,19 +51,9 @@
 //       largeIcon: '',
 //       smallIcon: 'ic_stat',
 //     });
-//     // backgroundNotification(formattedTime(loginTimer));
-//     console.log('Interval callback at:', new Date());
-//     // }, 1000);
-//     // console.log('Interval started:', intervalId);
+//     console.log('after Sending  Notification');
 //   }
 // };
-
-// export const backgroundNotification = () => {
-//   PushNotification.configure({
-//     onNotification: function (notification) {
-//       console.log('NOTIFICATION:', notification);
-//     },
-//   });
 //   // Event listener to cancel the background notification when the app is opened
 //   // const eventEmitter = new NativeEventEmitter(NativeModules.RNEventEmitter);
 //   // const cancelNotificationListener = eventEmitter.addListener(
@@ -52,12 +63,12 @@
 
 //   // const sendNotificationListener = eventEmitter.addListener(
 //   //   'notificationSend',
-//   //   sendBackgroundNotification,
+//   //   sendLoginNotification,
 //   // );
 
 //   // Event listener to send a background notification when in the background or inactive state
 //   const handleAppStateChange = () => {
-//     sendBackgroundNotification();
+//     sendLoginNotification();
 //   };
 
 //   // Add event listeners
@@ -67,6 +78,7 @@
 //     // Remove event listeners on component unmount
 //     // cancelNotificationListener.remove();
 //     // sendNotificationListener.listener();
-//     AppState.removeEventListener('change', handleAppStateChange);
+//     AppState.addEventListener('change', handleAppStateChange);
+//     // AppState.removeEventListener('change', handleAppStateChange);
 //   };
 // };

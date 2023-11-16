@@ -29,10 +29,10 @@ export const styles = StyleSheet.create({
     height: hp('6%'),
 
     marginTop: '5%',
-
     borderColor: theme.borderColor.myrtleGreen,
     borderRadius: 15,
     borderWidth: 2,
+    alignSelf: 'center',
   },
   dateText: {
     padding: 12,
@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
   },
   profileImage: {
     width: wp('50%'),
-    height: hp('23%'), 
+    height: hp('24%'), 
     borderRadius: wp('25%'),
     alignSelf: 'center',
     top: '-10%',

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import DocumentPicker from 'react-native-document-picker';
 import {useDispatch, useSelector} from 'react-redux';
 import IconButton from '../../components/Common/IconButton';
 import formFields from '../../constants/formFields.json';
@@ -35,6 +36,8 @@ import {
 const ProfileDetails = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  
+  const [fileResponse, setFileResponse] = useState([]);
 
   const [fields, setFields] = useState(formFields.fields);
   const [open, setOpen] = useState(false);
@@ -52,7 +55,7 @@ const ProfileDetails = () => {
   const imageUri = useSelector(state => state.profileData.profileImage);
 
   useEffect(() => {
-    setSelectedImage(null);
+    setSelectedImage(imageUri);
   }, [imageUri]);
 
   const handleUploadImage = () => {
@@ -187,6 +190,17 @@ const ProfileDetails = () => {
     }
   };
 
+  const handleDocumentSelection = useCallback(async () => {
+    try {
+      const response = await DocumentPicker.pick({
+        presentationStyle: 'fullScreen',
+      });
+      setFileResponse(response);
+    } catch (err) {
+      console.warn(err);
+    }
+  }, []);
+
   const handleSubmit = () => {
     // Check for empty fields
     const isFieldEmpty = value => {
@@ -238,6 +252,16 @@ const ProfileDetails = () => {
           )}
         </View>
         {fields.map(renderFormField)}
+        {fileResponse.map((file, index) => (
+        <Text
+          key={index.toString()}
+          style={[styles.button, styles.heading]}
+          numberOfLines={2}
+          ellipsizeMode={'middle'}>
+          {file?.uri}
+        </Text>
+      ))}
+        <CustomButton text='Select file' onPress={handleDocumentSelection}/>
         {errorFields.length > 0 && (
           <Text style={styles.errorText}>
             Please fill in all required fields.

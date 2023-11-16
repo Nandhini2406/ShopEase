@@ -1,6 +1,22 @@
 import auth from '@react-native-firebase/auth';
 import {Alert} from 'react-native';
-import {startLoginTimer, stopLoginTimer} from '../utils/notifee';
+import {AppState} from 'react-native';
+import {startLoginTimer, stopLoginTimer} from '../utils/notifyTimer';
+
+const handleAppStateChange = () => {
+  const appState = AppState.currentState;
+  console.log('Handle app state change')
+  appState.match()
+  if (
+    appState === 'active' ||
+    appState === 'background' &&
+    appState === 'inactive' 
+  ) {
+    startLoginTimer();
+  console.log('activating timer')
+
+  }
+};
 
 const signUp = (navigation, fullName, email, password) => {
   if (fullName || email || password) {
@@ -14,7 +30,8 @@ const signUp = (navigation, fullName, email, password) => {
         console.log('User uid: ', credentials);
         Alert.alert('User Registered');
         navigation.navigate('Home');
-        startLoginTimer();
+        // AppState.addEventListener('change', handleAppStateChange)
+        AppState.addEventListener('change', handleAppStateChange)
         return uid;
       })
       .catch(error => {
@@ -50,7 +67,7 @@ const lognIn = (navigation, email, password) => {
         console.log('User logged in: ', user.user.displayName);
         console.log('User uid: ', auth().currentUser.uid);
         navigation.navigate('Home');
-        startLoginTimer();
+        AppState.addEventListener('change', handleAppStateChange)
       })
       .catch(error => {
         console.log('Firebase Error Code:', error.code);
