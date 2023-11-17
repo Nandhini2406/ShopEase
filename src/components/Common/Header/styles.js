@@ -17,14 +17,18 @@ export const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
     left: 0,
+    backgroundColor: theme.backgroundColor.gray,
+
   },
   rightButton: {
     position: 'absolute',
     right: '10%',
+    backgroundColor: theme.backgroundColor.gray,
+
   },
   title: {
-    flex: 1,
     textAlign: 'center',
+    width: wp('38%'),
     fontFamily: theme.fontFamily.Sen_SemiBold,
     fontSize: theme.fontSizes.mediumFontText,
     color: theme.fontColors.black,

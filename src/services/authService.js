@@ -1,22 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import {Alert} from 'react-native';
-import {AppState} from 'react-native';
 import {startLoginTimer, stopLoginTimer} from '../utils/notifyTimer';
 
-const handleAppStateChange = () => {
-  const appState = AppState.currentState;
-  console.log('Handle app state change')
-  appState.match()
-  if (
-    appState === 'active' ||
-    appState === 'background' &&
-    appState === 'inactive' 
-  ) {
-    startLoginTimer();
-  console.log('activating timer')
-
-  }
-};
 
 const signUp = (navigation, fullName, email, password) => {
   if (fullName || email || password) {
@@ -29,9 +14,8 @@ const signUp = (navigation, fullName, email, password) => {
         });
         console.log('User uid: ', credentials);
         Alert.alert('User Registered');
-        navigation.navigate('Home');
-        // AppState.addEventListener('change', handleAppStateChange)
-        AppState.addEventListener('change', handleAppStateChange)
+        navigation.navigate('ProfileDetails');
+        startLoginTimer();
         return uid;
       })
       .catch(error => {
@@ -67,7 +51,7 @@ const lognIn = (navigation, email, password) => {
         console.log('User logged in: ', user.user.displayName);
         console.log('User uid: ', auth().currentUser.uid);
         navigation.navigate('Home');
-        AppState.addEventListener('change', handleAppStateChange)
+        startLoginTimer();
       })
       .catch(error => {
         console.log('Firebase Error Code:', error.code);
@@ -75,28 +59,28 @@ const lognIn = (navigation, email, password) => {
 
         switch (error.code) {
           case 'auth/email-already-in-use':
-            Alert.alert('Signup Error', 'Email already in use.');
+            Alert.alert('Login Error', 'Email already in use.');
             break;
           case 'auth/invalid-email':
-            Alert.alert('Signup Error', 'Invalid email address.');
+            Alert.alert('Login Error', 'Invalid email address.');
             break;
           case 'auth/weak-password':
             Alert.alert(
-              'Signup Error',
+              'Login Error',
               'Weak password. Password should be at least 6 characters.',
             );
             break;
           default:
-            Alert.alert('Signup Error', 'An internal error has occurred.');
+            Alert.alert('Login Error', 'An internal error has occurred.');
         }
-        console.log('Signup Error', error);
+        console.log('Login Error', error);
       });
   }
 };
 
 const logOut = () => {
   auth().signOut();
-  stopLoginTimer();
+  // stopLoginTimer();
 };
 
 const getCurrentUser = () => {

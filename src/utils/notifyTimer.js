@@ -11,9 +11,8 @@ export const startLoginTimer = async () => {
       loginTimer++;
       loginNotification(formattedTime(loginTimer));
     }, 1000);
-
     notificationId = 'default';
-    AppState.addEventListener('change', handleAppStateChange);
+    AppState.addEventListener('focus', handleAppStateChange)
   }
 };
 
@@ -32,18 +31,6 @@ const loginNotification = async timer => {
 
 const logoutNotification = () => {};
 
-const handleAppStateChange = () => {
-  const appState = AppState.currentState;
-
-  if (
-    appState === 'active' ||
-    appState === 'inactive' ||
-    appState === 'background'
-  ) {
-    startLoginTimer();
-  }
-};
-
 export const formattedTime = milliseconds => {
   let seconds = milliseconds % 60;
   const hours = Math.floor(milliseconds / 3600);
@@ -54,4 +41,16 @@ export const formattedTime = milliseconds => {
   const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
   return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+};
+
+const handleAppStateChange = () => {
+  const appState = AppState.currentState;
+
+  if (
+    appState === 'active' ||
+    appState === 'inactive' ||
+    appState === 'background'
+  ) {
+    startLoginTimer();
+  }
 };

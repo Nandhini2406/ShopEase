@@ -3,7 +3,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import theme from '../../constants/theme';
+import theme from '../../../constants/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -42,10 +42,10 @@ export const styles = StyleSheet.create({
   },
   profileImage: {
     width: wp('50%'),
-    height: hp('24%'), 
+    height: hp('23%'),
     borderRadius: wp('25%'),
     alignSelf: 'center',
-    top: '-10%',
+    marginVertical: '2%',
     backgroundColor: theme.backgroundColor.gray,
   },
   editIcon: {
@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: theme.backgroundColor.tealGreen,
   },
-  errorText:{
+  errorText: {
     alignSelf: 'center',
     color: theme.fontColors.orange,
     fontSize: theme.fontSizes.smallFont,

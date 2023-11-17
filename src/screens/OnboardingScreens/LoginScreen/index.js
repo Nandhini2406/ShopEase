@@ -9,13 +9,13 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {Images} from '../../constants/images';
+import {Images} from '../../../constants/images';
 import {styles} from './styles';
-import CustomButton from '../../components/Common/CustomButton';
-import CustomInput from '../../components/Common/CustomInput';
-import IconButton from '../../components/Common/IconButton';
-import Auth from '../../firebase/authService';
-import {validateEmail, validatePassword} from '../../utils/validation';
+import CustomButton from '../../../components/Common/CustomButton';
+import CustomInput from '../../../components/Common/CustomInput';
+import IconButton from '../../../components/Common/IconButton';
+import Auth from '../../../services/authService';
+import {validateEmail, validatePassword} from '../../../utils/validation';
 
 const LoginScreen = () => {
   const navigation = useNavigation();

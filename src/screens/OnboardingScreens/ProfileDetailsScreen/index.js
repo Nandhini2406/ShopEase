@@ -11,17 +11,17 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
 import {useDispatch, useSelector} from 'react-redux';
-import IconButton from '../../components/Common/IconButton';
-import formFields from '../../constants/formFields.json';
-import Header from '../../components/Common/Header';
-import CustomInput from '../../components/Common/CustomInput';
-import CustomButton from '../../components/Common/CustomButton';
+
+import formFields from '../../../constants/formFields.json';
+import {Images} from '../../../constants/images';
+import Header from '../../../components/Common/Header';
+import CustomInput from '../../../components/Common/CustomInput';
+import CustomButton from '../../../components/Common/CustomButton';
 import {styles} from './styles';
-import {validateMobileNumber} from '../../utils/validation';
+import {validateMobileNumber} from '../../../utils/validation';
 import {
   setFullName,
   setLastName,
@@ -31,9 +31,9 @@ import {
   setDateOfBirth,
   setProfileImage,
   setPdfDocument,
-} from '../../redux/actions/profileActions';
+} from '../../../redux/actions/profileActions';
 
-const ProfileDetails = () => {
+const ProfileDetailsScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -57,6 +57,116 @@ const ProfileDetails = () => {
   useEffect(() => {
     setSelectedImage(imageUri);
   }, [imageUri]);
+
+  const handleDocumentSelection = useCallback(async () => {
+    try {
+      const response = await DocumentPicker.pick({
+        presentationStyle: 'fullScreen',
+        type: [DocumentPicker.types.pdf],
+      });
+      setFileResponse(response);
+      console.log('document response', response);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  const renderFormField = field => {
+    switch (field.type) {
+      case 'text':
+      case 'multiline':
+        return (
+          <View key={field.label} style={styles.fieldContainer}>
+            <Text style={styles.heading}>{field.label}</Text>
+            <CustomInput
+              placeholder={field.placeholder}
+              numberOfLines={field.numberOfLines || 1}
+              setvalue={text => {
+                if (field.label === 'First Name') {
+                  setLocalFullName(text);
+                } else if (field.label === 'Last Name') {
+                  setLocalLastName(text);
+                } else if (field.label === 'Mobile Number') {
+                  setLocalMobileNumber(text);
+                } else if (field.label === 'Address') {
+                  setLocalAddress(text);
+                }
+              }}
+            />
+          </View>
+        );
+      case 'dropdown':
+        return (
+          <View key={field.label} style={styles.fieldContainer}>
+            <Text style={styles.heading}>{field.label}</Text>
+            <View style={styles.button}>
+              <Picker
+                selectedValue={selectedGender}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedGender(itemValue)
+                }
+                mode="dropdown">
+                <Picker.Item label="Select Gender" value="" />
+                {field.options.map((option, index) => (
+                  <Picker.Item key={index} label={option} value={option} />
+                ))}
+              </Picker>
+            </View>
+          </View>
+        );
+      case 'date':
+        return (
+          <View key={field.label} style={styles.fieldContainer}>
+            <Text style={styles.heading}>{field.label}</Text>
+            <TouchableOpacity
+              onPress={() => setOpen(true)}
+              style={styles.button}>
+              <Text style={styles.dateText}>{date.toDateString()}</Text>
+            </TouchableOpacity>
+            <DatePicker
+              modal
+              mode="date"
+              open={open}
+              date={date}
+              onConfirm={date => {
+                setOpen(false);
+                setDate(date);
+              }}
+              onCancel={() => {
+                setOpen(false);
+              }}
+            />
+          </View>
+        );
+      case 'document':
+        return (
+          <View key={field.label} style={styles.fieldContainer}>
+            <Text style={styles.heading}>{field.label}</Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleDocumentSelection}>
+              {fileResponse.length === 0 ? (
+              <Text style={[styles.heading, { padding: 10, color: 'gray' }]}>
+                {field.placeholder}
+              </Text>
+            ) : (
+              fileResponse.map((file, index) => (
+                <Text
+                  key={index.toString()}
+                  style={[styles.heading, { padding: 10 }]}
+                  numberOfLines={2}
+                  ellipsizeMode={'middle'}>
+                  {file?.name}
+                </Text>
+              ))
+            )}
+            </TouchableOpacity>
+          </View>
+        );
+      default:
+        return null;
+    }
+  };
 
   const handleUploadImage = () => {
     const options = {
@@ -96,10 +206,8 @@ const ProfileDetails = () => {
     console.log('Open Gallery...');
     if (response.didCancel) {
       console.log('User canceled image library');
-      // setSelectImage(false);
     } else if (response.error) {
       console.log('ImagePicker Error (Library): ', response.error);
-      // setSelectImage(false);
     } else {
       setSelectedImage(response.assets[0]?.uri || response.uri);
       console.log('Gallery Image...', response);
@@ -110,100 +218,14 @@ const ProfileDetails = () => {
     console.log('Open Camera...');
     if (response.didCancel) {
       console.log('User canceled taking a photo');
-      // setSelectImage(false);
     } else if (response.error) {
       console.log('Camera Error: ', response.error);
-      // setSelectImage(false);
     } else {
-      setSelectedImage(response.assets[0]?.uri || response.uri);
-      console.log('Camera Image...', response.assets[0]?.uri);
+      // setSelectedImage(response.assets[0]?.uri || response.uri);
+      console.log('Camera Image...', response);
     }
   };
 
-  const renderFormField = field => {
-    switch (field.type) {
-      case 'text':
-      case 'multiline':
-        return (
-          <View key={field.label} style={styles.fieldContainer}>
-            <Text style={styles.heading}>{field.label}</Text>
-            <CustomInput
-              placeholder={field.placeholder}
-              numberOfLines={field.numberOfLines || 1}
-              setvalue={text => {
-                if (field.label === 'First Name') {
-                  setLocalFullName(text);
-                } else if (field.label === 'Last Name') {
-                  setLocalLastName(text);
-                } else if (field.label === 'Mobile Number') {
-                  setLocalMobileNumber(text);
-                } else if (field.label === 'Address') {
-                  setLocalAddress(text);
-                }
-              }}
-            />
-          </View>
-        );
-      case 'dropdown':
-        return (
-          <View key={field.label} style={styles.fieldContainer}>
-            <Text style={styles.heading}>{field.label}</Text>
-            <TouchableOpacity style={styles.button}>
-              <Picker
-              style={{width: 300, height:200}}
-                selectedValue={selectedGender}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSelectedGender(itemValue)
-                }>
-                <Picker.Item label="Select Gender" value="" />
-                {field.options.map((option, index) => (
-                  <Picker.Item key={index} label={option} value={option} />
-                ))}
-              </Picker>
-            </TouchableOpacity>
-          </View>
-        );
-      case 'date':
-        return (
-          <View key={field.label} style={styles.fieldContainer}>
-            <Text style={styles.heading}>{field.label}</Text>
-            <TouchableOpacity
-              onPress={() => setOpen(true)}
-              style={styles.button}>
-              <Text style={styles.dateText}>{date.toDateString()}</Text>
-            </TouchableOpacity>
-            <DatePicker
-              modal
-              mode="date"
-              open={open}
-              date={date}
-              onConfirm={date => {
-                setOpen(false);
-                setDate(date);
-              }}
-              onCancel={() => {
-                setOpen(false);
-              }}
-            />
-          </View>
-        );
-      default:
-        return null;
-    }
-  };
-
-  const handleDocumentSelection = useCallback(async () => {
-    try {
-      const response = await DocumentPicker.pick({
-        presentationStyle: 'fullScreen',
-        type: [DocumentPicker.types.pdf],
-      });
-      setFileResponse(response);
-      console.log('document response', fileResponse[0]?.uri);
-    } catch (err) {
-      console.warn(err);
-    }
-  }, []);
 
   const handleSubmit = () => {
     // Check for empty fields
@@ -241,35 +263,17 @@ const ProfileDetails = () => {
     <SafeAreaView style={styles.container}>
       <Header title="Additional" onPress={() => navigation.goBack()} />
       <ScrollView>
-        <View>
-          <IconButton
-            iconName="pencil"
-            iconSize={30}
-            buttonStyle={styles.editIcon}
-            onPress={handleUploadImage}
-          />
+        <TouchableOpacity onPress={handleUploadImage}>
           {selectedImage ? (
             <Image source={{uri: selectedImage}} style={styles.profileImage} />
           ) : (
-            <View style={styles.profileImage}>
-              <Icon name="person-circle-outline" size={200} color="gray" />
-            </View>
+            <Image source={Images.profile} style={styles.profileImage} />
           )}
-        </View>
+        </TouchableOpacity>
         {fields.map(renderFormField)}
-        {fileResponse.map((file, index) => (
-          <Text
-            key={index.toString()}
-            style={[styles.button, styles.heading, {padding: 10}]}
-            numberOfLines={2}
-            ellipsizeMode={'middle'}>
-            {file?.name}
-          </Text>
-        ))}
-        <CustomButton text="Select file" onPress={handleDocumentSelection} />
         {errorFields.length > 0 && (
           <Text style={styles.errorText}>
-            Please fill in all required fields.
+            Please fill all the fields.
           </Text>
         )}
         <CustomButton text="Submit" onPress={handleSubmit} />
@@ -278,4 +282,4 @@ const ProfileDetails = () => {
   );
 };
 
-export default ProfileDetails;
+export default ProfileDetailsScreen;

@@ -35,6 +35,11 @@
             "type": "date",
             "label": "Date of Birth",
             "placeholder": "Select your date of birth"
+        },
+        {
+            "type": "document",
+            "label": "Upload your pdf",
+            "placeholder": "Select PDF Document"
         }
     ]
 }

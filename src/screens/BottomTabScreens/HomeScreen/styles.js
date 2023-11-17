@@ -3,7 +3,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import theme from '../../constants/theme';
+import theme from '../../../constants/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   },
   categoriesContainer: {
     marginBottom: '3%',
-    height: hp('5%')
+    height: hp('5%'),
   },
   categoryText: {
     fontSize: theme.fontSizes.mediumFontText,
@@ -44,11 +44,11 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     width: wp('50'),
     borderRadius: 10,
-    elevation: 5, 
-    shadowColor: 'black', 
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5, 
-    shadowRadius: 5, 
+    elevation: 5,
+    shadowColor: 'black',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
   },
   wishlistButton: {
     position: 'absolute',
@@ -70,14 +70,14 @@ export const styles = StyleSheet.create({
   },
   productTitle: {
     fontFamily: theme.fontFamily.Sen_Medium,
-    fontSize:  theme.fontSizes.smallFontText,
+    fontSize: theme.fontSizes.smallFontText,
     color: theme.fontColors.black,
     marginBottom: 4,
     alignSelf: 'flex-start',
   },
   productPrice: {
     fontFamily: theme.fontFamily.Sen_SemiBold,
-    fontSize:  theme.fontSizes.mediumFont,
+    fontSize: theme.fontSizes.mediumFont,
     color: theme.fontColors.black,
     alignSelf: 'flex-start',
   },

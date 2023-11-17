@@ -1,16 +1,18 @@
 import {View, Text, SafeAreaView, Image, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import Header from '../../components/Common/Header';
-import SettingsCard from '../../components/Settings';
-import Auth from '../../firebase/authService';
-import {Images} from '../../constants/images';
+import Header from '../../../components/Common/Header';
+import SettingsCard from '../../../components/Settings';
+import Auth from '../../../services/authService';
 import {styles} from './styles';
+import {useSelector} from 'react-redux';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
+
+  const profileImage = useSelector(state => state.profileData.profileImage);
 
   useEffect(() => {
     const currentUser = Auth.getCurrentUser();
@@ -24,12 +26,12 @@ const ProfileScreen = () => {
     <SafeAreaView style={styles.container}>
       <Header title="Profile" onPress={() => navigation.goBack()} />
       <ScrollView>
-        <Image source={Images.profile} style={styles.profileImage}></Image>
+        <Image source={{uri: profileImage}} style={styles.profileImage}></Image>
         <Text style={styles.nameText}>{userName}</Text>
         <Text style={styles.emailText}>{userEmail}</Text>
         <Text style={styles.subHead}>Account Settings</Text>
         <SettingsCard
-          iconName="log-out"
+          iconName="logout"
           settings="Logout"
           onPress={() => {
             Auth.logOut();
@@ -37,19 +39,19 @@ const ProfileScreen = () => {
           }}
         />
         <SettingsCard
-          iconName="list"
-          settings="Additional Details"
-          onPress={() => navigation.navigate('ProfileDetails')}
+          iconName="account-edit"
+          settings="Edit Profile"
+          onPress={() => navigation.navigate('ViewProfile')}
         />
         <Text style={styles.subHead}>Orders</Text>
         <SettingsCard
-          iconName="location-sharp"
+          iconName="package-variant-closed"
           settings="Orders"
           onPress={() => navigation.navigate('Orders')}
         />
         <Text style={styles.subHead}>General</Text>
         <SettingsCard
-          iconName="card"
+          iconName="card-bulleted"
           settings="Offers"
           onPress={() => navigation.navigate('ProductDetails')}
         />

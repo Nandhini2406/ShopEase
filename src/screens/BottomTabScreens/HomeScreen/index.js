@@ -11,10 +11,13 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
-import {addToWishlist,removeFromWishlist} from '../../redux/actions/wishlistAction';
-import {addToCart, removeFromCart} from '../../redux/actions/cartActions';
-import {products, categories} from '../../constants/productsData';
-import Header from '../../components/Common/Header';
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from '../../../redux/actions/wishlistAction';
+import {addToCart, removeFromCart} from '../../../redux/actions/cartActions';
+import {products, categories} from '../../../constants/productsData';
+import Header from '../../../components/Common/Header';
 import {styles} from './styles';
 
 const renderCategoryItem = ({item}) => {

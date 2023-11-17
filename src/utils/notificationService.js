@@ -2,7 +2,7 @@ import {AppState} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {startLoginTimer} from './notifyTimer';
 
-export const handleAppStateChange = () => {
+ const handleAppStateChange = () => {
   const appState = AppState.currentState;
 
   if (

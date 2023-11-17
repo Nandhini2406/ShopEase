@@ -10,5 +10,5 @@ export const Images = {
     PurpleT_Shirt: require('../assets/Images/PurpleT-Shirt.png'),
     BlueKurti: require('../assets/Images/WomenBlueKurti.png'),
     WomenKurtis: require('../assets/Images/WomenKurtis.png'),
-    profile: require('../assets/Images/profileImg.jpeg')
+    profile: require('../assets/Images/BlankProfile.jpeg')
 };

@@ -17,7 +17,6 @@ const Header = ({title, onPress, showBackButton = true, rightButtonIcon, onRight
           <Icon name={rightButtonIcon} size={25} color='#006D5B' />
         </TouchableOpacity>
       )}
-      <View style={{flex: 1}} />
     </View>
   );
 };

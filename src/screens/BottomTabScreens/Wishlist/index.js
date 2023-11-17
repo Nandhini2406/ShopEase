@@ -11,10 +11,10 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {removeFromWishlist} from '../../redux/actions/wishlistAction';
-import {addToCart} from '../../redux/actions/cartActions';
-import CustomButton from '../../components/Common/CustomButton';
-import Header from '../../components/Common/Header';
+import {removeFromWishlist} from '../../../redux/actions/wishlistAction';
+import {addToCart} from '../../../redux/actions/cartActions';
+import CustomButton from '../../../components/Common/CustomButton';
+import Header from '../../../components/Common/Header';
 import {styles} from './styles';
 
 const ProductCard = ({

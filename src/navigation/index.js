@@ -8,19 +8,21 @@ import auth from '@react-native-firebase/auth';
 import messaging from '@react-native-firebase/messaging';
 import NetInfo from '@react-native-community/netinfo';
 //Screens
-import SignUpScreen from '../screens/SignUpScreen';
-import LoginScreen from '../screens/LoginScreen';
+import SignUpScreen from '../screens/OnboardingScreens/SignUpScreen';
+import LoginScreen from '../screens/OnboardingScreens/LoginScreen';
 import BottomTabs from './bottomTabs';
 import ProductDetailsScreen from '../screens/ProductDetailScreen';
 import SearchScreen from '../screens/SearchScreen';
 import OrdersScreen from '../screens/OrdersScreen';
-import ProfileDetails from '../screens/ProfileDetails';
+import ProfileDetailsScreen from '../screens/OnboardingScreens/ProfileDetailsScreen';
+import ViewProfileDetails from '../screens/ViewProfileDetails';
+
 import InternetModal from '../components/InternetModal';
 import {
   requestUserPermission,
   notificationListener,
 } from '../services/pushNotification';
-import { sendNotificationListener } from '../utils/notificationService';
+import {sendNotificationListener} from '../utils/notificationService';
 const Stack = createStackNavigator();
 
 const Navigator = () => {
@@ -81,11 +83,12 @@ const Navigator = () => {
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Signup" component={SignUpScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="ProfileDetails" component={ProfileDetailsScreen} />
         <Stack.Screen name="Home" component={BottomTabs} />
         <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Orders" component={OrdersScreen} />
-        <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
+        <Stack.Screen name="ViewProfile" component={ViewProfileDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

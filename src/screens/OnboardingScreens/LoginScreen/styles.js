@@ -3,7 +3,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import theme from '../../constants/theme';
+import theme from '../../../constants/theme';
 
 export const styles = StyleSheet.create({
   logoContainer: {
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: '10%',
   },
-  signup:{
+  signup: {
     color: theme.fontColors.black,
     fontSize: theme.fontSizes.smallFontText,
     fontFamily: theme.fontFamily.Sen_Medium,

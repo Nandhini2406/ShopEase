@@ -16,10 +16,10 @@ import {
   increaseQuantity,
   decreaseQuantity,
   clearCart,
-} from '../../redux/actions/cartActions';
-import {placeOrder} from '../../redux/actions/ordersActions';
-import CustomButton from '../../components/Common/CustomButton';
-import Header from '../../components/Common/Header';
+} from '../../../redux/actions/cartActions';
+import {placeOrder} from '../../../redux/actions/ordersActions';
+import CustomButton from '../../../components/Common/CustomButton';
+import Header from '../../../components/Common/Header';
 import {styles} from './styles';
 
 const ProductCard = ({
@@ -69,7 +69,7 @@ const ProductCard = ({
   );
 };
 
-export const Total = ({totalTxt, rate}) => {
+const Total = ({totalTxt, rate}) => {
   return (
     <View style={styles.totalRow}>
       <Text style={styles.totalText}>{totalTxt}</Text>
