@@ -22,7 +22,7 @@ import {
   requestUserPermission,
   notificationListener,
 } from '../services/pushNotification';
-import {sendNotificationListener} from '../utils/notificationService';
+
 const Stack = createStackNavigator();
 
 const Navigator = () => {
@@ -41,24 +41,34 @@ const Navigator = () => {
   };
 
   useEffect(() => {
-    // Register background handler
     messaging().setBackgroundMessageHandler(async remoteMessage => {
       console.log('Message handled in the background!', remoteMessage);
     });
     checkAuth();
     requestUserPermission();
     notificationListener();
-    // sendNotificationListener();
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected);
-      if (!state.isConnected) {
+      console.log('connection status', state.isConnected);
+      if (!authenticated && state.isConnected) {
         setModalVisible(true);
+      } else {
+        setModalVisible(false);
       }
     });
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [authenticated]);
+
+  const handleNavigationStateChange = state => {
+    // Display the modal when not authenticated and on the Login or Signup screen
+    if (!authenticated && ['Login', 'Signup'].includes(state.routes[state.index].name)) {
+      setModalVisible(true);
+    } else {
+      setModalVisible(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -67,19 +77,11 @@ const Navigator = () => {
       </View>
     );
   }
-  if (!isConnected) {
-    return (
-      <InternetModal
-        isVisible={isModalVisible}
-        onClose={() => setModalVisible(false)}
-      />
-    );
-  }
+
   return (
-    <NavigationContainer>
+    <NavigationContainer onNavigationStateChange={handleNavigationStateChange}>
       <Stack.Navigator
-        initialRouteName="Login"
-        // initialRouteName={authenticated ? 'Home' : 'Login'}
+        initialRouteName={authenticated ? 'Home' : 'Login'}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Signup" component={SignUpScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
@@ -90,6 +92,13 @@ const Navigator = () => {
         <Stack.Screen name="Orders" component={OrdersScreen} />
         <Stack.Screen name="ViewProfile" component={ViewProfileDetails} />
       </Stack.Navigator>
+      {isModalVisible && (
+        <InternetModal isVisible={isModalVisible} onClose={() => setModalVisible(false)} />
+      )}
+      {!isConnected && authenticated && (
+        // Toast message for no internet connection after authentication
+        <ToastAndroid message="You are offline" />
+      )}
     </NavigationContainer>
   );
 };

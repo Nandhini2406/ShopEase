@@ -1,19 +1,40 @@
 import PushNotification from 'react-native-push-notification';
 import {AppState} from 'react-native';
+import BackgroundTimer from 'react-native-background-timer';
 
 let loginTimer = 0;
-let intervalId;
+let logOutTimer = 0;
+let loginIntervalId;
+let logOutIntervalId;
 let notificationId = null;
 
 export const startLoginTimer = async () => {
+  stopTimers();
   if (!notificationId) {
-    intervalId = setInterval(() => {
+    loginIntervalId = BackgroundTimer.runBackgroundTimer(() => {
       loginTimer++;
       loginNotification(formattedTime(loginTimer));
     }, 1000);
     notificationId = 'default';
-    AppState.addEventListener('focus', handleAppStateChange)
   }
+};
+
+export const startLogOutTimer = async () => {
+  stopTimers();
+  if (!notificationId) {
+    logOutIntervalId = BackgroundTimer.runBackgroundTimer(() => {
+      logOutTimer++;
+      logOutNotification(formattedTime(logOutTimer));
+    }, 1000);
+    notificationId = 'default';
+  }
+};
+
+export const stopTimers = () => {
+  BackgroundTimer.stopBackgroundTimer();
+  loginTimer = 0;
+  logOutTimer = 0;
+  notificationId = null;
 };
 
 const loginNotification = async timer => {
@@ -29,7 +50,18 @@ const loginNotification = async timer => {
   });
 };
 
-const logoutNotification = () => {};
+const logOutNotification = timer => {
+  PushNotification.localNotification({
+    channelId: notificationId,
+    largeIcon: '',
+    smallIcon: 'ic_stat',
+    color: '#006D5B',
+    priority: 'high',
+    title: 'User Logged out',
+    message: `Time Inactive: ${timer}`,
+    id: 1,
+  });
+};
 
 export const formattedTime = milliseconds => {
   let seconds = milliseconds % 60;
@@ -43,14 +75,14 @@ export const formattedTime = milliseconds => {
   return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 };
 
-const handleAppStateChange = () => {
-  const appState = AppState.currentState;
+// const handleAppStateChange = () => {
+//   const appState = AppState.currentState;
 
-  if (
-    appState === 'active' ||
-    appState === 'inactive' ||
-    appState === 'background'
-  ) {
-    startLoginTimer();
-  }
-};
+//   if (
+//     appState === 'active' ||
+//     appState === 'inactive' ||
+//     appState === 'background'
+//   ) {
+//     startLoginTimer();
+//   }
+// };

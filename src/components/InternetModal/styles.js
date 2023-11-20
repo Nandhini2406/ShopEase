@@ -16,6 +16,14 @@ export const styles = StyleSheet.create({
       fontFamily: theme.fontFamily.Sen_Medium,
       fontSize: theme.fontSizes.mediumFontText,
       color: theme.fontColors.black,
+      textAlign: 'center',
+      padding: 10,
+    },
+   closeText: {
+      fontFamily: theme.fontFamily.Sen_Bold,
+      fontSize: theme.fontSizes.mediumFontText,
+      // color: theme.fontColors.tealGreen,
+      color: 'gold',
     },
     modalView: {
       margin: 20,
@@ -35,7 +43,7 @@ export const styles = StyleSheet.create({
     button: {
       borderRadius: 20,
       padding: 10,
-      elevation: 2,
-      backgroundColor: theme.backgroundColor.tealGreen,
+      // elevation: 2,
+      // backgroundColor: theme.backgroundColor.tealGreen,
     },
   });

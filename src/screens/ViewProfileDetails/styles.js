@@ -10,14 +10,14 @@ export const styles = StyleSheet.create({
     flex: 1,
     padding: '3%',
   },
-  fieldContainer: {
-    marginVertical: '2%',
+  profileContainer: {
     alignSelf: 'center',
   },
   heading: {
     color: theme.fontColors.black,
-    fontSize: theme.fontSizes.mediumFont,
+    fontSize: theme.fontSizes.mediumFontText,
     fontFamily: theme.fontFamily.Sen_Medium,
+    marginVertical: '2%',
   },
   pickerOption: {
     color: theme.fontColors.black,

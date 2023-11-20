@@ -8,7 +8,7 @@ const initialState = {
     address: '',
     dateOfBirth: new Date(),
     profileImage: null,
-    pdfDocument: null,
+    pdfDocument: {},
   };
   
   const profileReducer = (state = initialState, action) => {

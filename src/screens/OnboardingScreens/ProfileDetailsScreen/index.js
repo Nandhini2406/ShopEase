@@ -8,7 +8,6 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -32,9 +31,9 @@ import {
   setProfileImage,
   setPdfDocument,
 } from '../../../redux/actions/profileActions';
+import {NavigationHelpersContext} from '@react-navigation/native';
 
-const ProfileDetailsScreen = () => {
-  const navigation = useNavigation();
+const ProfileDetailsScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const [fileResponse, setFileResponse] = useState([]);
@@ -146,20 +145,20 @@ const ProfileDetailsScreen = () => {
               style={styles.button}
               onPress={handleDocumentSelection}>
               {fileResponse.length === 0 ? (
-              <Text style={[styles.heading, { padding: 10, color: 'gray' }]}>
-                {field.placeholder}
-              </Text>
-            ) : (
-              fileResponse.map((file, index) => (
-                <Text
-                  key={index.toString()}
-                  style={[styles.heading, { padding: 10 }]}
-                  numberOfLines={2}
-                  ellipsizeMode={'middle'}>
-                  {file?.name}
+                <Text style={[styles.heading, {padding: 10, color: 'gray'}]}>
+                  {field.placeholder}
                 </Text>
-              ))
-            )}
+              ) : (
+                fileResponse.map((file, index) => (
+                  <Text
+                    key={index.toString()}
+                    style={[styles.heading, {padding: 10}]}
+                    numberOfLines={2}
+                    ellipsizeMode={'middle'}>
+                    {file?.name}
+                  </Text>
+                ))
+              )}
             </TouchableOpacity>
           </View>
         );
@@ -226,7 +225,6 @@ const ProfileDetailsScreen = () => {
     }
   };
 
-
   const handleSubmit = () => {
     // Check for empty fields
     const isFieldEmpty = value => {
@@ -256,7 +254,9 @@ const ProfileDetailsScreen = () => {
     dispatch(setAddress(localAddress));
     dispatch(setDateOfBirth(date));
     dispatch(setGender(selectedGender));
-    dispatch(setPdfDocument(fileResponse[0]?.uri));
+    dispatch(setPdfDocument({uri: fileResponse[0]?.uri, fileName: fileResponse[0]?.name}));
+
+    navigation.navigate('Home');
   };
 
   return (
@@ -272,9 +272,7 @@ const ProfileDetailsScreen = () => {
         </TouchableOpacity>
         {fields.map(renderFormField)}
         {errorFields.length > 0 && (
-          <Text style={styles.errorText}>
-            Please fill all the fields.
-          </Text>
+          <Text style={styles.errorText}>Please fill all the fields.</Text>
         )}
         <CustomButton text="Submit" onPress={handleSubmit} />
       </ScrollView>

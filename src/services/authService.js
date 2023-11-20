@@ -1,7 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import {Alert} from 'react-native';
-import {startLoginTimer, stopLoginTimer} from '../utils/notifyTimer';
-
+import {startLoginTimer, startLogOutTimer, stopTimers} from '../utils/notifyTimer';
 
 const signUp = (navigation, fullName, email, password) => {
   if (fullName || email || password) {
@@ -80,7 +79,7 @@ const lognIn = (navigation, email, password) => {
 
 const logOut = () => {
   auth().signOut();
-  // stopLoginTimer();
+  startLogOutTimer();
 };
 
 const getCurrentUser = () => {
