@@ -13,6 +13,7 @@ import DatePicker from 'react-native-date-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
 import {useDispatch, useSelector} from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import formFields from '../../../constants/formFields.json';
 import {Images} from '../../../constants/images';
@@ -31,19 +32,17 @@ import {
   setProfileImage,
   setPdfDocument,
 } from '../../../redux/actions/profileActions';
-import {NavigationHelpersContext} from '@react-navigation/native';
 
 const ProfileDetailsScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
-  const [fileResponse, setFileResponse] = useState([]);
-
   const [fields, setFields] = useState(formFields.fields);
   const [open, setOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
   const [errorFields, setErrorFields] = useState([]);
 
   // Local state for form fields
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [fileResponse, setFileResponse] = useState([]);
   const [localFullName, setLocalFullName] = useState('');
   const [localLastName, setLocalLastName] = useState('');
   const [localMobileNumber, setLocalMobileNumber] = useState('');
@@ -208,6 +207,7 @@ const ProfileDetailsScreen = ({navigation}) => {
     } else if (response.error) {
       console.log('ImagePicker Error (Library): ', response.error);
     } else {
+      // setSelectedImage(response);
       setSelectedImage(response.assets[0]?.uri || response.uri);
       console.log('Gallery Image...', response);
     }
@@ -220,7 +220,8 @@ const ProfileDetailsScreen = ({navigation}) => {
     } else if (response.error) {
       console.log('Camera Error: ', response.error);
     } else {
-      // setSelectedImage(response.assets[0]?.uri || response.uri);
+      // setSelectedImage(response);
+      setSelectedImage(response.assets[0]?.uri || response.assets?.uri);
       console.log('Camera Image...', response);
     }
   };
@@ -252,9 +253,9 @@ const ProfileDetailsScreen = ({navigation}) => {
     dispatch(setLastName(localLastName));
     dispatch(setMobileNumber(localMobileNumber));
     dispatch(setAddress(localAddress));
-    dispatch(setDateOfBirth(date));
+    dispatch(setDateOfBirth(date.toDateString()));
     dispatch(setGender(selectedGender));
-    dispatch(setPdfDocument({uri: fileResponse[0]?.uri, fileName: fileResponse[0]?.name}));
+    dispatch(setPdfDocument(fileResponse));
 
     navigation.navigate('Home');
   };
@@ -264,10 +265,16 @@ const ProfileDetailsScreen = ({navigation}) => {
       <Header title="Additional" onPress={() => navigation.goBack()} />
       <ScrollView>
         <TouchableOpacity onPress={handleUploadImage}>
-          {selectedImage ? (
-            <Image source={{uri: selectedImage}} style={styles.profileImage} />
+          {selectedImage !== null ? (
+            <Image
+              source={{uri: selectedImage}}
+              style={styles.profileImage}
+            />
           ) : (
-            <Image source={Images.profile} style={styles.profileImage} />
+            <View style={styles.profileImage}>
+              <Icon name="person-circle-outline" size={200} color="gray" />
+            </View>
+            // <Image source={Images.profile} style={styles.profileImage} />
           )}
         </TouchableOpacity>
         {fields.map(renderFormField)}

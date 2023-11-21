@@ -7,6 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import auth from '@react-native-firebase/auth';
 import messaging from '@react-native-firebase/messaging';
 import NetInfo from '@react-native-community/netinfo';
+import PushNotification from 'react-native-push-notification';
 //Screens
 import SignUpScreen from '../screens/OnboardingScreens/SignUpScreen';
 import LoginScreen from '../screens/OnboardingScreens/LoginScreen';
@@ -16,6 +17,7 @@ import SearchScreen from '../screens/SearchScreen';
 import OrdersScreen from '../screens/OrdersScreen';
 import ProfileDetailsScreen from '../screens/OnboardingScreens/ProfileDetailsScreen';
 import ViewProfileDetails from '../screens/ViewProfileDetails';
+import EditProfileDetails from '../screens/EditProfileDetails';
 
 import InternetModal from '../components/InternetModal';
 import {
@@ -40,6 +42,21 @@ const Navigator = () => {
     }
   };
 
+  // PushNotification.configure({
+  //   onNotification: function (notification) {
+  //     console.log('NOTIFICATION:', notification);
+  //   },
+  //   popInitialNotification: false,
+  //   requestPermissions: Platform.OS === 'ios',
+  // });
+  const createChannel = () => {
+    PushNotification.createChannel({
+      channelId: 'default',
+      channelName: 'Default',
+      playSound: false,
+    });
+  };
+
   useEffect(() => {
     messaging().setBackgroundMessageHandler(async remoteMessage => {
       console.log('Message handled in the background!', remoteMessage);
@@ -47,10 +64,10 @@ const Navigator = () => {
     checkAuth();
     requestUserPermission();
     notificationListener();
+    createChannel();
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected);
-      console.log('connection status', state.isConnected);
-      if (!authenticated && state.isConnected) {
+      if (!authenticated && !state.isConnected) {
         setModalVisible(true);
       } else {
         setModalVisible(false);
@@ -63,7 +80,10 @@ const Navigator = () => {
 
   const handleNavigationStateChange = state => {
     // Display the modal when not authenticated and on the Login or Signup screen
-    if (!authenticated && ['Login', 'Signup'].includes(state.routes[state.index].name)) {
+    if (
+      !authenticated &&
+      ['Login', 'Signup'].includes(state.routes[state.index].name)
+    ) {
       setModalVisible(true);
     } else {
       setModalVisible(false);
@@ -91,9 +111,13 @@ const Navigator = () => {
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Orders" component={OrdersScreen} />
         <Stack.Screen name="ViewProfile" component={ViewProfileDetails} />
+        <Stack.Screen name="EditProfile" component={EditProfileDetails} />
       </Stack.Navigator>
       {isModalVisible && (
-        <InternetModal isVisible={isModalVisible} onClose={() => setModalVisible(false)} />
+        <InternetModal
+          isVisible={isModalVisible}
+          onClose={() => setModalVisible(false)}
+        />
       )}
       {!isConnected && authenticated && (
         // Toast message for no internet connection after authentication

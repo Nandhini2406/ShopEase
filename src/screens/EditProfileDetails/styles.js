@@ -6,21 +6,25 @@ import {
 import theme from '../../constants/theme';
 
 export const styles = StyleSheet.create({
-  fieldContainer: {
-    marginVertical: '2%',
+  container: {
+    flex: 1,
+    padding: '3%',
+  },
+  profileContainer: {
     alignSelf: 'center',
   },
   heading: {
     color: theme.fontColors.black,
-    fontSize: theme.fontSizes.mediumFont,
+    fontSize: theme.fontSizes.mediumFontText,
     fontFamily: theme.fontFamily.Sen_Medium,
+    marginVertical: '2%',
   },
   pickerOption: {
     color: theme.fontColors.black,
     fontSize: theme.fontSizes.mediumFont,
     fontFamily: theme.fontFamily.Sen_Medium,
   },
-  fieldInput: {
+  button: {
     width: wp('80%'),
     height: hp('6%'),
 
@@ -35,5 +39,27 @@ export const styles = StyleSheet.create({
     color: theme.fontColors.black,
     fontSize: theme.fontSizes.mediumFont,
     fontFamily: theme.fontFamily.Sen_Regular,
+  },
+  profileImage: {
+    width: wp('50%'),
+    height: hp('23%'),
+    borderRadius: wp('25%'),
+    alignSelf: 'center',
+    marginVertical: '2%',
+    backgroundColor: theme.backgroundColor.gray,
+  },
+  editIcon: {
+    alignSelf: 'flex-end',
+    right: '3%',
+    borderRadius: wp('25%'),
+    zIndex: 1,
+    padding: 10,
+    backgroundColor: theme.backgroundColor.tealGreen,
+  },
+  errorText: {
+    alignSelf: 'center',
+    color: theme.fontColors.orange,
+    fontSize: theme.fontSizes.smallFont,
+    fontFamily: theme.fontFamily.Sen_Medium,
   },
 });

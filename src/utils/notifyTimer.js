@@ -1,5 +1,4 @@
 import PushNotification from 'react-native-push-notification';
-import {AppState} from 'react-native';
 import BackgroundTimer from 'react-native-background-timer';
 
 let loginTimer = 0;
@@ -10,6 +9,7 @@ let notificationId = null;
 
 export const startLoginTimer = async () => {
   stopTimers();
+  console.log('User Logged in timer notification');
   if (!notificationId) {
     loginIntervalId = BackgroundTimer.runBackgroundTimer(() => {
       loginTimer++;
@@ -21,6 +21,7 @@ export const startLoginTimer = async () => {
 
 export const startLogOutTimer = async () => {
   stopTimers();
+  console.log('User Logged out timer notification');
   if (!notificationId) {
     logOutIntervalId = BackgroundTimer.runBackgroundTimer(() => {
       logOutTimer++;
@@ -46,6 +47,7 @@ const loginNotification = async timer => {
     priority: 'high',
     title: 'User Logged in',
     message: `Time Active: ${timer}`,
+    playSound: false,
     id: 0,
   });
 };
@@ -59,6 +61,7 @@ const logOutNotification = timer => {
     priority: 'high',
     title: 'User Logged out',
     message: `Time Inactive: ${timer}`,
+    playSound: false,
     id: 1,
   });
 };

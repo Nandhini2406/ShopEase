@@ -11,11 +11,12 @@ export const styles = StyleSheet.create({
     padding: '3%',
   },
   profileImage: {
-    width: wp('26%'),
-    height: hp('12%'),
-    borderRadius: 100,
+    width: wp('30%'),
+    height: hp('15%'),
+    borderRadius: wp('20%'),
     alignSelf: 'center',
     marginTop: '7%',
+    backgroundColor: 'grey',
   },
   nameText: {
     color: theme.fontColors.black,

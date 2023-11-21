@@ -1,6 +1,14 @@
-import {View, Text, SafeAreaView, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from '../../../components/Common/Header';
 import SettingsCard from '../../../components/Settings';
 import Auth from '../../../services/authService';
@@ -26,7 +34,13 @@ const ProfileScreen = () => {
     <SafeAreaView style={styles.container}>
       <Header title="Profile" onPress={() => navigation.goBack()} />
       <ScrollView>
-        <Image source={{uri: profileImage}} style={styles.profileImage}></Image>
+        <TouchableOpacity>
+          {profileImage === null ? (
+            <Icon name="account" size={110} style={styles.profileImage} />
+          ) : (
+            <Image source={{uri: profileImage}} style={styles.profileImage} />
+          )}
+        </TouchableOpacity>
         <Text style={styles.nameText}>{userName}</Text>
         <Text style={styles.emailText}>{userEmail}</Text>
         <Text style={styles.subHead}>Account Settings</Text>
@@ -37,6 +51,11 @@ const ProfileScreen = () => {
             Auth.logOut();
             navigation.navigate('Login');
           }}
+        />
+        <SettingsCard
+          iconName="account"
+          settings="Save Profile Details"
+          onPress={() => navigation.navigate('ProfileDetails')}
         />
         <SettingsCard
           iconName="account-edit"

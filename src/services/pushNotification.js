@@ -10,7 +10,7 @@ export const requestUserPermission = async () => {
     if (enabled) {
       console.log('Authorization status:', authStatus);
       await getFCMToken();
-    }
+          }
   } catch (error) {
     console.log(error);
   }
