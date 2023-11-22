@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector, useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
 import {removeFromWishlist} from '../../../redux/actions/wishlistAction';
 import {addToCart} from '../../../redux/actions/cartActions';
 import CustomButton from '../../../components/Common/CustomButton';
@@ -22,6 +21,7 @@ const ProductCard = ({
   title,
   price,
   image,
+  isAddedToCart,
   onRemoveFromWishlist,
   onAddToCart,
 }) => {
@@ -29,7 +29,11 @@ const ProductCard = ({
     onRemoveFromWishlist(id);
   };
   const handleAddToCart = () => {
-    onAddToCart({id, title, price, image, quantity: 1});
+    if (!isAddedToCart) {
+      onAddToCart({ id, title, price, image, quantity: 1 });
+      console.log('products on cart...', { id, title, price, image, quantity: 1 });
+      ToastAndroid.show('Item added to Cart', 600);
+    }
   };
 
   return (
@@ -47,17 +51,20 @@ const ProductCard = ({
             <Icon name={'heart'} size={24} color={'#006D5B'} />
           </TouchableOpacity>
         </View>
-        <CustomButton text="Add to Cart" onPress={handleAddToCart} />
+        <CustomButton  text={isAddedToCart ? 'Added Successfully' : 'Add to Cart'} onPress={handleAddToCart} />
       </View>
     </>
   );
 };
 
-const WishlistScreen = () => {
+const WishlistScreen = ({navigation}) => {
   const wishlist = useSelector(state => state.wishlist);
+  const cart = useSelector(state => state.cart);
   const dispatch = useDispatch();
-  const navigation = useNavigation();
 
+  const isProductInCart = productId => {
+    return cart.cartItems.some(item => item.id === productId);
+  };
   const handleRemoveFromWishlist = productId => {
     dispatch(removeFromWishlist(productId));
   };
@@ -79,6 +86,7 @@ const WishlistScreen = () => {
           renderItem={({item}) => (
             <ProductCard
               {...item}
+              isAddedToCart={isProductInCart(item.id)}
               onRemoveFromWishlist={() => handleRemoveFromWishlist(item.id)}
               onAddToCart={handleAddToCart}
             />

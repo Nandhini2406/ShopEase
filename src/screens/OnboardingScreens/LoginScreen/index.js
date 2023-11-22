@@ -85,9 +85,15 @@ const LoginScreen = () => {
               <IconButton
                 iconName="logo-facebook"
                 iconSize={35}
-                onPress={() => navigation.navigate('Home')}
+                iconColor="#006D5B"
+                buttonStyle={{marginHorizontal: '10%'}}
               />
-              <IconButton iconName="logo-google" iconSize={35} />
+              <IconButton
+                iconName="logo-google"
+                iconSize={35}
+                iconColor="#006D5B"
+                buttonStyle={{marginHorizontal: '10%'}}
+              />
             </View>
             <View style={styles.signupContainer}>
               <Text style={styles.signup}>Don't have an account?</Text>

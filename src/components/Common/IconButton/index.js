@@ -1,24 +1,15 @@
-import {TouchableOpacity, StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import theme from '../../../constants/theme';
 
-const IconButton = ({onPress, iconName, iconSize, buttonStyle}) => {
+const IconButton = ({onPress, iconName, iconColor, iconSize, buttonStyle}) => {
   return (
-    <TouchableOpacity style={[styles.iconButton, {buttonStyle}]} onPress={onPress}>
-      <Icon
-        name={iconName}
-        size={iconSize}
-        color={theme.backgroundColor.tealGreen}
-      />
+    <TouchableOpacity
+      style={buttonStyle}
+      onPress={onPress}>
+      <Icon name={iconName} size={iconSize} color={iconColor} />
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  iconButton: {
-    marginHorizontal: '5%',
-  },
-});
 
 export default IconButton;

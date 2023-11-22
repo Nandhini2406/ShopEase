@@ -116,8 +116,18 @@ const SignUpScreen = () => {
           {error && <Text style={styles.errorMsg}>{error}</Text>}
           <Text style={styles.orText}>or</Text>
           <View style={styles.iconContainer}>
-            <IconButton iconName="logo-facebook" iconSize={35} />
-            <IconButton iconName="logo-google" iconSize={35} />
+            <IconButton
+              iconName="logo-facebook"
+              iconSize={35}
+              iconColor="#006D5B"
+              buttonStyle={{marginHorizontal: '10%'}}
+            />
+            <IconButton
+              iconName="logo-google"
+              iconSize={35}
+              iconColor="#006D5B"
+              buttonStyle={{marginHorizontal: '10%'}}
+            />
           </View>
           <View style={styles.loginContainer}>
             <Text style={styles.login}>Already have an account?</Text>
