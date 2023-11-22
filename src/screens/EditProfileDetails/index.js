@@ -1,11 +1,13 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {View, SafeAreaView, ScrollView, Alert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import DocumentPicker from 'react-native-document-picker';
+
 import {styles} from './styles';
 import formFields from '../../constants/formFields.json';
 import Header from '../../components/Common/Header';
 import CustomButton from '../../components/Common/CustomButton';
-import FormField from '../../components/ProfileImage';
+import FormField from '../../components/FormField';
 import {
   setFullName,
   setLastName,
@@ -13,18 +15,19 @@ import {
   setAddress,
   setGender,
   setDateOfBirth,
-  setProfileImage,
   setPdfDocument,
 } from '../../redux/actions/profileActions';
+import {gender} from '../../redux/actionTypes';
 
 const EditProfileDetails = ({navigation}) => {
   const dispatch = useDispatch();
-
+  const profileData = useSelector(state => state.profileData);
+  // console.log('Details..', profileData)
   const [fields, setFields] = useState(formFields.fields);
   const [errorFields, setErrorFields] = useState([]);
+  const [open, setOpen] = useState(false);
 
   // Local state for form fields
-  const [selectedImage, setSelectedImage] = useState(null);
   const [fileResponse, setFileResponse] = useState([]);
   const [localFullName, setLocalFullName] = useState('');
   const [localLastName, setLocalLastName] = useState('');
@@ -33,11 +36,16 @@ const EditProfileDetails = ({navigation}) => {
   const [selectedGender, setSelectedGender] = useState('');
   const [date, setDate] = useState(new Date());
 
-  const imageUri = useSelector(state => state.profileData.profileImage);
-
   useEffect(() => {
-    setSelectedImage(imageUri);
-  }, [imageUri]);
+    // Fetch profile details from state
+    setLocalFullName(profileData.fullName);
+    setLocalLastName(profileData.lastName);
+    setLocalMobileNumber(profileData.mobileNumber);
+    setLocalAddress(profileData.address);
+    setSelectedGender(profileData.gender);
+    setDate(new Date(profileData.dateOfBirth));
+    setFileResponse(profileData.pdfDocument);
+  }, [profileData]);
 
   const handleDocumentSelection = useCallback(async () => {
     try {
@@ -59,8 +67,9 @@ const EditProfileDetails = ({navigation}) => {
         field={field}
         value={getFieldValue(field.label)}
         setValue={value => handleSetValue(field.label, value)}
-        datePickerOpen={false}
-        setDatePickerOpen={() => {}}
+        datePickerOpen={open}
+        handleDatePicker={() => setOpen(true)}
+        cancelDatePicker={() => setOpen(false)}
         date={date}
         setDate={setDate}
         handleDocument={handleDocumentSelection}
@@ -83,7 +92,9 @@ const EditProfileDetails = ({navigation}) => {
       case 'Address':
         setLocalAddress(value);
         break;
-      // Add cases for other fields if needed
+      case 'Gender':
+        setSelectedGender(value);
+        break;
       default:
         break;
     }
@@ -92,6 +103,7 @@ const EditProfileDetails = ({navigation}) => {
   const getFieldValue = fieldName => {
     switch (fieldName) {
       case 'First Name':
+        console.log('First Name', localFullName);
         return localFullName;
       case 'Last Name':
         return localLastName;
@@ -99,7 +111,8 @@ const EditProfileDetails = ({navigation}) => {
         return localMobileNumber;
       case 'Address':
         return localAddress;
-      // Add cases for other fields if needed
+      case 'Gender':
+        return selectedGender;
       default:
         return '';
     }
@@ -127,7 +140,6 @@ const EditProfileDetails = ({navigation}) => {
       return;
     }
     // dispatch the details to the state
-    dispatch(setProfileImage(selectedImage));
     dispatch(setFullName(localFullName));
     dispatch(setLastName(localLastName));
     dispatch(setMobileNumber(localMobileNumber));
@@ -135,13 +147,13 @@ const EditProfileDetails = ({navigation}) => {
     dispatch(setDateOfBirth(date.toDateString()));
     dispatch(setGender(selectedGender));
     dispatch(setPdfDocument(fileResponse));
-    // navigation.goBack();
+    navigation.goBack();
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Edit Profile" onPress={() => navigation.goBack()} />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {fields.map(renderFormField)}
         {errorFields.length > 0 && (
           <Text style={styles.errorText}>Please fill all the fields.</Text>

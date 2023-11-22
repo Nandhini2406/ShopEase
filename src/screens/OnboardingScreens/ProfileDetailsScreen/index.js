@@ -13,8 +13,6 @@ import DatePicker from 'react-native-date-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
 import {useDispatch, useSelector} from 'react-redux';
-import Icon from 'react-native-vector-icons/Ionicons';
-
 import formFields from '../../../constants/formFields.json';
 import {Images} from '../../../constants/images';
 import Header from '../../../components/Common/Header';
@@ -39,7 +37,6 @@ const ProfileDetailsScreen = ({navigation}) => {
   const [fields, setFields] = useState(formFields.fields);
   const [open, setOpen] = useState(false);
   const [errorFields, setErrorFields] = useState([]);
-
   // Local state for form fields
   const [selectedImage, setSelectedImage] = useState(null);
   const [fileResponse, setFileResponse] = useState([]);
@@ -257,24 +254,19 @@ const ProfileDetailsScreen = ({navigation}) => {
     dispatch(setGender(selectedGender));
     dispatch(setPdfDocument(fileResponse));
 
-    navigation.navigate('Home');
+    navigation.goBack();
+    Alert.alert('Details added successfully');
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Additional" onPress={() => navigation.goBack()} />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <TouchableOpacity onPress={handleUploadImage}>
           {selectedImage !== null ? (
-            <Image
-              source={{uri: selectedImage}}
-              style={styles.profileImage}
-            />
+            <Image source={{uri: selectedImage}} style={styles.profileImage} />
           ) : (
-            <View style={styles.profileImage}>
-              <Icon name="person-circle-outline" size={200} color="gray" />
-            </View>
-            // <Image source={Images.profile} style={styles.profileImage} />
+            <Image source={Images.profile} style={styles.profileImage} />
           )}
         </TouchableOpacity>
         {fields.map(renderFormField)}

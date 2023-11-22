@@ -34,7 +34,7 @@ const ProfileScreen = () => {
     <SafeAreaView style={styles.container}>
       <Header title="Profile" onPress={() => navigation.goBack()} />
       <ScrollView>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('ProfileImage')}>
           {profileImage === null ? (
             <Icon name="account" size={110} style={styles.profileImage} />
           ) : (
@@ -72,7 +72,7 @@ const ProfileScreen = () => {
         <SettingsCard
           iconName="card-bulleted"
           settings="Offers"
-          onPress={() => navigation.navigate('ProductDetails')}
+          onPress={() => navigation.navigate('Search')}
         />
       </ScrollView>
     </SafeAreaView>

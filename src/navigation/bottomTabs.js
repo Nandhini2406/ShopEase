@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 const BottomTabs = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeScreen"
       screenOptions={({route}) => ({
         tabBarActiveTintColor: '#fff',
         tabBarInactiveTintColor: '#fff',
@@ -25,7 +25,7 @@ const BottomTabs = () => {
         },
         tabBarIcon: ({focused, color}) => {
           let iconName;
-          if (route.name === 'Home') {
+          if (route.name === 'HomeScreen') {
             iconName = focused ? 'home-sharp' : 'home-outline';
           } else if (route.name === 'WishList') {
             iconName = focused ? 'heart' : 'heart-outline';
@@ -37,7 +37,7 @@ const BottomTabs = () => {
           return <Icon name={iconName} size={30} color={color} />;
         },
       })}>
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="HomeScreen" component={HomeScreen} />
       <Tab.Screen name="WishList" component={WishlistScreen} />
       <Tab.Screen name="MyCart" component={CartScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />

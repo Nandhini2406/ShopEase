@@ -1,6 +1,10 @@
 import auth from '@react-native-firebase/auth';
 import {Alert} from 'react-native';
-import {startLoginTimer, startLogOutTimer, stopTimers} from '../utils/notifyTimer';
+import {
+  startLoginTimer,
+  startLogOutTimer,
+  stopTimers,
+} from '../utils/notifyTimer';
 
 const signUp = (navigation, fullName, email, password) => {
   if (fullName || email || password) {
@@ -33,6 +37,9 @@ const signUp = (navigation, fullName, email, password) => {
               'Signup Error',
               'Weak password. Password should be at least 6 characters.',
             );
+            break;
+          case 'auth/network-request-failed':
+            Alert.alert('Login Error', 'Network error: No internet connection');
             break;
           default:
             Alert.alert('Signup Error', 'An internal error has occurred.');
@@ -68,6 +75,9 @@ const lognIn = (navigation, email, password) => {
               'Login Error',
               'Weak password. Password should be at least 6 characters.',
             );
+            break;
+          case 'auth/network-request-failed':
+            Alert.alert('Login Error', 'Network error: No internet connection');
             break;
           default:
             Alert.alert('Login Error', 'An internal error has occurred.');

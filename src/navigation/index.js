@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 
 import React, {useEffect, useState} from 'react';
-import {View, ActivityIndicator} from 'react-native';
+import {View, ActivityIndicator, ToastAndroid, Alert} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import auth from '@react-native-firebase/auth';
@@ -18,6 +18,7 @@ import OrdersScreen from '../screens/OrdersScreen';
 import ProfileDetailsScreen from '../screens/OnboardingScreens/ProfileDetailsScreen';
 import ViewProfileDetails from '../screens/ViewProfileDetails';
 import EditProfileDetails from '../screens/EditProfileDetails';
+import ProfileImageScreen from '../screens/ProfileImageScreen';
 
 import InternetModal from '../components/InternetModal';
 import {
@@ -42,30 +43,24 @@ const Navigator = () => {
     }
   };
 
-  // PushNotification.configure({
-  //   onNotification: function (notification) {
-  //     console.log('NOTIFICATION:', notification);
-  //   },
-  //   popInitialNotification: false,
-  //   requestPermissions: Platform.OS === 'ios',
-  // });
+  PushNotification.configure({
+    onNotification: function (notification) {
+      console.log('NOTIFICATION:', notification);
+    },
+    popInitialNotification: false,
+    requestPermissions: Platform.OS === 'ios' && 'android',
+  });
   const createChannel = () => {
     PushNotification.createChannel({
       channelId: 'default',
       channelName: 'Default',
       playSound: false,
+      popInitialNotification: false,
     });
   };
 
   useEffect(() => {
-    messaging().setBackgroundMessageHandler(async remoteMessage => {
-      console.log('Message handled in the background!', remoteMessage);
-    });
-    checkAuth();
-    requestUserPermission();
-    notificationListener();
-    createChannel();
-    const unsubscribe = NetInfo.addEventListener(state => {
+    const unsubscribeNetInfo = NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected);
       if (!authenticated && !state.isConnected) {
         setModalVisible(true);
@@ -73,22 +68,45 @@ const Navigator = () => {
         setModalVisible(false);
       }
     });
-    return () => {
-      unsubscribe();
-    };
-  }, [authenticated]);
 
-  const handleNavigationStateChange = state => {
-    // Display the modal when not authenticated and on the Login or Signup screen
-    if (
-      !authenticated &&
-      ['Login', 'Signup'].includes(state.routes[state.index].name)
-    ) {
-      setModalVisible(true);
-    } else {
-      setModalVisible(false);
-    }
-  };
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage);
+    });
+
+    const onAuthChange = user => {
+      const isAuthenticated = user !== null;
+      setAuthenticated(isAuthenticated);
+
+      if (isAuthenticated && !isConnected) {
+        ToastAndroid.show('You are offline', 50000);
+        Alert.alert('you are offline');
+      }
+    };
+
+    const unsubscribeAuth = auth().onAuthStateChanged(onAuthChange);
+
+    checkAuth();
+    requestUserPermission();
+    notificationListener();
+    createChannel();
+
+    return () => {
+      // Cleanup functions to unsubscribe when the component unmounts
+      unsubscribeNetInfo();
+      unsubscribeAuth();
+    };
+  }, [authenticated, isConnected]);
+
+  // const handleNavigationStateChange = state => {
+  //   if (
+  //     !authenticated &&
+  //     ['Login', 'Signup'].includes(state.routes[state.index].name)
+  //   ) {
+  //     setModalVisible(true);
+  //   } else {
+  //     setModalVisible(false);
+  //   }
+  // };
 
   if (loading) {
     return (
@@ -99,7 +117,7 @@ const Navigator = () => {
   }
 
   return (
-    <NavigationContainer onNavigationStateChange={handleNavigationStateChange}>
+    <NavigationContainer>
       <Stack.Navigator
         initialRouteName={authenticated ? 'Home' : 'Login'}
         screenOptions={{headerShown: false}}>
@@ -112,16 +130,13 @@ const Navigator = () => {
         <Stack.Screen name="Orders" component={OrdersScreen} />
         <Stack.Screen name="ViewProfile" component={ViewProfileDetails} />
         <Stack.Screen name="EditProfile" component={EditProfileDetails} />
+        <Stack.Screen name="ProfileImage" component={ProfileImageScreen} />
       </Stack.Navigator>
       {isModalVisible && (
         <InternetModal
           isVisible={isModalVisible}
           onClose={() => setModalVisible(false)}
         />
-      )}
-      {!isConnected && authenticated && (
-        // Toast message for no internet connection after authentication
-        <ToastAndroid message="You are offline" />
       )}
     </NavigationContainer>
   );

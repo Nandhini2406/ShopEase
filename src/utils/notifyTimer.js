@@ -39,6 +39,7 @@ export const stopTimers = () => {
 };
 
 const loginNotification = async timer => {
+  
   PushNotification.localNotification({
     channelId: notificationId,
     largeIcon: '',
@@ -49,6 +50,7 @@ const loginNotification = async timer => {
     message: `Time Active: ${timer}`,
     playSound: false,
     id: 0,
+    popInitialNotification: false,
   });
 };
 
@@ -63,6 +65,7 @@ const logOutNotification = timer => {
     message: `Time Inactive: ${timer}`,
     playSound: false,
     id: 1,
+    popInitialNotification: false,
   });
 };
 

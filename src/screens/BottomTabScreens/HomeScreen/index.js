@@ -1,16 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
-  View,
   Text,
-  Image,
   FlatList,
   SafeAreaView,
   TouchableOpacity,
   ToastAndroid,
+  RefreshControl,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import Icon from 'react-native-vector-icons/Ionicons';
-import {useNavigation} from '@react-navigation/native';
 import {
   addToWishlist,
   removeFromWishlist,
@@ -19,63 +16,28 @@ import {addToCart, removeFromCart} from '../../../redux/actions/cartActions';
 import {products, categories} from '../../../constants/productsData';
 import Header from '../../../components/Common/Header';
 import {styles} from './styles';
+import ProductCard from '../../../components/ProductCard';
 
-const renderCategoryItem = ({item}) => {
+const renderCategoryItem = ({item, selectedCategory, handleCategoryPress}) => {
   return (
-    <View style={styles.categoryItem}>
+    <TouchableOpacity
+      style={[
+        styles.categoryItem,
+        selectedCategory?.id === item.id && styles.selectedCategory,
+      ]}
+      onPress={() => handleCategoryPress(item)}>
       <Text style={styles.categoryText}>{item.name}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
-const ProductCard = ({
-  id,
-  title,
-  price,
-  image,
-  onAddToWishlist,
-  onAddToCart,
-  isWishlist,
-  isAddedToCart,
-}) => {
-  const handleAddToWishlist = () => {
-    onAddToWishlist({id, title, price, image});
-  };
-  const handleAddToCart = () => {
-    onAddToCart({id, title, price, image, quantity: 1});
-  };
-
-  return (
-    <View style={styles.productCard}>
-      <Image source={image} style={styles.productImage} />
-      <TouchableOpacity
-        onPress={handleAddToWishlist}
-        style={styles.wishlistButton}>
-        <Icon
-          name={isWishlist ? 'heart' : 'heart-outline'}
-          size={24}
-          color={isWishlist ? '#006D5B' : 'black'}
-        />
-      </TouchableOpacity>
-      <Text style={styles.productTitle}>{title}</Text>
-      <Text style={styles.productPrice}>${price}</Text>
-      {/* Add to cart Button with icon */}
-      <TouchableOpacity onPress={handleAddToCart} style={styles.addCartButton}>
-        <Icon
-          name={isAddedToCart ? 'add-circle' : 'add-circle-outline'}
-          color={isAddedToCart ? '#006D5B' : 'black'}
-          size={24}
-        />
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const HomeScreen = () => {
-  const wishlist = useSelector(state => state.wishlist); // useSelector to get the wishlist from Redux store
-  const cart = useSelector(state => state.cart); // useSelector to get the wishlist from Redux store
-  const navigation = useNavigation();
+const HomeScreen = ({navigation}) => {
+  const wishlist = useSelector(state => state.wishlist);
+  const cart = useSelector(state => state.cart);
   const dispatch = useDispatch();
+
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleAddToWishlist = product => {
     const productId = product.id;
@@ -106,6 +68,22 @@ const HomeScreen = () => {
     return cart.cartItems.some(product => product.id === productId);
   };
 
+  const handleCategoryPress = category => {
+    setSelectedCategory(category);
+  };
+
+  const filteredProducts = selectedCategory
+    ? products.filter(product => product.category === selectedCategory.name)
+    : products;
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      setIsRefreshing(false);
+      setSelectedCategory(null);
+    }, 100);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header
@@ -115,20 +93,29 @@ const HomeScreen = () => {
         onRightButtonPress={() => navigation.navigate('Search')}
       />
       <FlatList
+        refreshControl={
+          <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
+        }
         ListHeaderComponent={() => (
           <>
             <Text style={styles.heading}>Category</Text>
             <FlatList
               horizontal={true}
               data={categories}
-              renderItem={renderCategoryItem}
+              renderItem={({item}) =>
+                renderCategoryItem({
+                  item,
+                  selectedCategory,
+                  handleCategoryPress,
+                })
+              }
               showsHorizontalScrollIndicator={false}
               style={styles.categoriesContainer}
             />
             <Text style={styles.heading}>Featured Products</Text>
           </>
         )}
-        data={products}
+        data={filteredProducts}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
           <ProductCard
@@ -137,6 +124,9 @@ const HomeScreen = () => {
             onAddToCart={handleAddToCart}
             isWishlist={isProductInWishlist(item.id)}
             isAddedToCart={isProductInCart(item.id)}
+            handleProduct={() =>
+              navigation.navigate('ProductDetails', {productId: item.id})
+            }
           />
         )}
         numColumns={2}

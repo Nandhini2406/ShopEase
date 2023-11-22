@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     borderRadius: wp('20%'),
     alignSelf: 'center',
     marginTop: '7%',
-    backgroundColor: 'grey',
+    backgroundColor: theme.backgroundColor.gray,
   },
   nameText: {
     color: theme.fontColors.black,

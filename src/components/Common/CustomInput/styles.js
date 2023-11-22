@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
 
     fontSize: theme.fontSizes.mediumFont,
     fontFamily: theme.fontFamily.Sen_Regular,
-
+    color: theme.fontColors.black,
     borderColor: theme.borderColor.myrtleGreen,
     borderRadius: 15,
     borderWidth: 2,
