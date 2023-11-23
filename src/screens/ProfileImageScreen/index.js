@@ -90,17 +90,15 @@ const ProfileImageScreen = () => {
     dispatch(setProfileImage(null));
   };
   const handleClose = () => {
-    console.log('Closed...')
+    console.log('Closed...');
     navigation.goBack();
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header} >
-        <TouchableOpacity onPress={handleClose}>
-          <Icon name="close" size={30} color="white" />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={handleClose} style={styles.header}>
+        <Icon name="close" size={30} color="white" />
+      </TouchableOpacity>
       {selectedImage !== null ? (
         <Image source={{uri: selectedImage}} style={styles.fullScreenImage} />
       ) : (

@@ -254,7 +254,7 @@ const ProfileDetailsScreen = ({navigation}) => {
     dispatch(setGender(selectedGender));
     dispatch(setPdfDocument(fileResponse));
 
-    navigation.goBack();
+    navigation.navigate('HomeScreen');
     Alert.alert('Details added successfully');
   };
 

@@ -131,7 +131,7 @@ const CartScreen = () => {
             )}
           />
           <View style={styles.totalContainer}>
-            <Text style={styles.divider}>-----------------------------</Text>
+            <Text style={styles.divider}>-----------------------------------------</Text>
             <Total totalTxt="Total Prize" rate={totalPrice} />
             <Total totalTxt="Discount" rate={discount} />
             <Total totalTxt="Shipping" rate={shipping} />

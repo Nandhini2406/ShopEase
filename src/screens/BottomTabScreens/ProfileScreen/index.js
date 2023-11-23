@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Images } from '../../../constants/images';
 import Header from '../../../components/Common/Header';
 import SettingsCard from '../../../components/Settings';
 import Auth from '../../../services/authService';
@@ -36,7 +36,7 @@ const ProfileScreen = () => {
       <ScrollView>
         <TouchableOpacity onPress={() => navigation.navigate('ProfileImage')}>
           {profileImage === null ? (
-            <Icon name="account" size={110} style={styles.profileImage} />
+            <Image source={Images.profile} style={styles.profileImage} />
           ) : (
             <Image source={{uri: profileImage}} style={styles.profileImage} />
           )}

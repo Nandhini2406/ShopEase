@@ -6,7 +6,6 @@ import {
   SafeAreaView,
   Image,
   TouchableOpacity,
-  ToastAndroid,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector, useDispatch} from 'react-redux';
@@ -32,7 +31,6 @@ const ProductCard = ({
     if (!isAddedToCart) {
       onAddToCart({ id, title, price, image, quantity: 1 });
       console.log('products on cart...', { id, title, price, image, quantity: 1 });
-      ToastAndroid.show('Item added to Cart', 600);
     }
   };
 
@@ -70,9 +68,8 @@ const WishlistScreen = ({navigation}) => {
   };
 
   const handleAddToCart = product => {
-    dispatch(addToCart(product)); // Dispatch addToCart action
+    dispatch(addToCart(product));
     console.log('products on cart...', product);
-    ToastAndroid.show('Item added to Cart', 600);
   };
 
   return (

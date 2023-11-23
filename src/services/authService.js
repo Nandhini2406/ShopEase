@@ -56,7 +56,7 @@ const lognIn = (navigation, email, password) => {
       .then(user => {
         console.log('User logged in: ', user.user.displayName);
         console.log('User uid: ', auth().currentUser.uid);
-        navigation.navigate('Home');
+        navigation.navigate('HomeScreen');
         startLoginTimer();
       })
       .catch(error => {

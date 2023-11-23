@@ -4,7 +4,6 @@ import {
   FlatList,
   SafeAreaView,
   TouchableOpacity,
-  ToastAndroid,
   RefreshControl,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
@@ -46,7 +45,6 @@ const HomeScreen = ({navigation}) => {
       dispatch(removeFromWishlist(productId));
     } else {
       dispatch(addToWishlist(product));
-      ToastAndroid.show('Item added to Wishlist', ToastAndroid.SHORT);
     }
   };
 
@@ -57,7 +55,6 @@ const HomeScreen = ({navigation}) => {
       dispatch(removeFromCart(productId));
     } else {
       dispatch(addToCart(product));
-      ToastAndroid.show('Item added to Cart', ToastAndroid.SHORT);
     }
   };
 
