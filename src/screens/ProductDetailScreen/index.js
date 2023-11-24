@@ -39,7 +39,15 @@ const ProductDetailsScreen = ({route, navigation}) => {
     if (isProductInCart(productId)) {
       setButtonText('Added Successfully');
     } else {
-      dispatch(addToCart({id: product.id, title: product.title, price: product.price, image: product.image, quantity: 1}));
+      dispatch(
+        addToCart({
+          id: product.id,
+          title: product.title,
+          price: product.price,
+          image: product.image,
+          quantity: 1,
+        }),
+      );
       setButtonText('Added Successfully');
     }
   };

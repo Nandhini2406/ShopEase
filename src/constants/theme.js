@@ -15,6 +15,29 @@ const fontSizes = {
   smallFontText: hp('1.8%'),
 };
 
+const colors = {
+  light: {
+    primary: '#FAFAFA',
+    secondaryBlack: '#F0F0EF',
+    tertiary: '#4b5563',
+    accent: '#006D5B',
+    tint: '#111827',
+  },
+  dark: {
+    primary: '#1f2937',
+    secondaryBlack: '#111827',
+    tertiary: '#d1d5db',
+    accent: '#006D5B',
+    tint: '#FAFAFA',
+    grey: '#4b5563' 
+  },
+  primary: '#FAFAFA',
+  secondaryBlack: '#F0F0EF',
+  tertiary: '#4b5563',
+  accent: '#006D5B',
+  tint: '#111827',
+};
+
 const backgroundColor = {
   tealGreen: '#006D5B',
   myrtleGreen: '#317773',
@@ -62,6 +85,7 @@ const fontColors = {
 };
 
 export default {
+  colors,
   fontSizes,
   fontFamily,
   fontColors,

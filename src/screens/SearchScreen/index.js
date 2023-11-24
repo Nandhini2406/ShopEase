@@ -43,12 +43,12 @@ const SearchScreen = ({navigation}) => {
           style={styles.searchList}
           renderItem={({item}) => (
             <TouchableOpacity
-            style={styles.searchResults}
+              style={styles.searchResults}
               onPress={() =>
                 navigation.navigate('ProductDetails', {productId: item.id})
               }>
               <Text style={styles.resultText}>{item.title}</Text>
-              <Image source={item.image} style={styles.productImage}/>
+              <Image source={item.image} style={styles.productImage} />
             </TouchableOpacity>
           )}
         />

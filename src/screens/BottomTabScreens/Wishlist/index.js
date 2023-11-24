@@ -29,8 +29,14 @@ const ProductCard = ({
   };
   const handleAddToCart = () => {
     if (!isAddedToCart) {
-      onAddToCart({ id, title, price, image, quantity: 1 });
-      console.log('products on cart...', { id, title, price, image, quantity: 1 });
+      onAddToCart({id, title, price, image, quantity: 1});
+      console.log('products on cart...', {
+        id,
+        title,
+        price,
+        image,
+        quantity: 1,
+      });
     }
   };
 
@@ -49,7 +55,10 @@ const ProductCard = ({
             <Icon name={'heart'} size={24} color={'#006D5B'} />
           </TouchableOpacity>
         </View>
-        <CustomButton  text={isAddedToCart ? 'Added Successfully' : 'Add to Cart'} onPress={handleAddToCart} />
+        <CustomButton
+          text={isAddedToCart ? 'Added Successfully' : 'Add to Cart'}
+          onPress={handleAddToCart}
+        />
       </View>
     </>
   );

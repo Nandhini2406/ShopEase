@@ -1,19 +1,13 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import { Images } from '../../../constants/images';
-import Header from '../../../components/Common/Header';
+import {Images} from '../../../constants/images';
 import SettingsCard from '../../../components/Settings';
 import Auth from '../../../services/authService';
 import {styles} from './styles';
 import {useSelector} from 'react-redux';
+import MainContainer from '../../../components/Common/MainContainer';
+import StyledText from '../../../components/Common/StyledText';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -31,51 +25,58 @@ const ProfileScreen = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header title="Profile" onPress={() => navigation.goBack()} />
-      <ScrollView>
-        <TouchableOpacity onPress={() => navigation.navigate('ProfileImage')}>
-          {profileImage === null ? (
-            <Image source={Images.profile} style={styles.profileImage} />
-          ) : (
-            <Image source={{uri: profileImage}} style={styles.profileImage} />
-          )}
-        </TouchableOpacity>
-        <Text style={styles.nameText}>{userName}</Text>
-        <Text style={styles.emailText}>{userEmail}</Text>
-        <Text style={styles.subHead}>Account Settings</Text>
-        <SettingsCard
-          iconName="logout"
-          settings="Logout"
-          onPress={() => {
-            Auth.logOut();
-            navigation.navigate('Login');
-          }}
-        />
-        <SettingsCard
-          iconName="account"
-          settings="Save Profile Details"
-          onPress={() => navigation.navigate('ProfileDetails')}
-        />
-        <SettingsCard
-          iconName="account-edit"
-          settings="Edit Profile"
-          onPress={() => navigation.navigate('ViewProfile')}
-        />
-        <Text style={styles.subHead}>Orders</Text>
-        <SettingsCard
-          iconName="package-variant-closed"
-          settings="Orders"
-          onPress={() => navigation.navigate('Orders')}
-        />
-        <Text style={styles.subHead}>General</Text>
-        <SettingsCard
-          iconName="card-bulleted"
-          settings="Offers"
-          onPress={() => navigation.navigate('Search')}
-        />
-      </ScrollView>
-    </SafeAreaView>
+    <MainContainer title="Profile" onPress={() => navigation.goBack()} style={{padding: '3%'}}>
+      <TouchableOpacity onPress={() => navigation.navigate('ProfileImage')}>
+        {profileImage === null ? (
+          <Image source={Images.profile} style={styles.profileImage} />
+        ) : (
+          <Image source={{uri: profileImage}} style={styles.profileImage} />
+        )}
+      </TouchableOpacity>
+      <StyledText style={styles.nameText}>{userName}</StyledText>
+      <StyledText style={styles.emailText}>{userEmail}</StyledText>
+      <StyledText style={styles.subHead}>Account Settings</StyledText>
+      <SettingsCard
+        iconName="logout"
+        settings="Logout"
+        onPress={() => {
+          Auth.logOut();
+          navigation.navigate('Login');
+        }}
+      />
+      <SettingsCard
+        iconName="account"
+        settings="Save Profile Details"
+        onPress={() => navigation.navigate('ProfileDetails')}
+      />
+      <SettingsCard
+        iconName="account-edit"
+        settings="Edit Profile"
+        onPress={() => navigation.navigate('ViewProfile')}
+      />
+      <StyledText style={styles.subHead}>Orders</StyledText>
+      <SettingsCard
+        iconName="package-variant-closed"
+        settings="Orders"
+        onPress={() => navigation.navigate('Orders')}
+      />
+      <StyledText style={styles.subHead}>General</StyledText>
+      <SettingsCard
+        iconName="card-bulleted"
+        settings="Offers"
+        onPress={() => navigation.navigate('Search')}
+      />
+      <SettingsCard
+        iconName="card-bulleted"
+        settings="Offers"
+        onPress={() => navigation.navigate('Search')}
+      />
+      <SettingsCard
+        iconName="card-bulleted"
+        settings="Offers"
+        onPress={() => navigation.navigate('Search')}
+      />
+    </MainContainer>
   );
 };
 
