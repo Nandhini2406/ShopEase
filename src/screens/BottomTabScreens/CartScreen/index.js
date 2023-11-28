@@ -47,7 +47,7 @@ const ProductCard = ({
       <TouchableOpacity
         onPress={handleRemoveFromcart}
         style={styles.closeButton}>
-        <Icon name={'close-circle-sharp'} size={25} color={'#000'} />
+        <Icon name={'close-circle-sharp'} size={25} color={'#000000'} />
       </TouchableOpacity>
       <View style={styles.productCard}>
         <Image source={image} style={styles.productImage} />
@@ -131,7 +131,7 @@ const CartScreen = () => {
             )}
           />
           <View style={styles.totalContainer}>
-            <Text style={styles.divider}>-----------------------------------------</Text>
+            <View style={styles.divider} />
             <Total totalTxt="Total Prize" rate={totalPrice} />
             <Total totalTxt="Discount" rate={discount} />
             <Total totalTxt="Shipping" rate={shipping} />

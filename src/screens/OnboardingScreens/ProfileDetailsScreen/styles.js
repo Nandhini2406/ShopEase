@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
   errorText: {
     alignSelf: 'center',
     color: theme.fontColors.orange,
-    fontSize: theme.fontSizes.smallFont,
+    fontSize: theme.fontSizes.smallFontText,
     fontFamily: theme.fontFamily.Sen_Medium,
   },
 });

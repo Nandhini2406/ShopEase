@@ -24,14 +24,14 @@ export const styles = StyleSheet.create({
   },
   wishlistButton: {
     position: 'absolute',
-    top: '5%',
-    right: '8%',
+    top: '6%',
+    right: '7%',
     zIndex: 2,
   },
   addCartButton: {
     position: 'absolute',
     bottom: '6%',
-    right: '8%',
+    right: '7%',
     zIndex: 2,
   },
   productImage: {

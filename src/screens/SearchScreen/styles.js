@@ -13,7 +13,8 @@ export const styles = StyleSheet.create({
   searchBox: {
     flexDirection: 'row',
     backgroundColor: theme.backgroundColor.gray,
-    borderRadius: 12,
+    top: '2%',
+    borderRadius: 15,
   },
   searchInput: {
     fontFamily: theme.fontFamily.Sen_Regular,

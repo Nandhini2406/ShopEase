@@ -13,8 +13,7 @@ const MainContainer = ({
   onRightButtonPress,
   ...props
 }) => {
-  const themes = {mode: 'dark'};
-  const activeColors = theme.colors[themes.mode];
+  const activeColors = theme.colors;
   return (
     <SafeAreaView style={styles.container}>
       <Header
@@ -38,6 +37,7 @@ const MainContainer = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: '3%',
   },
 });
 

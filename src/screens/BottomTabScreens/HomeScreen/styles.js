@@ -8,7 +8,7 @@ import theme from '../../../constants/theme';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: '3%',
+    margin: '3%',
   },
   heading: {
     fontSize: theme.fontSizes.bigFont,
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   },
   categoriesContainer: {
     marginBottom: '3%',
-    height: hp('5%'),
+    // height: hp('5%')
   },
   categoryText: {
     fontSize: theme.fontSizes.mediumFontText,
@@ -26,12 +26,12 @@ export const styles = StyleSheet.create({
     color: theme.fontColors.black,
   },
   categoryItem: {
-    marginRight: 10,
-    paddingVertical: '10%',
-    paddingHorizontal: 12,
     borderWidth: 1,
     borderRadius: 8,
     borderColor: theme.borderColor.grey,
+    marginRight: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
   },
   selectedCategory: {
     backgroundColor: theme.backgroundColor.gray,

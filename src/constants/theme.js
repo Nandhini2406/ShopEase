@@ -35,7 +35,7 @@ const colors = {
   secondaryBlack: '#F0F0EF',
   tertiary: '#4b5563',
   accent: '#006D5B',
-  tint: '#111827',
+  tint: '#000000',
 };
 
 const backgroundColor = {

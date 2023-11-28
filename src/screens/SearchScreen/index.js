@@ -54,7 +54,7 @@ const SearchScreen = ({navigation}) => {
         />
       ) : (
         <View style={styles.emptyScreen}>
-          <Icon name="search" size={50} color="#cccc" />
+          <Icon name="search" size={50} color="#CCCCCC" />
           <Text style={styles.emptyText}>What are you looking for?</Text>
         </View>
       )}

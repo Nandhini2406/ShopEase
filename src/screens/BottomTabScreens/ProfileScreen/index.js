@@ -25,7 +25,10 @@ const ProfileScreen = () => {
   }, []);
 
   return (
-    <MainContainer title="Profile" onPress={() => navigation.goBack()} style={{padding: '3%'}}>
+    <MainContainer
+      title="Profile"
+      onPress={() => navigation.goBack()}
+      style={{padding: '3%'}}>
       <TouchableOpacity onPress={() => navigation.navigate('ProfileImage')}>
         {profileImage === null ? (
           <Image source={Images.profile} style={styles.profileImage} />
@@ -61,16 +64,6 @@ const ProfileScreen = () => {
         onPress={() => navigation.navigate('Orders')}
       />
       <StyledText style={styles.subHead}>General</StyledText>
-      <SettingsCard
-        iconName="card-bulleted"
-        settings="Offers"
-        onPress={() => navigation.navigate('Search')}
-      />
-      <SettingsCard
-        iconName="card-bulleted"
-        settings="Offers"
-        onPress={() => navigation.navigate('Search')}
-      />
       <SettingsCard
         iconName="card-bulleted"
         settings="Offers"

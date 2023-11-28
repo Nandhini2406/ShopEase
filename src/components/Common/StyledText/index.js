@@ -3,8 +3,7 @@ import React from 'react';
 import theme from '../../../constants/theme';
 
 const StyledText = ({children, style, ...props}) => {
-    const themes = {mode: 'dark'};
-    const activeColors = theme.colors[themes.mode];
+  const activeColors = theme.colors;
   return (
     <Text style={[style, {color: activeColors.tint}]} {...props}>
       {children}

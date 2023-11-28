@@ -16,7 +16,6 @@ import {products, categories} from '../../../constants/productsData';
 import Header from '../../../components/Common/Header';
 import {styles} from './styles';
 import ProductCard from '../../../components/ProductCard';
-import MainContainer from '../../../components/Common/MainContainer';
 
 const renderCategoryItem = ({item, selectedCategory, handleCategoryPress}) => {
   return (

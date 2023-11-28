@@ -2,7 +2,6 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {styles} from './styles';
-import theme from '../../../constants/theme';
 
 const Header = ({
   title,
@@ -11,9 +10,8 @@ const Header = ({
   rightButtonIcon,
   onRightButtonPress,
 }) => {
-  const activeColors = theme.colors;
   return (
-    <View style={[styles.container, {backgroundColor: activeColors.primary}]}>
+    <View style={styles.container}>
       {showBackButton && (
         <TouchableOpacity style={styles.backButton} onPress={onPress}>
           <Icon name="arrow-back" size={25} color="#006D5B" />

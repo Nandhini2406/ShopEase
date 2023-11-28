@@ -35,8 +35,11 @@ const ProfileDetailsScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const [fields, setFields] = useState(formFields.fields);
-  const [open, setOpen] = useState(false);
   const [errorFields, setErrorFields] = useState([]);
+  const [dateError, setDateError] = useState('');
+  const [numberError, setNumberError] = useState('');
+  const [open, setOpen] = useState(false);
+
   // Local state for form fields
   const [selectedImage, setSelectedImage] = useState(null);
   const [fileResponse, setFileResponse] = useState([]);
@@ -88,6 +91,11 @@ const ProfileDetailsScreen = ({navigation}) => {
                 }
               }}
             />
+            {field.label === 'Mobile Number'
+              ? numberError && (
+                  <Text style={styles.errorText}>{numberError}</Text>
+                )
+              : ''}
           </View>
         );
       case 'dropdown':
@@ -124,13 +132,22 @@ const ProfileDetailsScreen = ({navigation}) => {
               open={open}
               date={date}
               onConfirm={date => {
+                if (
+                  date >= new Date('1980-01-01') &&
+                  date <= new Date('2003-12-31')
+                ) {
+                  setDate(date);
+                  setDateError('');
+                } else {
+                  setDateError('Age must be greater than 20 & lesser than 40');
+                }
                 setOpen(false);
-                setDate(date);
               }}
               onCancel={() => {
                 setOpen(false);
               }}
             />
+            {dateError && <Text style={styles.errorText}>{dateError}</Text>}
           </View>
         );
       case 'document':
@@ -225,37 +242,33 @@ const ProfileDetailsScreen = ({navigation}) => {
 
   const handleSubmit = () => {
     // Check for empty fields
-    const isFieldEmpty = value => {
-      return value.trim() === '';
-    };
-    const emptyFields = fields.filter(field => {
-      const value =
-        field.label === 'First Name'
-          ? localFullName
-          : field.label === 'Last Name'
-          ? localLastName
-          : field.label === 'Mobile Number'
-          ? localMobileNumber
-          : localAddress;
-      return field.type !== 'date' && isFieldEmpty(value);
-    });
-    if (emptyFields.length > 0) {
-      setErrorFields(emptyFields);
-      Alert.alert('Error', 'Please fill in all required fields.');
-      return;
+    if (!validateMobileNumber(localMobileNumber)) {
+      setNumberError('Invalid Mobile Number');
     }
-    // dispatch the details to the state
-    dispatch(setProfileImage(selectedImage));
-    dispatch(setFullName(localFullName));
-    dispatch(setLastName(localLastName));
-    dispatch(setMobileNumber(localMobileNumber));
-    dispatch(setAddress(localAddress));
-    dispatch(setDateOfBirth(date.toDateString()));
-    dispatch(setGender(selectedGender));
-    dispatch(setPdfDocument(fileResponse));
+    if (
+      !localFullName ||
+      !localLastName ||
+      !localMobileNumber ||
+      !localAddress ||
+      !selectedGender ||
+      !numberError
+    ) {
+      setErrorFields('Please fill in all fields.');
+      // Alert.alert('Error', 'Please fill in all required fields.');
+      return;
+    } else {
+      dispatch(setProfileImage(selectedImage));
+      dispatch(setFullName(localFullName));
+      dispatch(setLastName(localLastName));
+      dispatch(setMobileNumber(localMobileNumber));
+      dispatch(setAddress(localAddress));
+      dispatch(setDateOfBirth(date.toDateString()));
+      dispatch(setGender(selectedGender));
+      dispatch(setPdfDocument(fileResponse));
+      Alert.alert('success', 'saved successfully.');
 
-    navigation.navigate('HomeScreen');
-    Alert.alert('Details added successfully');
+      navigation.navigate('HomeScreen');
+    }
   };
 
   return (
@@ -271,7 +284,7 @@ const ProfileDetailsScreen = ({navigation}) => {
         </TouchableOpacity>
         {fields.map(renderFormField)}
         {errorFields.length > 0 && (
-          <Text style={styles.errorText}>Please fill all the fields.</Text>
+          <Text style={styles.errorText}>{errorFields}</Text>
         )}
         <CustomButton text="Submit" onPress={handleSubmit} />
       </ScrollView>

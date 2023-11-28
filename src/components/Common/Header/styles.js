@@ -8,11 +8,12 @@ import theme from '../../../constants/theme';
 export const styles = StyleSheet.create({
   container: {
     width: wp('100%'),
-    height: hp('5.5%'),
+    height: hp('6%'),
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
     paddingLeft: '30%',
+    margin: '-3%',
   },
   backButton: {
     position: 'absolute',
@@ -20,7 +21,7 @@ export const styles = StyleSheet.create({
   },
   rightButton: {
     position: 'absolute',
-    right: '10%',
+    right: '5%',
   },
   title: {
     textAlign: 'center',

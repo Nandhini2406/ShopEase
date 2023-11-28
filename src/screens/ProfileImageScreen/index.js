@@ -96,7 +96,9 @@ const ProfileImageScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={handleClose} style={styles.header}>
+      <TouchableOpacity
+        onPress={() => console.log('Closed...')}
+        style={styles.header}>
         <Icon name="close" size={30} color="white" />
       </TouchableOpacity>
       {selectedImage !== null ? (

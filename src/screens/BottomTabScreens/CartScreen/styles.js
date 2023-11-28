@@ -60,21 +60,21 @@ export const styles = StyleSheet.create({
   quantityControls: {
     position: 'absolute',
     flexDirection: 'row',
-    bottom: 25,
-    right: 20,
+    bottom: '30%',
+    right: '10%',
     zIndex: 2,
-    borderRadius: 15,
+    borderRadius: wp('4%'),
     padding: 5,
-    elevation:10,
+    elevation: 10,
     backgroundColor: '#FFFFFF',
     borderColor: theme.borderColor.black,
+    paddingVertical: 8,
   },
   quantityText: {
     fontFamily: theme.fontFamily.Sen_Medium,
     fontSize: theme.fontSizes.mediumFontText,
     color: theme.fontColors.black,
-    paddingHorizontal: 5,
-    paddingVertical: 3,
+    paddingHorizontal: 8,
   },
   noItemsText: {
     fontFamily: theme.fontFamily.Sen_Medium,
@@ -85,11 +85,11 @@ export const styles = StyleSheet.create({
   totalContainer: {
     alignSelf: 'center',
     width: wp('80'),
-    height: hp('18%'),
   },
   divider: {
-    fontSize: theme.fontSizes.bigFont,
-    fontFamily: theme.fontFamily.Sen_Medium,
+    marginVertical: '3%',
+    borderBottomColor: 'black',
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   totalText: {
     fontSize: theme.fontSizes.mediumFont,
