@@ -5,17 +5,22 @@ const initialState = {
   currentOrderId: 1,
 };
 
+const getNextOrderId = (orders, currentOrderId) => {
+  const maxOrderId = orders.reduce((max, order) => (order.id > max ? order.id : max), currentOrderId - 1);
+  return maxOrderId + 1;
+};
+
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case PLACE_ORDER:
       const newOrder = {
         ...action.payload,
-        id: state.currentOrderId, // Assign the current order ID to the new order
+        id: getNextOrderId(state.orders, state.currentOrderId),
       };
       return {
         ...state,
         orders: [...state.orders, newOrder],
-        currentOrderId: state.currentOrderId + 1, // Increment the order ID
+    
       };
     case CANCEL_ORDER:
       return {
