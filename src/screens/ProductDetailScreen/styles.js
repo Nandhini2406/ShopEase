@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   },
   brandText: {
     fontFamily: theme.fontFamily.Sen_SemiBold,
-    fontSize: theme.fontSizes.mediumFontText,
+    fontSize: theme.fontSizes.mediumFont,
     color: theme.fontColors.darkGray,
   },
   titleView: {
@@ -81,7 +81,7 @@ export const styles = StyleSheet.create({
   },
   description: {
     fontFamily: theme.fontFamily.Sen_Medium,
-    fontSize: theme.fontSizes.mediumFontText,
+    fontSize: theme.fontSizes.mediumFont,
     color: theme.fontColors.black,
     alignSelf: 'flex-start',
   },
@@ -103,14 +103,22 @@ export const styles = StyleSheet.create({
   },
   priceText: {
     fontFamily: theme.fontFamily.Sen_Bold,
-    fontSize: theme.fontSizes.bigFontText,
+    fontSize: theme.fontSizes.bigFont,
     color: theme.fontColors.black,
     alignSelf: 'flex-start',
     bottom: '5%',
   },
   cartButton: {
+<<<<<<< HEAD
     width: wp('55%'),
     height: hp('6%'),
+=======
+    backgroundColor: theme.backgroundColor.tealGreen,
+    borderRadius: wp('4%'),
+    width: wp('60%'),
+    height: hp('6%'),
+    marginBottom:'2%',
+>>>>>>> d96c4ae (Add Review comp)
   },
   cartButtonText: {
     fontFamily: theme.fontFamily.Sen_Bold,

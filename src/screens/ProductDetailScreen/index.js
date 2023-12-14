@@ -13,6 +13,7 @@ import {products} from '../../constants/productsData';
 import {styles} from './styles';
 import Header from '../../components/Common/Header';
 import IconButton from '../../components/Common/IconButton';
+import ReviewStatus from '../../components/ReviewStatus';
 import {
   addToWishlist,
   removeFromWishlist,
@@ -79,6 +80,7 @@ const ProductDetailsScreen = ({route, navigation}) => {
             onPress={handleWishlistToggle}
           />
         </View>
+        <Text style={styles.brandText}>Category: {product.category}</Text>
         <Text style={styles.heading}>Size</Text>
         <View style={styles.sizeView}>
           {product.size.map(value => (
@@ -101,6 +103,7 @@ const ProductDetailsScreen = ({route, navigation}) => {
         </View>
         <Text style={styles.heading}>Product Details</Text>
         <Text style={styles.description}>{product.description}</Text>
+<<<<<<< HEAD
         <Text style={styles.heading}>Category: {product.category}</Text>
         <View style={[styles.sizeView, {marginBottom: '10%'}]}>
           <Text style={styles.heading}>Review: {product.review} </Text>
@@ -110,7 +113,13 @@ const ProductDetailsScreen = ({route, navigation}) => {
             color="#006D5B"
             style={{alignSelf: 'center'}}
           />
+=======
+        <View style={styles.sizeView}>
+          <Text style={styles.heading}>Review: {product.reviewData.overallRating}</Text>
+          <Icon name="star" size={20} color="#006D5B" style={{padding: '4%'}} />
+>>>>>>> d96c4ae (Add Review comp)
         </View>
+        <ReviewStatus data={product.reviewData}/>
       </ScrollView>
       <View style={styles.productPrice}>
         <View style={styles.productDetails}>

@@ -56,11 +56,11 @@ const ProductCard = ({
           <Text style={styles.productPrice}>${price}</Text>
         </View>
         <View style={styles.quantityControls}>
-          <TouchableOpacity onPress={handleDecreaseQuantity}>
+          <TouchableOpacity style={styles.quantityIcon} onPress={handleDecreaseQuantity}>
             <Icon name={'remove'} size={22} color={'#006D5B'} />
           </TouchableOpacity>
           <Text style={styles.quantityText}>{quantity}</Text>
-          <TouchableOpacity onPress={handleIncreaseQuantity}>
+          <TouchableOpacity style={styles.quantityIcon} onPress={handleIncreaseQuantity}>
             <Icon name={'add'} size={22} color={'#006D5B'} />
           </TouchableOpacity>
         </View>
@@ -131,7 +131,11 @@ const CartScreen = () => {
             )}
           />
           <View style={styles.totalContainer}>
+<<<<<<< HEAD
             <View style={styles.divider} />
+=======
+          <View style={styles.lineSeparator} />
+>>>>>>> d96c4ae (Add Review comp)
             <Total totalTxt="Total Prize" rate={totalPrice} />
             <Total totalTxt="Discount" rate={discount} />
             <Total totalTxt="Shipping" rate={shipping} />

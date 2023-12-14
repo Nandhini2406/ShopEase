@@ -76,6 +76,9 @@ export const styles = StyleSheet.create({
     color: theme.fontColors.black,
     paddingHorizontal: 8,
   },
+  quantityIcon:{
+    marginTop: '5%',
+  },
   noItemsText: {
     fontFamily: theme.fontFamily.Sen_Medium,
     fontSize: theme.fontSizes.mediumFont,
@@ -85,11 +88,21 @@ export const styles = StyleSheet.create({
   totalContainer: {
     alignSelf: 'center',
     width: wp('80'),
+<<<<<<< HEAD
   },
   divider: {
     marginVertical: '3%',
     borderBottomColor: 'black',
     borderBottomWidth: StyleSheet.hairlineWidth,
+=======
+    // height: hp('18%'),
+    // marginBottom: '3%',
+  },
+  lineSeparator: {
+    height: 2, 
+    backgroundColor: theme.fontColors.grey, 
+    marginVertical: '5%', 
+>>>>>>> d96c4ae (Add Review comp)
   },
   totalText: {
     fontSize: theme.fontSizes.mediumFont,
