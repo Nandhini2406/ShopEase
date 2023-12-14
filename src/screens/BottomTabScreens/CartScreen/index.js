@@ -131,11 +131,7 @@ const CartScreen = () => {
             )}
           />
           <View style={styles.totalContainer}>
-<<<<<<< HEAD
-            <View style={styles.divider} />
-=======
           <View style={styles.lineSeparator} />
->>>>>>> d96c4ae (Add Review comp)
             <Total totalTxt="Total Prize" rate={totalPrice} />
             <Total totalTxt="Discount" rate={discount} />
             <Total totalTxt="Shipping" rate={shipping} />

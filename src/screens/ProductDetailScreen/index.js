@@ -103,23 +103,14 @@ const ProductDetailsScreen = ({route, navigation}) => {
         </View>
         <Text style={styles.heading}>Product Details</Text>
         <Text style={styles.description}>{product.description}</Text>
-<<<<<<< HEAD
-        <Text style={styles.heading}>Category: {product.category}</Text>
-        <View style={[styles.sizeView, {marginBottom: '10%'}]}>
-          <Text style={styles.heading}>Review: {product.review} </Text>
-          <Icon
-            name="star"
-            size={20}
-            color="#006D5B"
-            style={{alignSelf: 'center'}}
-          />
-=======
+
         <View style={styles.sizeView}>
-          <Text style={styles.heading}>Review: {product.reviewData.overallRating}</Text>
+          <Text style={styles.heading}>
+            Review: {product.reviewData.overallRating}
+          </Text>
           <Icon name="star" size={20} color="#006D5B" style={{padding: '4%'}} />
->>>>>>> d96c4ae (Add Review comp)
         </View>
-        <ReviewStatus data={product.reviewData}/>
+        <ReviewStatus data={product.reviewData} />
       </ScrollView>
       <View style={styles.productPrice}>
         <View style={styles.productDetails}>

@@ -109,16 +109,12 @@ export const styles = StyleSheet.create({
     bottom: '5%',
   },
   cartButton: {
-<<<<<<< HEAD
-    width: wp('55%'),
-    height: hp('6%'),
-=======
     backgroundColor: theme.backgroundColor.tealGreen,
     borderRadius: wp('4%'),
     width: wp('60%'),
     height: hp('6%'),
-    marginBottom:'2%',
->>>>>>> d96c4ae (Add Review comp)
+    marginBottom: '2%'
+
   },
   cartButtonText: {
     fontFamily: theme.fontFamily.Sen_Bold,
