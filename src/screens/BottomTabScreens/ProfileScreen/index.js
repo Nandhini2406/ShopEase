@@ -2,7 +2,7 @@ import {Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Images} from '../../../constants/images';
-import SettingsCard from '../../../components/Settings';
+import SettingsCard from '../../../components/SettingsCard';
 import Auth from '../../../services/authService';
 import {styles} from './styles';
 import {useSelector} from 'react-redux';
@@ -57,17 +57,27 @@ const ProfileScreen = () => {
         settings="Edit Profile"
         onPress={() => navigation.navigate('ViewProfile')}
       />
-      <StyledText style={styles.subHead}>Orders</StyledText>
+      {/* <StyledText style={styles.subHead}>Orders</StyledText> */}
+      <StyledText style={styles.subHead}>General</StyledText>
       <SettingsCard
         iconName="package-variant-closed"
         settings="Orders"
         onPress={() => navigation.navigate('Orders')}
       />
-      <StyledText style={styles.subHead}>General</StyledText>
       <SettingsCard
         iconName="card-bulleted"
         settings="Offers"
         onPress={() => navigation.navigate('Search')}
+      />
+      <SettingsCard
+        iconName="information-outline"
+        settings="About Us"
+        onPress={() => navigation.navigate('About')}
+      />
+      <SettingsCard
+        iconName="comment-question-outline"
+        settings="Help"
+        onPress={() => navigation.navigate('About')}
       />
     </MainContainer>
   );

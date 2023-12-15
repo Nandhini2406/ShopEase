@@ -37,21 +37,27 @@ const SearchScreen = ({navigation}) => {
         />
       </View>
       {searchQuery.length > 1 ? (
-        <FlatList
-          data={searchResults}
-          keyExtractor={item => item.id.toString()}
-          style={styles.searchList}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              style={styles.searchResults}
-              onPress={() =>
-                navigation.navigate('ProductDetails', {productId: item.id})
-              }>
-              <Text style={styles.resultText}>{item.title}</Text>
-              <Image source={item.image} style={styles.productImage} />
-            </TouchableOpacity>
-          )}
-        />
+        searchResults.length > 0 ? (
+          <FlatList
+            data={searchResults}
+            keyExtractor={item => item.id.toString()}
+            style={styles.searchList}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                style={styles.searchResults}
+                onPress={() =>
+                  navigation.navigate('ProductDetails', {productId: item.id})
+                }>
+                <Text style={styles.resultText}>{item.title}</Text>
+                <Image source={item.image} style={styles.productImage} />
+              </TouchableOpacity>
+            )}
+          />
+        ) : (
+          <View style={styles.emptyScreen}>
+            <Text style={styles.emptyText}>No results found</Text>
+          </View>
+        )
       ) : (
         <View style={styles.emptyScreen}>
           <Icon name="search" size={50} color="#CCCCCC" />

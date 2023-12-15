@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     fontSize: theme.fontSizes.mediumFontText,
     color: theme.fontColors.black,
     padding: '2%',
+    width: wp('80%')
   },
   icon: {
     padding: '2%',

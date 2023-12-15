@@ -73,7 +73,7 @@ const LoginScreen = () => {
               setvalue={text => setPassword(text)}
               value={password}
               onBlur={validation}
-              //secureTextEntry
+              secureTextEntry
             />
             {passwordError && (
               <Text style={styles.errorMsg}>{passwordError}</Text>

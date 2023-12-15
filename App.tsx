@@ -3,14 +3,18 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from './src/redux/store';
 import Navigator from './src/navigation';
+import { StatusBar } from 'react-native';
 
 const App = () => {
   return (
+    <>
+    <StatusBar barStyle={'dark-content'} backgroundColor='#f0f0f0' />
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor} >
         <Navigator />
       </PersistGate>
     </Provider>
+    </>
   );
 };
 

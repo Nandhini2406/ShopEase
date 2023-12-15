@@ -19,6 +19,7 @@ import ProfileDetailsScreen from '../screens/OnboardingScreens/ProfileDetailsScr
 import ViewProfileDetails from '../screens/ViewProfileDetails';
 import EditProfileDetails from '../screens/EditProfileDetails';
 import ProfileImageScreen from '../screens/ProfileImageScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 import InternetModal from '../components/InternetModal';
 import {
@@ -131,6 +132,7 @@ const Navigator = () => {
         <Stack.Screen name="ViewProfile" component={ViewProfileDetails} />
         <Stack.Screen name="EditProfile" component={EditProfileDetails} />
         <Stack.Screen name="ProfileImage" component={ProfileImageScreen} />
+        <Stack.Screen name="About" component={AboutScreen} />
       </Stack.Navigator>
       {isModalVisible && (
         <InternetModal

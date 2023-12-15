@@ -77,7 +77,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   quantityIcon:{
-    marginTop: '5%',
+    // marginTop: '3%',
+    alignSelf:'center'
   },
   noItemsText: {
     fontFamily: theme.fontFamily.Sen_Medium,

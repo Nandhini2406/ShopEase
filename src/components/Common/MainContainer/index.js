@@ -28,7 +28,7 @@ const MainContainer = ({
         showsVerticalScrollIndicator={false}
         {...props}>
         {children}
-        <StatusBar barStyle="default" />
+        <StatusBar barStyle={'dark-content'} backgroundColor='white'/>
       </ScrollView>
     </SafeAreaView>
   );

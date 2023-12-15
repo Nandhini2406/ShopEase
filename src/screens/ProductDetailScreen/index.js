@@ -31,15 +31,15 @@ const ProductDetailsScreen = ({route, navigation}) => {
   const isProductInCart = productId => {
     return cart.cartItems.some(item => item.id === productId);
   };
-
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [buttonText, setButtonText] = useState('');
   const isProductInWishlist = wishlist.some(p => p.id === productId);
 
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [buttonText, setButtonText] = useState(
+    isProductInCart(productId) ? 'Added Successfully' : 'Add To Cart',
+  );
+
   const handleAddToCart = () => {
-    if (isProductInCart(productId)) {
-      setButtonText('Added Successfully');
-    } else {
+    if (!isProductInCart(productId)) {
       dispatch(
         addToCart({
           id: product.id,
@@ -118,9 +118,7 @@ const ProductDetailsScreen = ({route, navigation}) => {
           <Text style={styles.priceText}>${product.price}</Text>
         </View>
         <TouchableOpacity style={styles.cartButton} onPress={handleAddToCart}>
-          <Text style={styles.cartButtonText}>
-            {isProductInCart(productId) ? 'Added Successfully' : 'Add To Cart'}
-          </Text>
+          <Text style={styles.cartButtonText}>{buttonText}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

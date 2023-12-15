@@ -6,18 +6,28 @@ import {
 import theme from '../../../constants/theme';
 
 export const styles = StyleSheet.create({
-  input: {
+  inputContainer: {
     width: wp('80%'),
     height: hp('6%'),
 
-    padding: 10,
-    marginTop: '5%',
+    marginVertical: '3%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
 
-    fontSize: theme.fontSizes.mediumFont,
-    fontFamily: theme.fontFamily.Sen_Regular,
-    color: theme.fontColors.black,
     borderColor: theme.borderColor.myrtleGreen,
     borderRadius: 15,
     borderWidth: 2,
+  },
+  input: {
+    width: wp('50%'),
+    height: hp('5%'),
+    fontSize: theme.fontSizes.mediumFont,
+    fontFamily: theme.fontFamily.Sen_Regular,
+    color: theme.fontColors.black,
+    paddingHorizontal: 10,
+  },
+  iconContainer: {
+    padding: '3%',
   },
 });
